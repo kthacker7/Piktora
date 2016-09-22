@@ -12,6 +12,21 @@
 		308139101D7ECF2500A49653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3081390E1D7ECF2500A49653 /* Main.storyboard */; };
 		308139121D7ECF2500A49653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 308139111D7ECF2500A49653 /* Assets.xcassets */; };
 		308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 308139131D7ECF2500A49653 /* LaunchScreen.storyboard */; };
+		3081391D1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3081391C1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png */; };
+		308139211D7EFA3A00A49653 /* ResizableUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 308139201D7EFA3A00A49653 /* ResizableUIView.m */; };
+		30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */; };
+		30A585201D846B1300F3DED1 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */; };
+		30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A585211D846B2700F3DED1 /* CustomOverlayView.swift */; };
+		30A585241D846EA800F3DED1 /* cameraImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A585231D846EA800F3DED1 /* cameraImage.png */; };
+		30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */; };
+		30A615F11D8561E000793EBA /* switchCameraImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F01D8561E000793EBA /* switchCameraImage.png */; };
+		30A615F31D8565A900793EBA /* flashImage.ico in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F21D8565A900793EBA /* flashImage.ico */; };
+		30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */; };
+		30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */; };
+		30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E8A5361D83E74A00455EB1 /* CameraHelper.m */; };
+		30E8A5391D83EFA500455EB1 /* watchImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30E8A5381D83EFA500455EB1 /* watchImage.jpg */; };
+		30E8A53B1D83FA7100455EB1 /* OverlayWithImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */; };
+		30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +37,24 @@
 		308139111D7ECF2500A49653 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		308139141D7ECF2500A49653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		308139161D7ECF2500A49653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3081391C1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tripadvisor_bullet_half_ico@1x.png"; sourceTree = "<group>"; };
+		3081391E1D7EFA3A00A49653 /* Camera Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Camera Test-Bridging-Header.h"; sourceTree = "<group>"; };
+		3081391F1D7EFA3A00A49653 /* ResizableUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizableUIView.h; sourceTree = "<group>"; };
+		308139201D7EFA3A00A49653 /* ResizableUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizableUIView.m; sourceTree = "<group>"; };
+		30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
+		30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
+		30A585211D846B2700F3DED1 /* CustomOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
+		30A585231D846EA800F3DED1 /* cameraImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraImage.png; sourceTree = "<group>"; };
+		30A615E91D85558600793EBA /* UIImage+ImageCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageCategory.h"; sourceTree = "<group>"; };
+		30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageCategory.m"; sourceTree = "<group>"; };
+		30A615F01D8561E000793EBA /* switchCameraImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCameraImage.png; sourceTree = "<group>"; };
+		30A615F21D8565A900793EBA /* flashImage.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = flashImage.ico; sourceTree = "<group>"; };
+		30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryImageAugmentViewController.swift; sourceTree = "<group>"; };
+		30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryImageAugmentViewController.xib; sourceTree = "<group>"; };
+		30E8A5361D83E74A00455EB1 /* CameraHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraHelper.m; sourceTree = "<group>"; };
+		30E8A5381D83EFA500455EB1 /* watchImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = watchImage.jpg; sourceTree = "<group>"; };
+		30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayWithImageView.xib; sourceTree = "<group>"; };
+		30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayWithImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +87,30 @@
 		308139091D7ECF2500A49653 /* Camera Test */ = {
 			isa = PBXGroup;
 			children = (
+				30E8A5361D83E74A00455EB1 /* CameraHelper.m */,
 				3081390A1D7ECF2500A49653 /* AppDelegate.swift */,
 				3081390C1D7ECF2500A49653 /* ViewController.swift */,
 				3081390E1D7ECF2500A49653 /* Main.storyboard */,
 				308139111D7ECF2500A49653 /* Assets.xcassets */,
+				3081391C1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png */,
 				308139131D7ECF2500A49653 /* LaunchScreen.storyboard */,
 				308139161D7ECF2500A49653 /* Info.plist */,
+				3081391F1D7EFA3A00A49653 /* ResizableUIView.h */,
+				308139201D7EFA3A00A49653 /* ResizableUIView.m */,
+				3081391E1D7EFA3A00A49653 /* Camera Test-Bridging-Header.h */,
+				30E8A5381D83EFA500455EB1 /* watchImage.jpg */,
+				30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */,
+				30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */,
+				30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */,
+				30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */,
+				30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */,
+				30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */,
+				30A585211D846B2700F3DED1 /* CustomOverlayView.swift */,
+				30A585231D846EA800F3DED1 /* cameraImage.png */,
+				30A615E91D85558600793EBA /* UIImage+ImageCategory.h */,
+				30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */,
+				30A615F01D8561E000793EBA /* switchCameraImage.png */,
+				30A615F21D8565A900793EBA /* flashImage.ico */,
 			);
 			path = "Camera Test";
 			sourceTree = "<group>";
@@ -91,12 +142,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Kunal Thacker";
 				TargetAttributes = {
 					308139061D7ECF2500A49653 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 8JRVVKJ68M;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -123,8 +175,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3081391D1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png in Resources */,
+				30A615F11D8561E000793EBA /* switchCameraImage.png in Resources */,
+				30A585201D846B1300F3DED1 /* OverlayViewController.xib in Resources */,
+				30A615F31D8565A900793EBA /* flashImage.ico in Resources */,
+				30E8A53B1D83FA7100455EB1 /* OverlayWithImageView.xib in Resources */,
+				30E8A5391D83EFA500455EB1 /* watchImage.jpg in Resources */,
 				308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */,
 				308139121D7ECF2500A49653 /* Assets.xcassets in Resources */,
+				30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */,
+				30A585241D846EA800F3DED1 /* cameraImage.png in Resources */,
 				308139101D7ECF2500A49653 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +197,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */,
+				308139211D7EFA3A00A49653 /* ResizableUIView.m in Sources */,
+				30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */,
+				30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */,
+				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
+				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
+				30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */,
 				3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */,
+				30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,8 +244,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -222,8 +291,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -242,6 +313,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -250,10 +322,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Camera Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Coviam.Camera-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -261,10 +337,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Camera Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Coviam.Camera-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -287,6 +366,7 @@
 				3081391B1D7ECF2500A49653 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

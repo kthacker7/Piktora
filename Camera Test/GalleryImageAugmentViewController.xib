@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GalleryImageAugmentViewController" customModule="Camera_Test" customModuleProvider="target">
+            <connections>
+                <outlet property="selectedImageView" destination="sow-ty-ihU" id="gOA-bL-pTp"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sow-ty-ihU"/>
+                <view opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pz-g3-RNW">
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xj-D6-RGN">
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didPressCancel:" destination="-1" eventType="touchUpInside" id="SwH-Y8-RE8"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48o-HK-c89">
+                            <state key="normal" title="Choose">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didPressChoose:" destination="-1" eventType="touchUpInside" id="Mhu-oh-rYs"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="7Xj-D6-RGN" secondAttribute="bottom" constant="15" id="4w0-hk-YwQ"/>
+                        <constraint firstAttribute="height" constant="75" id="Bp2-u3-9eG"/>
+                        <constraint firstAttribute="trailing" secondItem="48o-HK-c89" secondAttribute="trailing" constant="10" id="r8z-kE-CcJ"/>
+                        <constraint firstItem="7Xj-D6-RGN" firstAttribute="leading" secondItem="1pz-g3-RNW" secondAttribute="leading" constant="10" id="x9d-3p-lqM"/>
+                        <constraint firstItem="48o-HK-c89" firstAttribute="centerY" secondItem="7Xj-D6-RGN" secondAttribute="centerY" id="x9l-fL-wKu"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="sow-ty-ihU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="C4c-zs-nq3"/>
+                <constraint firstAttribute="trailing" secondItem="sow-ty-ihU" secondAttribute="trailing" id="Ng9-8l-xcW"/>
+                <constraint firstItem="sow-ty-ihU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PpY-Vr-utl"/>
+                <constraint firstAttribute="bottom" secondItem="1pz-g3-RNW" secondAttribute="bottom" id="SCh-4L-5PY"/>
+                <constraint firstItem="1pz-g3-RNW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="T05-Xq-x0u"/>
+                <constraint firstAttribute="trailing" secondItem="1pz-g3-RNW" secondAttribute="trailing" id="eXB-QO-cPE"/>
+                <constraint firstAttribute="bottom" secondItem="sow-ty-ihU" secondAttribute="bottom" id="oAM-Sh-G9n"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
