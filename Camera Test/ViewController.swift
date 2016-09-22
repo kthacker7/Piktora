@@ -14,6 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var retakeButton: UIButton!
 
     @IBOutlet weak var cameraImageView: UIImageView!
+    var userImageSet: Bool = false
     var initialBounds: CGRect = CGRect.zero
     var initialBoundsForRotation: CGRect = CGRect.zero
     var lastRotation: CGFloat = 0.0
@@ -63,7 +64,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         overLayView.addGestureRecognizer(translationRecognizer)
         imagePicker.view.addSubview(overLayView)
 
-        self.overLayView?.isHidden = false
+        self.overLayView?.isHidden = true
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.imageViewTapped(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
@@ -80,6 +81,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if !self.overLayView.isHidden && !self.view.subviews.contains(self.overLayView) {
+            self.view.addSubview(self.overLayView)
+        }
         
     }
 
@@ -244,8 +248,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
             self.saveToGalleryButton.isHidden = false
             self.retakeButton.isHidden = false
+            overLayView.isHidden = false
+            self.userImageSet = true
 
         } else {
+            self.userImageSet = false
             var image = info[UIImagePickerControllerEditedImage] as? UIImage
             if (image == nil ) {
                 image = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -253,13 +260,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             overLayView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), in: image, withTolerance: 30)
             overLayView.contentMode = .scaleAspectFit
             self.cameraImageView.image = overLayView.image
+            if !self.userImageSet {
+                overLayView.isHidden = true
+            } else {
+                overLayView.isHidden = false
+            }
+
         }
-        overLayView.isHidden = false
         picker.dismiss(animated: true, completion: nil)
         
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        if !self.userImageSet {
+            overLayView.isHidden = true
+        } else {
+            overLayView.isHidden = false
+        }
         picker.dismiss(animated: true, completion: nil)
 
     }
@@ -269,6 +286,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func didCancel(overlayView: CustomOverlayView) {
+        if !self.userImageSet {
+            overLayView.isHidden = true
+        } else {
+            overLayView.isHidden = false
+        }
         self.imagePicker.dismiss(animated: true,
                                              completion: nil)
     }
@@ -305,6 +327,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func didCancel(viewController: GalleryImageAugmentViewController) {
+        if !self.userImageSet {
+            overLayView.isHidden = true
+        } else {
+            overLayView.isHidden = false
+        }
         viewController.dismiss(animated: true, completion: nil)
     }
 
@@ -317,7 +344,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var rect = overlay.frame
         rect.origin.y += 120
         overlay.frame = rect
-
+        if !self.userImageSet {
+            overLayView.isHidden = true
+        } else {
+            overLayView.isHidden = false
+        }
         viewController.dismiss(animated: true, completion: nil)
     }
 
