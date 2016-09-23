@@ -12,6 +12,8 @@ import CoreGraphics
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate {
     @IBOutlet var chooseOverlayButton: UIButton!
     @IBOutlet var retakeButton: UIButton!
+    @IBOutlet var shareButton: UIButton!
+    @IBOutlet var separatorView: UIView!
 
     @IBOutlet weak var cameraImageView: UIImageView!
     var userImageSet: Bool = false
@@ -74,6 +76,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         self.saveToGalleryButton.isHidden = true
         self.retakeButton.isHidden = true
+        self.shareButton.isHidden = true
+        self.separatorView.isHidden = true
         
 
 
@@ -249,11 +253,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.saveToGalleryButton.isHidden = false
             self.retakeButton.isHidden = false
             overLayView.isHidden = false
-            self.retakeButton.isHidden = false
+            self.shareButton.isHidden = false
+            self.separatorView.isHidden = false
             self.saveToGalleryButton.isHidden = false
             self.userImageSet = true
         } else {
             self.retakeButton.isHidden = true
+            self.shareButton.isHidden = true
+            self.separatorView.isHidden = true
             self.saveToGalleryButton.isHidden = true
             self.userImageSet = false
             var image = info[UIImagePickerControllerEditedImage] as? UIImage
@@ -393,36 +400,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     }
 
+
+    @IBAction func shareButtonTapped(_ sender: AnyObject) {
+        var image = self.snapshotImage()
+        image = self.cameraHelper.cropImage(image, toFrame: self.cameraImageView.frame, withScale: UIScreen.main.scale, withOrientatio: .up)
+        let activityItems = [image]
+        let activityVC = UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil)
+        self.navigationController?.present(activityVC, animated: true, completion:nil)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
 
-//    - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-//    CGPoint touchPoint = [[touches anyObject] locationInView:self];
-//    CGPoint previous=[[touches anyObject]previousLocationInView:self];
-//
-//    float  deltaWidth = touchPoint.x-previous.x;
-//    float  deltaHeight = touchPoint.y-previous.y;
-//
-//    if (isResizingLR) {
-//    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y,touchPoint.x + deltaWidth, touchPoint.y + deltaWidth);
-//    }
-//    if (isResizingUL) {
-//    self.frame = CGRectMake(self.frame.origin.x + deltaWidth, self.frame.origin.y + deltaHeight, self.frame.size.width - deltaWidth, self.frame.size.height - deltaHeight);
-//    }
-//    if (isResizingUR) {
-//    self.frame = CGRectMake(self.frame.origin.x ,self.frame.origin.y + deltaHeight,  self.frame.size.width + deltaWidth, self.frame.size.height - deltaHeight);
-//    }
-//    if (isResizingLL) {
-//    self.frame = CGRectMake(self.frame.origin.x + deltaWidth ,self.frame.origin.y ,  self.frame.size.width - deltaWidth, self.frame.size.height + deltaHeight);
-//    }
-//
-//    if (!isResizingUL && !isResizingLR && !isResizingUR && !isResizingLL) {
-//    self.center = CGPointMake(self.center.x + touchPoint.x - touchStart.x,self.center.y + touchPoint.y - touchStart.y);
-//    }
-//    }
 
 
 }
