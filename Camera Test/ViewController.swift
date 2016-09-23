@@ -249,9 +249,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.saveToGalleryButton.isHidden = false
             self.retakeButton.isHidden = false
             overLayView.isHidden = false
+            self.retakeButton.isHidden = false
+            self.saveToGalleryButton.isHidden = false
             self.userImageSet = true
-
         } else {
+            self.retakeButton.isHidden = true
+            self.saveToGalleryButton.isHidden = true
             self.userImageSet = false
             var image = info[UIImagePickerControllerEditedImage] as? UIImage
             if (image == nil ) {
