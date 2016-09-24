@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreGraphics
+import GoogleMobileAds
 
 extension UIImage {
     func getPixelColor(pos: CGPoint) -> UIColor {
@@ -50,7 +51,9 @@ extension UIColor {
     }
 }
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate,GADBannerViewDelegate {
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet var chooseOverlayButton: UIButton!
     @IBOutlet var retakeButton: UIButton!
     @IBOutlet var shareButton: UIButton!
@@ -122,9 +125,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.retakeButton.isHidden = true
         self.shareButton.isHidden = true
         self.separatorView.isHidden = true
+        // ---- for bannerView Ads
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID]
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-8227877258412950/1872033626"
+        bannerView.rootViewController = self
+        bannerView.load(request)
         
-
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
