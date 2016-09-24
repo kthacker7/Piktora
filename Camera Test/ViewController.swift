@@ -9,46 +9,6 @@
 import UIKit
 import CoreGraphics
 
-extension UIImage {
-    func getPixelColor(pos: CGPoint) -> UIColor {
-
-        if let pixelData = self.cgImage?.dataProvider?.data {
-            let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-
-            let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
-
-            let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
-            let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
-            let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
-            let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-
-            return UIColor(red: r, green: g, blue: b, alpha: a)
-        }
-
-        return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-    }
-}
-
-extension UIColor {
-
-    func rgb() -> (red:Double, green:Double, blue:Double, alpha:Double)? {
-        var fRed : CGFloat = 0
-        var fGreen : CGFloat = 0
-        var fBlue : CGFloat = 0
-        var fAlpha: CGFloat = 0
-        if self.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha) {
-            let iRed = Double(fRed)
-            let iGreen = Double(fGreen)
-            let iBlue = Double(fBlue)
-            let iAlpha = Double(fAlpha)
-
-            return (red:iRed, green:iGreen, blue:iBlue, alpha:iAlpha)
-        } else {
-            // Could not extract RGBA components:
-            return (red:0.0, green:0.0, blue:0.0, alpha:1.0)
-        }
-    }
-}
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate {
     @IBOutlet var chooseOverlayButton: UIButton!
@@ -81,7 +41,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         // overLayView.backgroundColor = UIColor(patternImage: UIImage(named: "watchImage.jpg")!)
         var image = UIImage(named: "watchImage.jpg")!
-        var (r,g,b,a,t) = self.getAverageOfCorners(image: image)
+        var (r,g,b,a,t) = image.getAverageOfCorners()
         overLayView = UIImageView(image: cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: UIImage(named: "watchImage.jpg"), withTolerance: Float(t)) )
 
         overLayView.frame = CGRect(x: self.view.frame.width/2 - 100, y: self.view.frame.height/2 - 100, width: UIScreen.main.bounds.size.width/3, height: UIScreen.main.bounds.size.height/3)
@@ -115,7 +75,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.cameraImageView.isUserInteractionEnabled = true
         self.cameraImageView.addGestureRecognizer(tapGestureRecognizer)
         image = UIImage(named: "watchImage.jpg")!
-        (r, g, b, a, t) = getAverageOfCorners(image: image)
+        (r, g, b, a, t) = image.getAverageOfCorners()
         self.cameraImageView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
 
         self.saveToGalleryButton.isHidden = true
@@ -135,43 +95,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
-    func getAverageOfCorners(image: UIImage) -> (red:Double, green: Double, blue: Double, alpha: Double, tolerance: Double) {
 
-        let height = image.size.height
-        let width = image.size.width
-
-        let c1 = image.getPixelColor(pos: CGPoint.init(x: 0.0 , y: 0.0))
-        let c2 = image.getPixelColor(pos: CGPoint.init(x: 0.0 , y: height-1.0))
-        let c3 = image.getPixelColor(pos: CGPoint.init(x: width-1.0 , y: 0.0))
-        let c4 = image.getPixelColor(pos: CGPoint.init(x: width-1.0 , y: height-1.0))
-
-        let (r1, g1, b1, a1) = c1.rgb()!
-        let (r2, g2, b2, a2) = c2.rgb()!
-        let (r3, g3, b3, a3) = c3.rgb()!
-        let (r4, g4, b4, a4) = c4.rgb()!
-
-        let avgR = (r1 + r2 + r3 + r4)/4.0
-        let avgG = (g1 + g2 + g3 + g4)/4.0
-        let avgB = (b1 + b2 + b3 + b4)/4.0
-        let avgA = (a1 + a2 + a3 + a4)/4.0
-
-        let tR = maxDifference(source: avgR, p1: r1, p2: r2, p3: r3, p4: r4)
-        let tG = maxDifference(source: avgG, p1: g1, p2: g2, p3: g3, p4: g4)
-        let tB = maxDifference(source: avgB, p1: b1, p2: b2, p3: b3, p4: b4)
-        let tA = maxDifference(source: avgA, p1: a1, p2: a2, p3: a3, p4: a4)
-
-        let t = max (tR, tG, tB, tA) > 30.0 ? max (tR, tG, tB, tA) : 30.0
-        return (avgR, avgG, avgB, avgA, t)
-    }
-
-    func maxDifference(source:Double, p1:Double, p2:Double, p3:Double, p4:Double) -> Double {
-        let d1 = mod(x: source - p1)
-        let d2 = mod(x: source - p2)
-        let d3 = mod(x: source - p3)
-        let d4 = mod(x: source - p4)
-
-        return max(d1,d2,d3,d4)
-    }
 
     func mod(x: Double) -> Double {
         if (x < 0.0) {
@@ -201,7 +125,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let customView:CustomOverlayView = overlayViewController.view as! CustomOverlayView
         customView.frame = imagePicker.view.frame
         self.imagePicker.showsCameraControls = false
-        overLayView.frame = CGRect(x: self.view.frame.width/2 - 100, y: self.view.frame.height/2 - 100, width: UIScreen.main.bounds.size.width/3, height: UIScreen.main.bounds.size.height/3)
+        let image = overLayView?.image
+        overLayView?.center = self.view.center
+        overLayView?.image = image
+
 
         self.navigationController?.present(imagePicker, animated: true, completion: {
             self.imagePicker.view.addSubview(self.overLayView)
@@ -319,9 +246,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 image = info[UIImagePickerControllerOriginalImage] as? UIImage
             }
             if (picker.sourceType == .camera) {
-                var frame = overLayView.frame
-                frame.origin.y += self.cameraImageView.frame.origin.y
-                overLayView.frame = frame
+                let image2 = overLayView.image
+                overLayView.center.y += self.cameraImageView.frame.origin.y
+                overLayView.image = image2
+
                 if picker.cameraDevice == .front {
                     image = UIImage(cgImage: (image?.cgImage!)!, scale: (image?.scale)!, orientation:.leftMirrored)
                 }
@@ -360,7 +288,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 image = info[UIImagePickerControllerOriginalImage] as? UIImage
             }
 
-            let (r, g, b, a, t) = getAverageOfCorners(image: image!)
+            let (r, g, b, a, t) = image!.getAverageOfCorners()
             overLayView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
             overLayView.contentMode = .scaleAspectFit
             self.cameraImageView.image = overLayView.image
@@ -445,9 +373,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let overlay = viewController.overLayView!
         overlay.contentScaleFactor = self.cameraImageView.contentScaleFactor
         self.view.addSubview(overlay)
-        var rect = overlay.frame
-        rect.origin.y += 120
-        overlay.frame = rect
+//        var rect = overlay.frame
+//        rect.origin.y += 120
+//        overlay.frame = rect
+
+        let currentSize = cameraHelper.imageSize(afterAspectFit: self.cameraImageView)
+        let oldSize = cameraHelper.imageSize(afterAspectFit: viewController.selectedImageView)
+
+        let difference = mod(x: Double(currentSize.height - oldSize.height)/2.0)
+
+        let image = overLayView?.image
+        overlay.center.y += CGFloat(120.0 - difference)
+        overlay.image = image
+
         if !self.userImageSet {
             overLayView.isHidden = true
         } else {

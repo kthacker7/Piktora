@@ -35,7 +35,9 @@ class GalleryImageAugmentViewController: UIViewController {
         }
         if (overLayView != nil) {
             self.overLayView?.isHidden = false
-            self.overLayView?.frame = CGRect(x: self.view.frame.width/2 - 100, y: self.view.frame.height/2 - 100, width: UIScreen.main.bounds.size.width/3, height: UIScreen.main.bounds.size.height/3)
+            let image = overLayView?.image
+            overLayView?.center = self.view.center
+            overLayView?.image = image
             self.view.addSubview(self.overLayView!)
             //self.view.bringSubview(toFront: self.overLayView!)
         }
