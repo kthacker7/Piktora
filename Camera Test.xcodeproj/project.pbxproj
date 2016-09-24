@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BB1D96998700A9078A /* UIImageExtension.swift */; };
+		3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BD1D9699E300A9078A /* UIColorExtension.swift */; };
 		3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390A1D7ECF2500A49653 /* AppDelegate.swift */; };
 		3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390C1D7ECF2500A49653 /* ViewController.swift */; };
 		308139101D7ECF2500A49653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3081390E1D7ECF2500A49653 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3076E2BB1D96998700A9078A /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		3076E2BD1D9699E300A9078A /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		308139071D7ECF2500A49653 /* Camera Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3081390A1D7ECF2500A49653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3081390C1D7ECF2500A49653 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 				30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */,
 				30A615F01D8561E000793EBA /* switchCameraImage.png */,
 				30A615F21D8565A900793EBA /* flashImage.ico */,
+				3076E2BB1D96998700A9078A /* UIImageExtension.swift */,
+				3076E2BD1D9699E300A9078A /* UIColorExtension.swift */,
 			);
 			path = "Camera Test";
 			sourceTree = "<group>";
@@ -207,10 +213,12 @@
 				3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */,
 				308139211D7EFA3A00A49653 /* ResizableUIView.m in Sources */,
 				30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */,
+				3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */,
 				30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */,
 				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
 				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
 				30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */,
+				3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */,
 				3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */,
 				30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */,
 			);
