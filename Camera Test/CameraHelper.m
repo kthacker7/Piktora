@@ -16,6 +16,7 @@
 - (UIImage *) imageWithView:(UIView *)view;
 - (UIImage *)cropImage:(UIImage *)image toFrame:(CGRect)frame withScale: (CGFloat) scale withOrientatio: (UIImageOrientation)orientation;
 -(CGSize)imageSizeAfterAspectFit:(UIImageView*)imgview;
+-(UIImage *) flipImage:(UIImage *) theImage;
 
 @end
 
@@ -165,6 +166,18 @@
     
 }
 
+-(UIImage *) flipImage:(UIImage *) theImage {
+    CGSize imageSize = theImage.size;
+    UIGraphicsBeginImageContextWithOptions(imageSize, YES, 1.0);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextRotateCTM(ctx, M_PI/2);
+    CGContextTranslateCTM(ctx, 0, -imageSize.width);
+    CGContextScaleCTM(ctx, imageSize.height/imageSize.width, imageSize.width/imageSize.height);
+    CGContextDrawImage(ctx, CGRectMake(0.0, 0.0, imageSize.width, imageSize.height), theImage.CGImage);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 
 
 @end
