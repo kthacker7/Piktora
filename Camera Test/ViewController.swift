@@ -259,7 +259,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 overLayView.image = image2
 
                 if picker.cameraDevice == .front {
-                    image = UIImage(cgImage: (image?.cgImage!)!, scale: (image?.scale)!, orientation:.leftMirrored)
+                    image = cameraHelper.flip(image)
                 }
                 UIImageWriteToSavedPhotosAlbum(image!, self,nil, nil) //save to the photo library
             } else {
