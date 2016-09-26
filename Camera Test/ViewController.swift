@@ -14,10 +14,19 @@ import GoogleMobileAds
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate,GADBannerViewDelegate {
     
     @IBOutlet weak var bannerView: GADBannerView!
-    @IBOutlet var chooseOverlayButton: UIButton!
-    @IBOutlet var retakeButton: UIButton!
-    @IBOutlet var shareButton: UIButton!
-    @IBOutlet var separatorView: UIView!
+    
+    @IBOutlet var menuViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var hideMenuFullHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var hideMenuQuarterHeightConstraint: NSLayoutConstraint!
+
+    @IBOutlet var shareMenuTopConstraint: NSLayoutConstraint!
+    @IBOutlet var changeProductTopConstraint: NSLayoutConstraint!
+    @IBOutlet var augmentRealityTopConstraint: NSLayoutConstraint!
+
+
+
+
+    @IBOutlet var menuView: UIView!
 
     @IBOutlet weak var cameraImageView: UIImageView!
     var userImageSet: Bool = false
@@ -28,12 +37,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var overLayView: UIImageView!
     let cameraHelper = CameraHelper.init()
     let overlayPicker = UIImagePickerController.init()
+    var galleryImage: UIImage? = nil
 
-    @IBOutlet var saveToGalleryButton: UIButton!
+    var menuExpanded = false
+
+    @IBOutlet var hideMenuLabel: UILabel!
+
+    @IBOutlet var hideMenuView: UIView!
+    @IBOutlet var shareMenuView: UIView!
+    @IBOutlet var changeProductMenuView: UIView!
+    @IBOutlet var augmentRealityMenuView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.setupGestureRecognizers()
+        self.collapse()
         self.view.backgroundColor = UIColor.black
 
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
@@ -81,10 +100,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         (r, g, b, a, t) = image.getAverageOfCorners()
         self.cameraImageView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
 
-        self.saveToGalleryButton.isHidden = true
-        self.retakeButton.isHidden = true
-        self.shareButton.isHidden = true
-        self.separatorView.isHidden = true
+
         // ---- for bannerView Ads
         let request = GADRequest()
         request.testDevices = [kGADSimulatorID]
@@ -103,28 +119,112 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
+    func setupGestureRecognizers() {
+        let hideMenuGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.expandOrCollapse(sender:)))
+        self.hideMenuView.addGestureRecognizer(hideMenuGesture)
+
+        let shareMenuGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.sharePicture(sender:)))
+        self.shareMenuView.addGestureRecognizer(shareMenuGesture)
+
+        let changeProductGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.changeProduct(sender:)))
+        self.changeProductMenuView.addGestureRecognizer(changeProductGesture)
+
+        let augmentRealityGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.augmentReality(sender:)))
+        self.augmentRealityMenuView.addGestureRecognizer(augmentRealityGesture)
 
 
-    func mod(x: Double) -> Double {
-        if (x < 0.0) {
-            return x * (-1.0)
-        }
-        return x
     }
 
+    func expandOrCollapse(sender: UITapGestureRecognizer) {
+        if (self.menuExpanded) {
+            self.collapse()
+        } else {
+            if (self.userImageSet){
 
-    
+                var image = self.snapshotImage()
+                image = self.cameraHelper.cropImage(image, toFrame: self.cameraImageView.frame, withScale: UIScreen.main.scale, withOrientatio: .up)
+                self.galleryImage = image
+            }
+            self.expand()
+        }
+        
+    }
 
-    func imageViewTapped(_ sender: UITapGestureRecognizer) {
+    func collapse() {
+        self.view.layoutIfNeeded()
+        self.hideMenuLabel.text = "Menu"
+        self.menuView.layoutIfNeeded()
+        self.hideMenuQuarterHeightConstraint.isActive = false
+        self.hideMenuFullHeightConstraint.isActive = true
+
+        self.menuViewBottomConstraint.constant = (self.view.frame.size.height * 3)/4
+        
+        self.menuView.bringSubview(toFront: self.hideMenuView)
+        self.shareMenuTopConstraint.constant = -self.shareMenuView.frame.size.height
+        self.changeProductTopConstraint.constant = self.changeProductMenuView.frame.size.height
+        self.augmentRealityTopConstraint.constant = self.augmentRealityMenuView.frame.height
+        if self.overLayView != nil && self.userImageSet {
+            self.overLayView.isHidden = false
+        }
+
+        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: {
+            self.view.layoutIfNeeded()
+            self.menuView.layoutIfNeeded()
+        }) { (completion: Bool) in
+            self.menuExpanded = false
+        }
+    }
+
+    func expand() {
+        self.view.layoutIfNeeded()
+        self.hideMenuLabel.text = "Hide Menu"
+        if self.overLayView != nil {
+            self.overLayView.isHidden = true
+        }
+        self.menuView.layoutIfNeeded()
+        self.hideMenuFullHeightConstraint.isActive = false
+        self.hideMenuQuarterHeightConstraint.isActive = true
+
+        self.menuViewBottomConstraint.constant = 0
+
+        self.menuView.bringSubview(toFront: self.hideMenuView)
+        self.shareMenuTopConstraint.constant = 0
+        self.changeProductTopConstraint.constant = 0
+        self.augmentRealityTopConstraint.constant = 0
+
+
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: {
+            self.view.layoutIfNeeded()
+            self.menuView.layoutIfNeeded()
+        }) { (completion: Bool) in
+            self.menuExpanded = true
+        }
+    }
+
+    func sharePicture(sender: UITapGestureRecognizer) {
+        if let image = self.galleryImage {
+            let activityItems = [image]
+            let activityVC = UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil)
+            self.navigationController?.present(activityVC, animated: true, completion:nil)
+        } else {
+            let vc = UIAlertController.init(title: "Oops!", message: "You haven't clicked or selected an image. You don't want to share a blank image do you? :)", preferredStyle: .alert)
+            vc.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action: UIAlertAction) in
+
+            }))
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+
+    func changeProduct(sender: UITapGestureRecognizer) {
         overlayPicker.allowsEditing = false
         overlayPicker.sourceType = .photoLibrary
         overlayPicker.delegate = self
         overlayPicker.allowsEditing = true
-        self.overLayView.isHidden = false
         self.navigationController?.present(overlayPicker, animated: true, completion:nil)
     }
 
-    @IBAction func redirectToCamera(_ sender: AnyObject) {
+    func augmentReality(sender: UITapGestureRecognizer) {
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         self.overLayView?.isHidden = false
         imagePicker.delegate = self
@@ -145,7 +245,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.imagePicker.cameraOverlayView = customView
             self.imagePicker.showsCameraControls = false
         })
+
     }
+
+
+
+    func mod(x: Double) -> Double {
+        if (x < 0.0) {
+            return x * (-1.0)
+        }
+        return x
+    }
+
+
+    
+
+    func imageViewTapped(_ sender: UITapGestureRecognizer) {
+
+    }
+
 
     func handlePinch(_ sender: UIGestureRecognizer) {
 
@@ -248,6 +366,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if (self.menuExpanded) {
+            self.collapse()
+        }
         if picker == self.imagePicker {
             var image = info[UIImagePickerControllerEditedImage] as? UIImage
             if (image == nil ) {
@@ -277,19 +398,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.cameraImageView.image = image
             self.cameraImageView.contentMode = UIViewContentMode.scaleAspectFit
             self.view.addSubview(overLayView)
-
-            self.saveToGalleryButton.isHidden = false
-            self.retakeButton.isHidden = false
             overLayView.isHidden = false
-            self.shareButton.isHidden = false
-            self.separatorView.isHidden = false
-            self.saveToGalleryButton.isHidden = false
             self.userImageSet = true
         } else {
-            self.retakeButton.isHidden = true
-            self.shareButton.isHidden = true
-            self.separatorView.isHidden = true
-            self.saveToGalleryButton.isHidden = true
             self.userImageSet = false
             var image = info[UIImagePickerControllerEditedImage] as? UIImage
             if (image == nil ) {
@@ -402,13 +513,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         viewController.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func saveToGallery(_ sender: AnyObject) {
-        var image = self.snapshotImage()
-        image = self.cameraHelper.cropImage(image, toFrame: self.cameraImageView.frame, withScale: UIScreen.main.scale, withOrientatio: .up)
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil
-        )
-    }
-
     func snapshotImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, 0.0)
         self.view.layer.render(in: (UIGraphicsGetCurrentContext()!))
@@ -418,36 +522,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
 
-    @IBAction func redirectOverlayButton(_ sender: AnyObject) {
-
-        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-        self.overLayView?.isHidden = false
-        imagePicker.delegate = self
-
-        let overlayViewController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
-        let customView:CustomOverlayView = overlayViewController.view as! CustomOverlayView
-        customView.frame = imagePicker.view.frame
-        self.imagePicker.showsCameraControls = false
-
-        self.navigationController?.present(imagePicker, animated: true, completion: {
-            self.imagePicker.view.addSubview(self.overLayView)
-            customView.delegate = self
-            customView.frame = self.imagePicker.view.frame
-            self.imagePicker.cameraOverlayView = customView
-            self.imagePicker.showsCameraControls = false
-        })
-
-
-    }
-
-
-    @IBAction func shareButtonTapped(_ sender: AnyObject) {
-        var image = self.snapshotImage()
-        image = self.cameraHelper.cropImage(image, toFrame: self.cameraImageView.frame, withScale: UIScreen.main.scale, withOrientatio: .up)
-        let activityItems = [image]
-        let activityVC = UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil)
-        self.navigationController?.present(activityVC, animated: true, completion:nil)
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

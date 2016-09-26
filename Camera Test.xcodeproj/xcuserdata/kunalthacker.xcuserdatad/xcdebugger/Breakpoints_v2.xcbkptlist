@@ -10,12 +10,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Camera Test/ViewController.swift"
-            timestampString = "496261195.168286"
+            timestampString = "496523224.158847"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "imageViewTapped(_:)"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "collapse()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Camera Test/ViewController.swift"
+            timestampString = "496522937.423565"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "collapse()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Camera_Test.ViewController.augmentReality (sender : __ObjC.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "Camera Test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kunalthacker/camera-augmenter/Camera%20Test/ViewController.swift"
+                  timestampString = "496522937.584408"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "1848">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Camera_Test.ViewController.(augmentReality (sender : __ObjC.UITapGestureRecognizer) -&gt; ()).(closure #1)"
+                  moduleName = "Camera Test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kunalthacker/camera-augmenter/Camera%20Test/ViewController.swift"
+                  timestampString = "496522937.587297"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Camera Test/ViewController.swift"
+            timestampString = "496523224.158847"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "collapse()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
