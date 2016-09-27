@@ -140,10 +140,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.collapse()
         } else {
             if (self.userImageSet){
-
+                self.bannerView.isHidden = true
                 var image = self.snapshotImage()
                 image = self.cameraHelper.cropImage(image, toFrame: self.cameraImageView.frame, withScale: UIScreen.main.scale, withOrientatio: .up)
                 self.galleryImage = image
+                self.bannerView.isHidden = false
             }
             self.expand()
         }
