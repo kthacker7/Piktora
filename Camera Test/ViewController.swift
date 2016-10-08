@@ -238,7 +238,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         overLayView?.center = self.view.center
         overLayView?.image = image
 
-
         self.navigationController?.present(imagePicker, animated: true, completion: {
             self.imagePicker.view.addSubview(self.overLayView)
             customView.delegate = self

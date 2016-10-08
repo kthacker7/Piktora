@@ -29,7 +29,6 @@ CGPoint touchStart;
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     if ([[event touchesForView:self] count] > 1) {
-        NSLog(@"%lu active touches",[[event touchesForView:self] count]) ;
         NSLog(@"%@", [event touchesForView:self].allObjects.description);
         
     }
