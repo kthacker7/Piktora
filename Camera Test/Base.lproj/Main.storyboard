@@ -149,6 +149,91 @@
             </objects>
             <point key="canvasLocation" x="1191.2" y="349.47526236881561"/>
         </scene>
+        <!--Products Collection View Controller-->
+        <scene sceneID="6EC-EU-Bce">
+            <objects>
+                <viewController storyboardIdentifier="ProductsCollectionViewController" id="IqR-Ar-eHV" customClass="ProductsCollectionViewController" customModule="Camera_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="srZ-Xd-NIO"/>
+                        <viewControllerLayoutGuide type="bottom" id="8mg-9K-ruE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="P20-UT-4vP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ymB-ZE-5lG">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Rsp-Tf-F7p">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhy-pl-9Xy">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="dtD-WN-Kht"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="IqR-Ar-eHV" eventType="touchUpInside" id="HL6-cM-Lla"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z29-Gc-wcc">
+                                <color key="backgroundColor" red="0.87450980389999999" green="0.45882352939999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="eAL-3y-Vu5"/>
+                                </constraints>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="IqR-Ar-eHV" eventType="touchUpInside" id="48Q-b2-clv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1H-nF-3Aw">
+                                <color key="backgroundColor" red="0.52941176469999995" green="0.89019607840000003" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Xfh-9F-NWF"/>
+                                </constraints>
+                                <state key="normal" title="Choose from Gallery..">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="chooseFromGalleryPressed:" destination="IqR-Ar-eHV" eventType="touchUpInside" id="Ru5-rI-OkL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ymB-ZE-5lG" firstAttribute="leading" secondItem="P20-UT-4vP" secondAttribute="leading" id="Et2-BA-Evv"/>
+                            <constraint firstItem="8mg-9K-ruE" firstAttribute="top" secondItem="z29-Gc-wcc" secondAttribute="bottom" id="Jr1-2i-ZxQ"/>
+                            <constraint firstItem="F1H-nF-3Aw" firstAttribute="top" secondItem="Rhy-pl-9Xy" secondAttribute="bottom" id="KfQ-fE-ect"/>
+                            <constraint firstItem="Rhy-pl-9Xy" firstAttribute="top" secondItem="ymB-ZE-5lG" secondAttribute="bottom" id="LQ4-e9-z2z"/>
+                            <constraint firstItem="z29-Gc-wcc" firstAttribute="leading" secondItem="P20-UT-4vP" secondAttribute="leading" id="LRu-Ac-NXM"/>
+                            <constraint firstAttribute="trailing" secondItem="F1H-nF-3Aw" secondAttribute="trailing" id="SDE-IP-MJJ"/>
+                            <constraint firstAttribute="trailing" secondItem="Rhy-pl-9Xy" secondAttribute="trailing" id="Yrk-hJ-PHV"/>
+                            <constraint firstItem="F1H-nF-3Aw" firstAttribute="leading" secondItem="P20-UT-4vP" secondAttribute="leading" id="Z8d-1t-m5k"/>
+                            <constraint firstItem="z29-Gc-wcc" firstAttribute="top" secondItem="F1H-nF-3Aw" secondAttribute="bottom" id="gtM-pj-ZkS"/>
+                            <constraint firstItem="Rhy-pl-9Xy" firstAttribute="leading" secondItem="P20-UT-4vP" secondAttribute="leading" id="hVp-d9-Bni"/>
+                            <constraint firstItem="ymB-ZE-5lG" firstAttribute="top" secondItem="srZ-Xd-NIO" secondAttribute="bottom" id="prr-AZ-B8K"/>
+                            <constraint firstAttribute="trailing" secondItem="z29-Gc-wcc" secondAttribute="trailing" id="sFU-4P-KHM"/>
+                            <constraint firstAttribute="trailing" secondItem="ymB-ZE-5lG" secondAttribute="trailing" id="yFG-Qm-zqV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="doneButton" destination="Rhy-pl-9Xy" id="DqP-c6-wic"/>
+                        <outlet property="productsCollectionView" destination="ymB-ZE-5lG" id="OKw-3g-hoI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S8l-ol-CtY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2173.5999999999999" y="348.57571214392806"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="fPo-H4-xG3">
             <objects>

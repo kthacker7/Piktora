@@ -14,6 +14,8 @@
 		301F183E1DA90E30000F4F77 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18381DA90E30000F4F77 /* PreviewView.swift */; };
 		301F183F1DA90E30000F4F77 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18391DA90E30000F4F77 /* CameraViewController.swift */; };
 		301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301F18401DA90E4F000F4F77 /* Camera.storyboard */; };
+		301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */; };
+		301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */; };
 		3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BB1D96998700A9078A /* UIImageExtension.swift */; };
 		3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BD1D9699E300A9078A /* UIColorExtension.swift */; };
 		3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390A1D7ECF2500A49653 /* AppDelegate.swift */; };
@@ -48,6 +50,8 @@
 		301F18381DA90E30000F4F77 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		301F18391DA90E30000F4F77 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		301F18401DA90E4F000F4F77 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTCameraPickerDelegate.swift; sourceTree = "<group>"; };
+		301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewController.swift; sourceTree = "<group>"; };
 		3076E2BB1D96998700A9078A /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		3076E2BD1D9699E300A9078A /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		308139071D7ECF2500A49653 /* Camera Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +105,7 @@
 				301F18371DA90E30000F4F77 /* PhotosCollectionViewCell.xib */,
 				301F18381DA90E30000F4F77 /* PreviewView.swift */,
 				301F18391DA90E30000F4F77 /* CameraViewController.swift */,
+				301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */,
 			);
 			name = KTCameraOverlay;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 				30A615F21D8565A900793EBA /* flashImage.ico */,
 				3076E2BB1D96998700A9078A /* UIImageExtension.swift */,
 				3076E2BD1D9699E300A9078A /* UIColorExtension.swift */,
+				301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */,
 			);
 			path = "Camera Test";
 			sourceTree = "<group>";
@@ -243,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */,
 				301F183E1DA90E30000F4F77 /* PreviewView.swift in Sources */,
 				3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */,
 				308139211D7EFA3A00A49653 /* ResizableUIView.m in Sources */,
@@ -251,6 +258,7 @@
 				3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */,
 				30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */,
 				301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */,
+				301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */,
 				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
 				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
 				30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */,
@@ -383,7 +391,7 @@
 				INFOPLIST_FILE = "Camera Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "AugmentS.Camera-Test";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Camera Test";
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -403,7 +411,7 @@
 				INFOPLIST_FILE = "Camera Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "AugmentS.Camera-Test";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Camera Test";
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

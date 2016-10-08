@@ -8,24 +8,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PhotosCollectionViewCell" customModule="KTCustomImagePicker" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PhotosCollectionViewCell" customModule="Camera_Test" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nZ2-tC-Wuk">
-                        <constraints>
-                            <constraint firstAttribute="height" constant="70" id="cqT-FG-dSZ"/>
-                            <constraint firstAttribute="width" constant="70" id="gOu-7P-rKh"/>
-                        </constraints>
-                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nZ2-tC-Wuk"/>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="nZ2-tC-Wuk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="15f-ZU-YU3"/>
-                <constraint firstItem="nZ2-tC-Wuk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="xha-Jw-3bp"/>
+                <constraint firstAttribute="bottom" secondItem="nZ2-tC-Wuk" secondAttribute="bottom" id="Bfm-TE-JxF"/>
+                <constraint firstAttribute="trailing" secondItem="nZ2-tC-Wuk" secondAttribute="trailing" id="Xiw-UP-OfJ"/>
+                <constraint firstItem="nZ2-tC-Wuk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hBS-f0-b1U"/>
+                <constraint firstItem="nZ2-tC-Wuk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rNT-Lo-coB"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="nZ2-tC-Wuk" id="euN-Az-qSS"/>

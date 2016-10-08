@@ -12,6 +12,9 @@ import PhotosUI
 import AVFoundation
 
 class CameraViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+
+    var delegate : KTCameraPickerDelegate?
+
     @IBOutlet var imagesCollectionView: UICollectionView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var previewView: PreviewView!
@@ -25,6 +28,8 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     let FETCHLIMIT = 20
 
     // MARK: Gallery objects
+
+    var augmentedImage: UIImage?
 
     @IBOutlet var doneGalleryButton: UIButton!
     @IBOutlet var cancelGalleryButton: UIButton!
@@ -75,6 +80,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     var flashViewHidden = true
     var torchOn = false
     @IBOutlet var torchButton: UIButton!
+    var overlayImageView: UIImageView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +92,12 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.imageView.isHidden = true
         self.setupOverlay()
         self.setupDoneAndCancelView()
+
+        if overlayImageView != nil {
+            self.overlayImageView?.isHidden = false
+            self.view.insertSubview(self.overlayImageView!, aboveSubview: self.previewView)
+
+        }
 
         let layout = UICollectionViewFlowLayout.init()
         layout.itemSize = CGSize(width: 70, height: 70)
@@ -315,7 +327,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
             })
 
         } else if (indexPath.row == count + 1) {
-            self.navigationController?.present(self.imagePicker, animated: true, completion: nil)
+            self.present(self.imagePicker, animated: true, completion: nil)
         } else {
             self.previewView.isHidden = true
             self.doneAndCancelView.isHidden = false
@@ -459,6 +471,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.view.layoutIfNeeded()
                 }, completion: { (_) in
                     self.flashViewHidden = false
+                    self.view.bringSubview(toFront: self.flashOptionsView)
             })
         } else {
             self.flashOptionsViewHeightConstraint.constant = 0.0
@@ -631,6 +644,36 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             }
         }
+    }
+
+    // MARK: Delegate calls
+
+    @IBAction func cameraCancelTapped(_ sender: AnyObject) {
+        delegate?.cameraCancelTapped(VC: self)
+
+    }
+
+    @IBAction func galleryCancelTapped(_ sender: AnyObject) {
+        delegate?.galleryCancelTapped(VC: self)
+    }
+
+
+    @IBAction func galleryDoneTapped(_ sender: AnyObject) {
+        self.overlayImageView?.isHidden = false
+        self.doneAndCancelView.isHidden = true
+        self.collectionViewHideButton.isHidden = true
+        self.imagesCollectionView.isHidden = true
+        self.augmentedImage = snapshotImage()
+        delegate?.galleryDoneTapped(VC: self)
+
+    }
+
+    func snapshotImage() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, 0.0)
+        self.view.layer.render(in: (UIGraphicsGetCurrentContext()!))
+        let resultingImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resultingImage!
     }
 
     override func didReceiveMemoryWarning() {

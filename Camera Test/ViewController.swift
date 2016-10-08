@@ -11,7 +11,7 @@ import CoreGraphics
 import GoogleMobileAds
 
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate,GADBannerViewDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate,GADBannerViewDelegate, KTCameraPickerDelegate, ProductsCollectionViewDelegate {
     
     @IBOutlet weak var bannerView: GADBannerView!
     
@@ -108,14 +108,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bannerView.adUnitID = "ca-app-pub-8227877258412950/1872033626"
         bannerView.rootViewController = self
         bannerView.load(request)
-        
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !self.overLayView.isHidden && !self.view.subviews.contains(self.overLayView) {
-            self.view.addSubview(self.overLayView)
-        }
         
     }
 
@@ -218,33 +210,48 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func changeProduct(sender: UITapGestureRecognizer) {
-        overlayPicker.allowsEditing = false
-        overlayPicker.sourceType = .photoLibrary
-        overlayPicker.delegate = self
-        overlayPicker.allowsEditing = true
-        self.navigationController?.present(overlayPicker, animated: true, completion:nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProductsCollectionViewController") as! ProductsCollectionViewController
+        self.navigationController?.present(vc, animated: true, completion: nil)
+
+//        overlayPicker.allowsEditing = false
+//        overlayPicker.sourceType = .photoLibrary
+//        overlayPicker.delegate = self
+//        overlayPicker.allowsEditing = true
+//        self.navigationController?.present(overlayPicker, animated: true, completion:nil)
     }
 
     func augmentReality(sender: UITapGestureRecognizer) {
-        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-        self.overLayView?.isHidden = false
-        imagePicker.delegate = self
-
-        let overlayViewController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
-        let customView:CustomOverlayView = overlayViewController.view as! CustomOverlayView
-        customView.frame = imagePicker.view.frame
-        self.imagePicker.showsCameraControls = false
+//        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+//        self.overLayView?.isHidden = false
+//        imagePicker.delegate = self
+//
+//        let overlayViewController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
+//        let customView:CustomOverlayView = overlayViewController.view as! CustomOverlayView
+//        customView.frame = imagePicker.view.frame
+//        self.imagePicker.showsCameraControls = false
+//        let image = overLayView?.image
+//        overLayView?.center = self.view.center
+//        overLayView?.image = image
+//
+//        self.navigationController?.present(imagePicker, animated: true, completion: {
+//            self.imagePicker.view.addSubview(self.overLayView)
+//            customView.delegate = self
+//            customView.frame = self.imagePicker.view.frame
+//            self.imagePicker.cameraOverlayView = customView
+//            self.imagePicker.showsCameraControls = false
+//        })
+        let cameraStoryboard = UIStoryboard.init(name: "Camera", bundle: nil)
+        let vc = cameraStoryboard.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
+        vc.delegate = self
         let image = overLayView?.image
         overLayView?.center = self.view.center
         overLayView?.image = image
+        overLayView.isHidden = false
+        vc.overlayImageView = overLayView
 
-        self.navigationController?.present(imagePicker, animated: true, completion: {
-            self.imagePicker.view.addSubview(self.overLayView)
-            customView.delegate = self
-            customView.frame = self.imagePicker.view.frame
-            self.imagePicker.cameraOverlayView = customView
-            self.imagePicker.showsCameraControls = false
-        })
+
+        self.navigationController?.present(vc, animated: true, completion: nil)
 
     }
 
@@ -401,21 +408,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             overLayView.isHidden = false
             self.userImageSet = true
         } else {
-            self.userImageSet = false
-            var image = info[UIImagePickerControllerEditedImage] as? UIImage
-            if (image == nil ) {
-                image = info[UIImagePickerControllerOriginalImage] as? UIImage
-            }
 
-            let (r, g, b, a, t) = image!.getAverageOfCorners()
-            overLayView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
-            overLayView.contentMode = .scaleAspectFit
-            self.cameraImageView.image = overLayView.image
-            if !self.userImageSet {
-                overLayView.isHidden = true
-            } else {
-                overLayView.isHidden = false
-            }
 
         }
         picker.dismiss(animated: true, completion: nil)
@@ -521,6 +514,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return resultingImage!
     }
 
+    // MARK: KTCameraPickerDelegate methods
+
+    func cameraCancelTapped(VC: CameraViewController) {
+        overLayView.isHidden = true
+        VC.dismiss(animated: true, completion: nil)
+    }
+
+    func galleryDoneTapped(VC: CameraViewController) {
+        self.cameraImageView.image = VC.augmentedImage
+        VC.doneAndCancelView.isHidden = false
+        VC.collectionViewHideButton.isHidden = false
+        VC.imagesCollectionView.isHidden = false
+        if self.menuExpanded {
+            self.collapse()
+        }
+        VC.dismiss(animated: true, completion: nil)
+    }
+
+    func galleryCancelTapped(VC: CameraViewController) {
+        overLayView.isHidden = true
+        VC.dismiss(animated: true, completion: nil)
+    }
+
+    //MARK: Products collection view delegate
+
+    func didFinishPickingImage(image: UIImage) {
+        self.userImageSet = false
+        self.cameraImageView.image = image
+
+    }
 
 
     override func didReceiveMemoryWarning() {
