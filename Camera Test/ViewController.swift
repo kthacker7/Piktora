@@ -62,9 +62,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         
         // overLayView.backgroundColor = UIColor(patternImage: UIImage(named: "watchImage.jpg")!)
-        var image = UIImage(named: "watchImage.jpg")!
+        var image = #imageLiteral(resourceName: "Watch1")
         var (r,g,b,a,t) = image.getAverageOfCorners()
-        overLayView = UIImageView(image: cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: UIImage(named: "watchImage.jpg"), withTolerance: Float(t)) )
+        overLayView = UIImageView(image: cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t)) )
 
         overLayView.frame = CGRect(x: self.view.frame.width/2 - 100, y: self.view.frame.height/2 - 100, width: UIScreen.main.bounds.size.width/3, height: UIScreen.main.bounds.size.height/3)
         overLayView.contentMode = UIViewContentMode.scaleAspectFill
@@ -96,7 +96,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.cameraImageView.isUserInteractionEnabled = true
         self.cameraImageView.addGestureRecognizer(tapGestureRecognizer)
-        image = UIImage(named: "watchImage.jpg")!
         (r, g, b, a, t) = image.getAverageOfCorners()
         self.cameraImageView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
 
@@ -212,6 +211,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func changeProduct(sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProductsCollectionViewController") as! ProductsCollectionViewController
+        vc.delegate = self
         self.navigationController?.present(vc, animated: true, completion: nil)
 
 //        overlayPicker.allowsEditing = false
@@ -541,6 +541,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func didFinishPickingImage(image: UIImage) {
         self.userImageSet = false
+        if self.menuExpanded {
+            self.collapse()
+        }
+        self.overLayView.contentMode = .scaleAspectFit
+        self.overLayView.image = image
         self.cameraImageView.image = image
 
     }

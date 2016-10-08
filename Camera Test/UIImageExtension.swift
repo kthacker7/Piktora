@@ -54,7 +54,7 @@ extension UIImage {
         let tB = maxDifference(source: avgB, p1: b1, p2: b2, p3: b3, p4: b4)
         let tA = maxDifference(source: avgA, p1: a1, p2: a2, p3: a3, p4: a4)
 
-        let t = max (tR, tG, tB, tA) > 30.0 ? max (tR, tG, tB, tA) : 30.0
+        let t = max (tR, tG, tB, tA) > 35.0 ? max (tR, tG, tB, tA) : 35.0
         return (avgR, avgG, avgB, avgA, t)
     }
 

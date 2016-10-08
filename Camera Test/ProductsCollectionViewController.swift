@@ -12,10 +12,12 @@ protocol ProductsCollectionViewDelegate {
     func didFinishPickingImage(image: UIImage)
 }
 
-class ProductsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ProductsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var productsCollectionView: UICollectionView!
     @IBOutlet var doneButton: UIButton!
     var selectedItem : Int?
+
+    var delegate: ProductsCollectionViewDelegate? = nil
 
     var productImages : [UIImage] = []
     override func viewDidLoad() {
@@ -39,12 +41,17 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
     }
 
     func loadImages() {
+        let images = [#imageLiteral(resourceName: "Accessories1"), #imageLiteral(resourceName: "Accessories2"), #imageLiteral(resourceName: "Accessories3"), #imageLiteral(resourceName: "Accessories4"), #imageLiteral(resourceName: "Furniture1"), #imageLiteral(resourceName: "Furniture2"), #imageLiteral(resourceName: "Furniture3"), #imageLiteral(resourceName: "Furniture4"), #imageLiteral(resourceName: "Furniture5"), #imageLiteral(resourceName: "Furniture6"), #imageLiteral(resourceName: "Glasses1"), #imageLiteral(resourceName: "Glasses2"), #imageLiteral(resourceName: "Glasses3"), #imageLiteral(resourceName: "Glasses4"), #imageLiteral(resourceName: "Watch1"), #imageLiteral(resourceName: "Watch2"), #imageLiteral(resourceName: "Watch3"), #imageLiteral(resourceName: "Watch4"), #imageLiteral(resourceName: "Watch5"), #imageLiteral(resourceName: "Watch6")]
         var i = 0
         let cameraHelper = CameraHelper()
         while i < 20 {
-            let image = UIImage(named: "watchImage.jpg")!
+            let image = images[i]
             let (r,g,b,a,t) = image.getAverageOfCorners()
-            productImages.append(cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: UIImage(named: "watchImage.jpg"), withTolerance: Float(t)))
+            if a != 0 {
+                productImages.append(cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: images[i], withTolerance: Float(t)))
+            } else {
+                productImages.append(image)
+            }
             i += 1
         }
     }
@@ -97,9 +104,49 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
     // MARK: Button actions
 
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
+        if self.selectedItem != nil && delegate != nil {
+            let image = productImages[self.selectedItem!]
+            delegate?.didFinishPickingImage(image: image)
+            self.dismiss(animated: true, completion: nil)
+
+        }
     }
 
     @IBAction func chooseFromGalleryPressed(_ sender: AnyObject) {
+        let alert = UIAlertController(title: "Tip", message: "For best results, please select a product with a uniformly colored background, with no alternate objects!", preferredStyle: .alert)
+        self.present(alert, animated: false, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+            alert.dismiss(animated: false, completion: { 
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true, completion: nil)
+            })
+
+        }
+
+    }
+
+    //MARK: ImagePicker delegate
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if (image == nil ) {
+            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        }
+        let cameraHelper = CameraHelper()
+        let (r, g, b, a, t) = image!.getAverageOfCorners()
+        let filteredImage = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+        if (delegate != nil && filteredImage != nil) {
+            delegate?.didFinishPickingImage(image: filteredImage!)
+        }
+        picker.dismiss(animated: true) { 
+            self.dismiss(animated: true, completion: nil)
+        }
+
+
+
     }
 
     @IBAction func cancelButtonPressed(_ sender: AnyObject) {

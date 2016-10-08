@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CameraViewController.swift"
-            timestampString = "497627211.466792"
+            filePath = "Camera Test/ProductsCollectionViewController.swift"
+            timestampString = "497645121.438275"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "652"
-            endingLineNumber = "652"
-            landmarkName = "cameraCancelTapped(_:)"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,28 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Camera Test/ProductsCollectionViewController.swift"
-            timestampString = "497640077.458231"
+            timestampString = "497645121.438275"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Camera Test/ProductsCollectionViewController.swift"
-            timestampString = "497640077.458231"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "loadImages()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
