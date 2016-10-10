@@ -526,6 +526,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         VC.doneAndCancelView.isHidden = false
         VC.collectionViewHideButton.isHidden = false
         VC.imagesCollectionView.isHidden = false
+        self.userImageSet = true
         if self.menuExpanded {
             self.collapse()
         }
