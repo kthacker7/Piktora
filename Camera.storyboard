@@ -114,6 +114,9 @@
                                         <state key="normal" title="  Cancel  ">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="galleryCancelTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QM9-Sk-zUl"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGs-0V-CHR" userLabel="Done">
                                         <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,7 +124,6 @@
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="galleryCancelTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qvk-0d-GCe"/>
                                             <action selector="galleryDoneTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z6S-dF-7Mo"/>
                                         </connections>
                                     </button>

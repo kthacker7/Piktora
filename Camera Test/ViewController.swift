@@ -62,7 +62,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         
         // overLayView.backgroundColor = UIColor(patternImage: UIImage(named: "watchImage.jpg")!)
-        var image = #imageLiteral(resourceName: "Watch1")
+        let image = #imageLiteral(resourceName: "Watch1")
         var (r,g,b,a,t) = image.getAverageOfCorners()
         overLayView = UIImageView(image: cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t)) )
 

@@ -54,7 +54,7 @@
 		301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewController.swift; sourceTree = "<group>"; };
 		3076E2BB1D96998700A9078A /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		3076E2BD1D9699E300A9078A /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		308139071D7ECF2500A49653 /* Camera Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		308139071D7ECF2500A49653 /* Piktora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piktora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3081390A1D7ECF2500A49653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3081390C1D7ECF2500A49653 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3081390F1D7ECF2500A49653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		308139081D7ECF2500A49653 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				308139071D7ECF2500A49653 /* Camera Test.app */,
+				308139071D7ECF2500A49653 /* Piktora.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,9 +166,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		308139061D7ECF2500A49653 /* Camera Test */ = {
+		308139061D7ECF2500A49653 /* Piktora */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 308139191D7ECF2500A49653 /* Build configuration list for PBXNativeTarget "Camera Test" */;
+			buildConfigurationList = 308139191D7ECF2500A49653 /* Build configuration list for PBXNativeTarget "Piktora" */;
 			buildPhases = (
 				308139031D7ECF2500A49653 /* Sources */,
 				308139041D7ECF2500A49653 /* Frameworks */,
@@ -178,9 +178,9 @@
 			);
 			dependencies = (
 			);
-			name = "Camera Test";
+			name = Piktora;
 			productName = "Camera Test";
-			productReference = 308139071D7ECF2500A49653 /* Camera Test.app */;
+			productReference = 308139071D7ECF2500A49653 /* Piktora.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -197,10 +197,11 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 8JRVVKJ68M;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 308139021D7ECF2500A49653 /* Build configuration list for PBXProject "Camera Test" */;
+			buildConfigurationList = 308139021D7ECF2500A49653 /* Build configuration list for PBXProject "Piktora" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -213,7 +214,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				308139061D7ECF2500A49653 /* Camera Test */,
+				308139061D7ECF2500A49653 /* Piktora */,
 			);
 		};
 /* End PBXProject section */
@@ -310,9 +311,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: kunalrox@live.com (8M85GPHQ5Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: kunalrox@live.com (8M85GPHQ5Q)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8JRVVKJ68M;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -332,7 +335,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = AugmentS;
+				PRODUCT_NAME = Piktora;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -358,9 +361,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: kunalrox@live.com (8M85GPHQ5Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: kunalrox@live.com (8M85GPHQ5Q)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8JRVVKJ68M;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -373,8 +378,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_MODULE_NAME = AugmentS;
-				PRODUCT_NAME = Augments;
+				PRODUCT_MODULE_NAME = Piktora;
+				PRODUCT_NAME = Piktora;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -386,15 +391,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8JRVVKJ68M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Camera Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "AugmentS.Camera-Test";
-				PRODUCT_NAME = "Camera Test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.augmenter.Piktora;
+				PRODUCT_NAME = Piktora;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -406,15 +414,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8JRVVKJ68M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Camera Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "AugmentS.Camera-Test";
-				PRODUCT_NAME = "Camera Test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.augmenter.Piktora;
+				PRODUCT_NAME = Piktora;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -423,7 +434,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		308139021D7ECF2500A49653 /* Build configuration list for PBXProject "Camera Test" */ = {
+		308139021D7ECF2500A49653 /* Build configuration list for PBXProject "Piktora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				308139171D7ECF2500A49653 /* Debug */,
@@ -432,7 +443,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		308139191D7ECF2500A49653 /* Build configuration list for PBXNativeTarget "Camera Test" */ = {
+		308139191D7ECF2500A49653 /* Build configuration list for PBXNativeTarget "Piktora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3081391A1D7ECF2500A49653 /* Debug */,
