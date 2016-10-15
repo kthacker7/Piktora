@@ -16,6 +16,9 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
     @IBOutlet var productsCollectionView: UICollectionView!
     @IBOutlet var doneButton: UIButton!
     var selectedItem : Int?
+    let cameraHelper = CameraHelper()
+    var imageSelected = false
+    var imagesFiltered = false
 
     var delegate: ProductsCollectionViewDelegate? = nil
 
@@ -33,26 +36,42 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
 
         let nib = UINib(nibName: "PhotosCollectionViewCell", bundle: nil)
         productsCollectionView.register(nib, forCellWithReuseIdentifier: "PhotosCollectionViewCell")
-
-        
-
         self.loadImages()
+
 
     }
 
     func loadImages() {
         let images = [#imageLiteral(resourceName: "Accessories1"), #imageLiteral(resourceName: "Accessories2"), #imageLiteral(resourceName: "Accessories3"), #imageLiteral(resourceName: "Accessories4"), #imageLiteral(resourceName: "Furniture1"), #imageLiteral(resourceName: "Furniture2"), #imageLiteral(resourceName: "Furniture3"), #imageLiteral(resourceName: "Furniture4"), #imageLiteral(resourceName: "Furniture5"), #imageLiteral(resourceName: "Furniture6"), #imageLiteral(resourceName: "Glasses1"), #imageLiteral(resourceName: "Glasses2"), #imageLiteral(resourceName: "Glasses3"), #imageLiteral(resourceName: "Glasses4"), #imageLiteral(resourceName: "Watch1"), #imageLiteral(resourceName: "Watch2"), #imageLiteral(resourceName: "Watch3"), #imageLiteral(resourceName: "Watch4"), #imageLiteral(resourceName: "Watch5"), #imageLiteral(resourceName: "Watch6")]
         var i = 0
-        let cameraHelper = CameraHelper()
         while i < 20 {
             let image = images[i]
-            let (r,g,b,a,t) = image.getAverageOfCorners()
-            if a != 0 {
-                productImages.append(cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: images[i], withTolerance: Float(t)))
-            } else {
-                productImages.append(image)
-            }
+            productImages.append(image)
+
             i += 1
+        }
+        let backgroundQueue = DispatchQueue.global(qos: .background)
+        backgroundQueue.async {
+            var imagesReplaced : [UIImage] = []
+            let cameraHelper = CameraHelper()
+            for image in images {
+                var copyImage = image
+                let (r,g,b,a,t) = image.getAverageOfCorners()
+                if a != 0 {
+                    copyImage = (cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t)))
+                    imagesReplaced.append(copyImage)
+                } else {
+                    imagesReplaced.append(image)
+                }
+            }
+            DispatchQueue.main.async {
+                self.productImages = imagesReplaced
+                self.productsCollectionView.reloadData()
+                self.imagesFiltered = true
+                if self.imageSelected {
+                    self.doneButton.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 149.0/255.0, blue: 218.0/255.0, alpha: 1.0)
+                }
+            }
         }
     }
 
@@ -83,6 +102,7 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCollectionViewCell", for: indexPath) as! PhotosCollectionViewCell
         cell.imageView.contentMode = .scaleAspectFit
         cell.imageView.image = productImages[indexPath.row]
+
         cell.layer.borderWidth = 2.0
         if self.selectedItem != nil && indexPath.row == self.selectedItem! {
             cell.layer.borderColor = UIColor(colorLiteralRed: 218.0/255.0, green: 194.0/255.0, blue: 80.0/255.0, alpha: 1.0).cgColor
@@ -97,14 +117,17 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedItem = indexPath.row
-        self.doneButton.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 149.0/255.0, blue: 218.0/255.0, alpha: 1.0)
+        self.imageSelected = true
+        if self.imagesFiltered {
+            self.doneButton.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 149.0/255.0, blue: 218.0/255.0, alpha: 1.0)
+        }
         self.productsCollectionView.reloadData()
     }
 
     // MARK: Button actions
 
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
-        if self.selectedItem != nil && delegate != nil {
+        if self.selectedItem != nil && delegate != nil  {
             let image = productImages[self.selectedItem!]
             delegate?.didFinishPickingImage(image: image)
             self.dismiss(animated: true, completion: nil)
