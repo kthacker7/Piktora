@@ -391,7 +391,12 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
                     if error != nil {
                         if let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) {
                             if let image = UIImage(data: imageData) {
-                                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                                if self.videoDeviceInput.device.position == .front {
+                                    let cameraHelper = CameraHelper()
+                                    UIImageWriteToSavedPhotosAlbum(cameraHelper.flip(image), nil, nil, nil)
+                                } else {
+                                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                                }
                             }
                         }
                     }
@@ -669,8 +674,11 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     func snapshotImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, 0.0)
-        self.view.layer.render(in: (UIGraphicsGetCurrentContext()!))
+        let imageFrame = AVMakeRect(aspectRatio: (self.imageView.image?.size)!, insideRect: self.imageView.frame)
+        UIGraphicsBeginImageContextWithOptions(imageFrame.size, false, 0.0)
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0 - (imageFrame.origin.x + self.imageView.frame.origin.x), y: 0 - (imageFrame.origin.y + self.imageView.frame.origin.y))
+        self.view.layer.render(in: context!)
         let resultingImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resultingImage!
@@ -694,7 +702,12 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
         if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
             if let image = UIImage(data: dataImage) {
+                if self.videoDeviceInput.device.position == .front {
+                    let cameraHelper = CameraHelper()
+                    UIImageWriteToSavedPhotosAlbum(cameraHelper.flip(image), nil, nil, nil)
+                } else {
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                }
             }
         }
     }

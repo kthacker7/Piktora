@@ -16,6 +16,8 @@
 		301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301F18401DA90E4F000F4F77 /* Camera.storyboard */; };
 		301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */; };
 		301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */; };
+		303A9FA41DB7538800B855B1 /* FKM_CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */; };
+		304DC57E1DB4927D0098054D /* PiktoraConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304DC57D1DB4927D0098054D /* PiktoraConnector.swift */; };
 		3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BB1D96998700A9078A /* UIImageExtension.swift */; };
 		3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BD1D9699E300A9078A /* UIColorExtension.swift */; };
 		3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390A1D7ECF2500A49653 /* AppDelegate.swift */; };
@@ -32,6 +34,11 @@
 		30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E8A5361D83E74A00455EB1 /* CameraHelper.m */; };
 		30E8A53B1D83FA7100455EB1 /* OverlayWithImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */; };
 		30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */; };
+		30EB92A81DB75EA600EA9E2B /* FKM_APIGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92A71DB75EA600EA9E2B /* FKM_APIGroup.swift */; };
+		30EB92AA1DB75F4000EA9E2B /* FKM_Affiliate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92A91DB75F4000EA9E2B /* FKM_Affiliate.swift */; };
+		30EB92AC1DB7605F00EA9E2B /* FKM_APIListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92AB1DB7605F00EA9E2B /* FKM_APIListing.swift */; };
+		30EB92AE1DB761B600EA9E2B /* FKM_CategoryVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92AD1DB761B600EA9E2B /* FKM_CategoryVariant.swift */; };
+		87F1CED166295FEE1AAF740C /* Pods_Piktora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A71B0939B5BA2386C9C3D847 /* Pods_Piktora.framework */; };
 		E95838F11D968E830031F10F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95838F01D968E830031F10F /* GoogleService-Info.plist */; };
 		E95838F31D968EE90031F10F /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95838F21D968EE90031F10F /* GoogleMobileAds.framework */; };
 /* End PBXBuildFile section */
@@ -46,6 +53,8 @@
 		301F18401DA90E4F000F4F77 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTCameraPickerDelegate.swift; sourceTree = "<group>"; };
 		301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewController.swift; sourceTree = "<group>"; };
+		303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_CategoryList.swift; sourceTree = "<group>"; };
+		304DC57D1DB4927D0098054D /* PiktoraConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiktoraConnector.swift; sourceTree = "<group>"; };
 		3076E2BB1D96998700A9078A /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		3076E2BD1D9699E300A9078A /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		308139071D7ECF2500A49653 /* Piktora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piktora.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +75,13 @@
 		30E8A5361D83E74A00455EB1 /* CameraHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraHelper.m; sourceTree = "<group>"; };
 		30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayWithImageView.xib; sourceTree = "<group>"; };
 		30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayWithImageView.swift; sourceTree = "<group>"; };
+		30EB92A71DB75EA600EA9E2B /* FKM_APIGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_APIGroup.swift; sourceTree = "<group>"; };
+		30EB92A91DB75F4000EA9E2B /* FKM_Affiliate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_Affiliate.swift; sourceTree = "<group>"; };
+		30EB92AB1DB7605F00EA9E2B /* FKM_APIListing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_APIListing.swift; sourceTree = "<group>"; };
+		30EB92AD1DB761B600EA9E2B /* FKM_CategoryVariant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_CategoryVariant.swift; sourceTree = "<group>"; };
+		A71B0939B5BA2386C9C3D847 /* Pods_Piktora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Piktora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2A67724BF89E9320E16ED57 /* Pods-Piktora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piktora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Piktora/Pods-Piktora.debug.xcconfig"; sourceTree = "<group>"; };
+		CC2E98D00AF9E1C73D03449A /* Pods-Piktora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piktora.release.xcconfig"; path = "Pods/Target Support Files/Pods-Piktora/Pods-Piktora.release.xcconfig"; sourceTree = "<group>"; };
 		E95838F01D968E830031F10F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E95838F21D968EE90031F10F /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E95838F31D968EE90031F10F /* GoogleMobileAds.framework in Frameworks */,
+				87F1CED166295FEE1AAF740C /* Pods_Piktora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +108,26 @@
 				304DC5731DB2B4A40098054D /* Controllers */,
 			);
 			name = KTCameraOverlay;
+			sourceTree = "<group>";
+		};
+		303A9FA21DB752E000B855B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				303A9FA51DB7539200B855B1 /* FKM_CategoryResponse */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		303A9FA51DB7539200B855B1 /* FKM_CategoryResponse */ = {
+			isa = PBXGroup;
+			children = (
+				303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */,
+				30EB92A71DB75EA600EA9E2B /* FKM_APIGroup.swift */,
+				30EB92A91DB75F4000EA9E2B /* FKM_Affiliate.swift */,
+				30EB92AB1DB7605F00EA9E2B /* FKM_APIListing.swift */,
+				30EB92AD1DB761B600EA9E2B /* FKM_CategoryVariant.swift */,
+			);
+			name = FKM_CategoryResponse;
 			sourceTree = "<group>";
 		};
 		304DC56F1DB2B4590098054D /* Views */ = {
@@ -196,7 +233,6 @@
 		304DC57A1DB2B5910098054D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				304DC57C1DB2B5BB0098054D /* Helpers and extensions */,
 				3081390C1D7ECF2500A49653 /* ViewController.swift */,
 				301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */,
 			);
@@ -211,6 +247,7 @@
 				30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */,
 				3076E2BB1D96998700A9078A /* UIImageExtension.swift */,
 				3076E2BD1D9699E300A9078A /* UIColorExtension.swift */,
+				304DC57D1DB4927D0098054D /* PiktoraConnector.swift */,
 			);
 			name = "Helpers and extensions";
 			sourceTree = "<group>";
@@ -223,6 +260,8 @@
 				E95838F21D968EE90031F10F /* GoogleMobileAds.framework */,
 				308139091D7ECF2500A49653 /* Camera Test */,
 				308139081D7ECF2500A49653 /* Products */,
+				F5ED5805878A987728735E8B /* Pods */,
+				93608C3EC6308E6E3F31276F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -237,6 +276,8 @@
 		308139091D7ECF2500A49653 /* Camera Test */ = {
 			isa = PBXGroup;
 			children = (
+				304DC57C1DB2B5BB0098054D /* Helpers and extensions */,
+				303A9FA21DB752E000B855B1 /* Models */,
 				304DC5741DB2B4C50098054D /* Views */,
 				304DC57A1DB2B5910098054D /* Controllers */,
 				3081390A1D7ECF2500A49653 /* AppDelegate.swift */,
@@ -247,6 +288,23 @@
 			path = "Camera Test";
 			sourceTree = "<group>";
 		};
+		93608C3EC6308E6E3F31276F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A71B0939B5BA2386C9C3D847 /* Pods_Piktora.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5ED5805878A987728735E8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2A67724BF89E9320E16ED57 /* Pods-Piktora.debug.xcconfig */,
+				CC2E98D00AF9E1C73D03449A /* Pods-Piktora.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -254,9 +312,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 308139191D7ECF2500A49653 /* Build configuration list for PBXNativeTarget "Piktora" */;
 			buildPhases = (
+				591B77F9837F9839983B470F /* [CP] Check Pods Manifest.lock */,
 				308139031D7ECF2500A49653 /* Sources */,
 				308139041D7ECF2500A49653 /* Frameworks */,
 				308139051D7ECF2500A49653 /* Resources */,
+				45F678047D8A91FAB2CBA3FB /* [CP] Embed Pods Frameworks */,
+				2F6009F9A650DE2BBE076E9F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,7 +335,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Kunal Thacker";
 				TargetAttributes = {
 					308139061D7ECF2500A49653 = {
@@ -324,26 +385,80 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2F6009F9A650DE2BBE076E9F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Piktora/Pods-Piktora-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45F678047D8A91FAB2CBA3FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Piktora/Pods-Piktora-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		591B77F9837F9839983B470F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		308139031D7ECF2500A49653 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30EB92AC1DB7605F00EA9E2B /* FKM_APIListing.swift in Sources */,
 				301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */,
 				301F183E1DA90E30000F4F77 /* PreviewView.swift in Sources */,
 				3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */,
+				303A9FA41DB7538800B855B1 /* FKM_CategoryList.swift in Sources */,
 				30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */,
+				30EB92AE1DB761B600EA9E2B /* FKM_CategoryVariant.swift in Sources */,
 				301F183F1DA90E30000F4F77 /* CameraViewController.swift in Sources */,
 				3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */,
+				304DC57E1DB4927D0098054D /* PiktoraConnector.swift in Sources */,
 				30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */,
 				301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */,
 				301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */,
 				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
 				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
+				30EB92AA1DB75F4000EA9E2B /* FKM_Affiliate.swift in Sources */,
 				30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */,
 				3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */,
 				3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */,
 				30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */,
+				30EB92A81DB75EA600EA9E2B /* FKM_APIGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +581,9 @@
 		};
 		3081391A1D7ECF2500A49653 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2A67724BF89E9320E16ED57 /* Pods-Piktora.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -489,7 +606,9 @@
 		};
 		3081391B1D7ECF2500A49653 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC2E98D00AF9E1C73D03449A /* Pods-Piktora.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

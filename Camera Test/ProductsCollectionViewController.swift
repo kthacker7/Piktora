@@ -21,6 +21,9 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
     var imagesFiltered = false
 
     var delegate: ProductsCollectionViewDelegate? = nil
+    var relevantCategories : [FKM_CategoryVariant] = []
+    var relevantCategoryIDs : [String] = []
+    var supportedCategories = ["televisions", "landline_phones", "mens_clothing", "furniture", "bags_wallets_belts", "kids_clothing", "kids_footwear", "mens_footwear", "air_coolers", "watches", "sunglasses", "eyewear", "womens_clothing", "air_conditioners", "luggage_travel", "refrigerator", "wearable_smart_devices", "microwave_ovens", "washing_machine", "home_decor_and_festive_needs", "jewellery", "home_furnishing", "womens_footwear"]
 
     var productImages : [UIImage] = []
     override func viewDidLoad() {
@@ -37,8 +40,39 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
         let nib = UINib(nibName: "PhotosCollectionViewCell", bundle: nil)
         productsCollectionView.register(nib, forCellWithReuseIdentifier: "PhotosCollectionViewCell")
         self.loadImages()
+        self.loadCategories()
 
+    }
 
+    func loadCategories() {
+        let connector = PiktoraConnector()
+        connector.get(endPoint: "api/iamdonkun.json", success: {(categoryList) in
+            self.getRelevantCategories(categoryList: categoryList)
+        })
+    }
+
+    func getRelevantCategories(categoryList: FKM_CategoryList) {
+        if let apiGroups = categoryList.apiGroups {
+            if let affiliate = apiGroups.affiliate {
+                if let apiListings = affiliate.apiListings {
+                    for listing in apiListings.values {
+                        if let apiName = listing.apiName {
+                            if self.supportedCategories.contains(apiName) && listing.availableVariants != nil && listing.availableVariants!["v1.1.0"] != nil {
+                                let variant = (listing.availableVariants!)["v1.1.0"]!
+                                self.relevantCategories.append(variant)
+                                if let categoryID = variant.getCategoryID() {
+                                    var removedFormatCID = categoryID
+                                    removedFormatCID = removedFormatCID.replacingOccurrences(of: ".json", with: "")
+                                    removedFormatCID = removedFormatCID.replacingOccurrences(of: ".xml", with: "")
+                                    self.relevantCategoryIDs.append(removedFormatCID)
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     func loadImages() {
@@ -84,6 +118,7 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
         self.productsCollectionView.collectionViewLayout = layout
 
     }
+
 
     // MARK: CollectionView data source
 
