@@ -7,17 +7,22 @@
 		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
 		<key>Pods-Piktora.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -27,12 +32,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8A84485A82D0105AD90775E6388A52B</key>
+		<key>5F3DB8B02F1DD333CA7C7945C8553803</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EA4BA3E31E3242994653356FA8A23B3B</key>
+		<key>9649015E82892A46BD6C19DF0992A4AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C8A84485A82D0105AD90775E6388A52B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

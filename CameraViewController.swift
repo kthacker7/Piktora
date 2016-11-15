@@ -66,6 +66,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     var devicePosition : AVCaptureDevicePosition = AVCaptureDevicePosition.back
     @IBOutlet var flashView: UIView!
     var imageCaptured = false
+    var setupComplete = false
     
     // MARK: Image Picker
 
@@ -77,10 +78,15 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet var flashButton: UIButton!
     @IBOutlet var flashOptionsView: UIView!
     @IBOutlet var flashOptionsViewHeightConstraint: NSLayoutConstraint!
+
+    @IBOutlet var switchCameraButton: UIButton!
+    
     var flashViewHidden = true
     var torchOn = false
     @IBOutlet var torchButton: UIButton!
     var overlayImageView: UIImageView?
+    var selectedProdInfo: FKM_ProductInfo?
+    var parentVC: ViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,41 +147,55 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.assets = assetResult
 
         self.checkCameraPermissions()
-
+        self.setButtonContentMode()
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        switch self.authorizationStatus {
-        case .authorized:
-            self.session.startRunning()
-
-
-        case .denied:
-            DispatchQueue.main.async { [unowned self] in
-                let message = NSLocalizedString("AVCam doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
-                let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
-                    } else {
-                        // Fallback on earlier versions
-                        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-                    }
-                }))
-
-                self.present(alertController, animated: true, completion: nil)
+        DispatchQueue.global(qos: .background).async {
+            while !self.setupComplete {
             }
+            DispatchQueue.main.async {
+                switch self.authorizationStatus {
+                case .authorized:
+                    self.session.startRunning()
+                case .denied:
+                    DispatchQueue.main.async { [unowned self] in
+                        let message = NSLocalizedString("AVCam doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
+                        let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
+                            if #available(iOS 10.0, *) {
+                                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+                            } else {
+                                // Fallback on earlier versions
+                                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                            }
+                        }))
 
-        default:
-            DispatchQueue.main.async { [unowned self] in
-                let message = NSLocalizedString("Unable to capture media", comment: "Alert message when something goes wrong during capture session configuration")
-                let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
+                    }
 
-                self.present(alertController, animated: true, completion: nil)
+                default:
+                    DispatchQueue.main.async { [unowned self] in
+                        let message = NSLocalizedString("Unable to capture media", comment: "Alert message when something goes wrong during capture session configuration")
+                        let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
+
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
             }
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
     }
 
 
@@ -183,22 +203,34 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         switch AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) {
         case .authorized:
             self.authorizationStatus = .authorized
+            self.sessionQueue.async {
+                self.setupSession()
+            }
             break
         case .notDetermined:
             AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (success) in
                 if (success) {
-                    self.authorizationStatus = .notDetermined
+                    self.authorizationStatus = .authorized
+                } else {
+                    self.authorizationStatus = .denied
+                }
+                self.sessionQueue.async {
+                    self.setupSession()
                 }
             })
         case .denied:
             self.authorizationStatus = .denied
+            self.sessionQueue.async {
+                self.setupSession()
+            }
         default:
-            self.authorizationStatus = .denied
+            self.authorizationStatus = .notDetermined
+            self.sessionQueue.async {
+                self.setupSession()
+            }
         }
 
-        sessionQueue.async {
-            self.setupSession()
-        }
+
 
 
 
@@ -207,6 +239,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     func setupSession() {
 
         if (self.authorizationStatus != .authorized) {
+            self.setupComplete = true
             return
         }
         self.session.beginConfiguration()
@@ -232,6 +265,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
             else {
                 self.authorizationStatus = .notDetermined
                 self.session.commitConfiguration()
+                self.setupComplete = true
                 return
             }
 
@@ -244,9 +278,11 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         catch {
             self.authorizationStatus = .notDetermined
             self.session.commitConfiguration()
+            self.setupComplete = true
             return
         }
         self.session.commitConfiguration()
+        self.setupComplete = true
 
 
 
@@ -352,6 +388,11 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     // MARK: Camera Overlay logic
+    func setButtonContentMode() {
+        self.torchButton.imageView?.contentMode = .scaleAspectFit
+        self.flashButton.imageView?.contentMode = .scaleAspectFit
+        self.switchCameraButton.imageView?.contentMode = .scaleAspectFit
+    }
 
     @IBAction func capturePhoto(_ sender: AnyObject) {
         self.imageCaptured = true
@@ -435,18 +476,19 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     func setupOverlay() {
         self.cancelButton.layer.cornerRadius = 15.0
         self.cancelButton.layer.borderWidth = 1.0
-        self.cancelButton.layer.borderColor = UIColor.init(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).cgColor
-        self.cancelButton.backgroundColor = self.cancelButton.backgroundColor?.withAlphaComponent(0.25)
+        self.cancelButton.layer.borderColor = UIColor(colorLiteralRed: 49.0/255.0, green: 96.0/205.0, blue: 205.0/255.0, alpha: 1.0).cgColor
 
 
         self.flashOptionsView.layer.cornerRadius = 10.0
         self.flashOptionsView.layer.borderWidth = 1.0
-        self.flashOptionsView.layer.borderColor = UIColor.init(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).cgColor
+        self.flashOptionsView.layer.borderColor = UIColor.init(colorLiteralRed: 100.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0).cgColor
         let color = self.flashOptionsView.backgroundColor
         self.flashOptionsView.backgroundColor = color?.withAlphaComponent(0.5)
 
         self.flashOptionsViewHeightConstraint.constant = 0.0
         self.flashOptionsView.layoutIfNeeded()
+
+        self.flashButton.setImage(#imageLiteral(resourceName: "FlashAuto"), for: .normal)
 
 
     }
@@ -454,17 +496,14 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     func setupDoneAndCancelView() {
         self.cancelGalleryButton.layer.cornerRadius = 15.0
         self.cancelGalleryButton.layer.borderWidth = 1.0
-        self.cancelGalleryButton.layer.borderColor = UIColor.init(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).cgColor
-        self.cancelGalleryButton.backgroundColor = self.cancelGalleryButton.backgroundColor?.withAlphaComponent(0.25)
+        self.cancelGalleryButton.layer.borderColor = UIColor(colorLiteralRed: 49.0/255.0, green: 96.0/205.0, blue: 205.0/255.0, alpha: 1.0).cgColor
 
         self.doneGalleryButton.layer.cornerRadius = 15.0
         self.doneGalleryButton.layer.borderWidth = 1.0
-        self.doneGalleryButton.layer.borderColor = UIColor.init(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).cgColor
-        self.doneGalleryButton.backgroundColor = self.doneGalleryButton.backgroundColor?.withAlphaComponent(0.25)
+        self.doneGalleryButton.layer.borderColor = UIColor(colorLiteralRed: 49.0/255.0, green: 96.0/205.0, blue: 205.0/255.0, alpha: 1.0).cgColor
 
         let color = self.doneAndCancelView.backgroundColor
-        self.doneAndCancelView.backgroundColor = color?.withAlphaComponent(0.5)
-
+        self.doneAndCancelView.backgroundColor = color?.withAlphaComponent(0.25)
 
     }
 
@@ -544,7 +583,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
         }
         self.view.layoutIfNeeded()
-        self.flashButton.setImage(#imageLiteral(resourceName: "FlashOn"), for: .normal)
+        self.flashButton.setImage(#imageLiteral(resourceName: "FlashAuto"), for: .normal)
         self.flashOptionsViewHeightConstraint.constant = 0.0
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -603,6 +642,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
             else {
                 self.authorizationStatus = .notDetermined
                 self.session.commitConfiguration()
+                self.setupComplete = true
                 return
             }
 
@@ -615,9 +655,11 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         catch {
             self.authorizationStatus = .notDetermined
             self.session.commitConfiguration()
+            self.setupComplete = true
             return
         }
         self.session.commitConfiguration()
+        self.setupComplete = true
 
 
     }
@@ -655,11 +697,13 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     @IBAction func cameraCancelTapped(_ sender: AnyObject) {
         delegate?.cameraCancelTapped(VC: self)
+        let _ = self.navigationController?.popViewController(animated: true)
 
     }
 
     @IBAction func galleryCancelTapped(_ sender: AnyObject) {
         delegate?.galleryCancelTapped(VC: self)
+        let _ = self.navigationController?.popViewController(animated: true)
     }
 
 
@@ -669,7 +713,16 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.collectionViewHideButton.isHidden = true
         self.imagesCollectionView.isHidden = true
         self.augmentedImage = snapshotImage()
-        delegate?.galleryDoneTapped(VC: self)
+//        delegate?.galleryDoneTapped(VC: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "BuyAndShareViewController") as! BuyAndShareViewController
+        vc.selectedProdInfo = self.selectedProdInfo
+        vc.overlayedImage = self.augmentedImage
+        vc.parentVC = self.parentVC
+        self.doneAndCancelView.isHidden = false
+        self.collectionViewHideButton.isHidden = false
+        self.imagesCollectionView.isHidden = false
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
 

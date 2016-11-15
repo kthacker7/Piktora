@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ARC-8i-f6N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ARC-8i-f6N">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +13,7 @@
         <!--Camera View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="CameraViewController" id="BYZ-38-t0r" customClass="CameraViewController" customModule="Camera_Test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" id="BYZ-38-t0r" customClass="CameraViewController" customModule="Piktora" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -20,11 +23,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gMp-iE-Eyx">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCl-P6-XTe" customClass="PreviewView" customModule="Camera_Test" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCl-P6-XTe" customClass="PreviewView" customModule="Piktora" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diC-LM-L0g">
+                                        <rect key="frame" x="153" y="528" width="70" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="D5w-Vo-FU9"/>
                                             <constraint firstAttribute="width" constant="70" id="ZkK-F7-9YK"/>
@@ -35,18 +41,20 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7T-KB-OgE">
-                                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="15" y="548" width="64" height="30"/>
+                                        <color key="backgroundColor" red="0.3921568627" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="  Cancel  ">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.19215686269999999" green="0.37647058820000001" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="cameraCancelTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tlR-pQ-DCo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pT-j4-Hx8">
+                                        <rect key="frame" x="320" y="10" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="7T7-ga-BXS"/>
-                                            <constraint firstAttribute="width" constant="50" id="ixf-Kz-3ym"/>
+                                            <constraint firstAttribute="height" constant="40" id="7T7-ga-BXS"/>
+                                            <constraint firstAttribute="width" constant="40" id="ixf-Kz-3ym"/>
                                         </constraints>
                                         <state key="normal" image="FlashOff">
                                             <color key="titleColor" red="0.0" green="0.58823529409999997" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -56,19 +64,21 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qx0-NY-Ceh">
+                                        <rect key="frame" x="310" y="538" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="RHE-3Q-ElE"/>
                                             <constraint firstAttribute="height" constant="50" id="hiH-4K-KW1"/>
                                         </constraints>
-                                        <state key="normal" image="switchCamera"/>
+                                        <state key="normal" image="SwitchCamera"/>
                                         <connections>
                                             <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sy2-Od-PFe"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD6-h2-yTR">
+                                        <rect key="frame" x="27" y="10" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="32N-LC-hcn"/>
-                                            <constraint firstAttribute="width" constant="50" id="AqK-TE-J3A"/>
+                                            <constraint firstAttribute="height" constant="40" id="32N-LC-hcn"/>
+                                            <constraint firstAttribute="width" constant="40" id="AqK-TE-J3A"/>
                                         </constraints>
                                         <state key="normal" image="TorchOff"/>
                                         <connections>
@@ -91,6 +101,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="b7D-jt-uY3">
+                                <rect key="frame" x="0.0" y="517" width="375" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="IIw-eH-UJy"/>
@@ -108,20 +119,23 @@
                                 </connections>
                             </collectionView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Fg-A3-dj2">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gP-ki-Tqp" userLabel="Cancel">
-                                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="15" y="15" width="64" height="30"/>
+                                        <color key="backgroundColor" red="0.3921568627" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="  Cancel  ">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.19215686269999999" green="0.37647058820000001" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="galleryCancelTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QM9-Sk-zUl"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGs-0V-CHR" userLabel="Done">
-                                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="307" y="15" width="53" height="30"/>
+                                        <color key="backgroundColor" red="0.3921568627" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="  Done  ">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" red="0.19215686269999999" green="0.37647058820000001" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="galleryDoneTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z6S-dF-7Mo"/>
@@ -138,18 +152,21 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4R-f1-ieV">
+                                <rect key="frame" x="166" y="463" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="WYK-C8-6EC"/>
                                     <constraint firstAttribute="width" constant="44" id="wSi-Hh-X4t"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="DownArrow"/>
+                                <state key="normal" image="DownArrow"/>
                                 <connections>
                                     <action selector="hideCollectionView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xcc-Th-H59"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCN-gU-YZl">
+                                <rect key="frame" x="280" y="119" width="80" height="90"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rew-4z-198">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                         <state key="normal" title="On">
                                             <color key="titleColor" red="0.3294117647" green="0.80000000000000004" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -158,6 +175,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAt-lU-iDn">
+                                        <rect key="frame" x="0.0" y="30" width="80" height="30"/>
                                         <state key="normal" title="Off">
                                             <color key="titleColor" red="0.3294117647" green="0.80000000000000004" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -166,6 +184,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8U-6x-n0e">
+                                        <rect key="frame" x="0.0" y="60" width="80" height="30"/>
                                         <state key="normal" title="Auto">
                                             <color key="titleColor" red="0.3294117647" green="0.80000000000000004" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -192,7 +211,8 @@
                                     <constraint firstAttribute="width" constant="80" id="uuy-Q2-Fhy"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxh-i1-o8w">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxh-i1-o8w">
+                                <rect key="frame" x="0.0" y="-106" width="375" height="170"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -237,6 +257,7 @@
                         <outlet property="imagesCollectionView" destination="b7D-jt-uY3" id="xTd-AP-JfI"/>
                         <outlet property="imagesCollectionViewHeightConstraint" destination="IIw-eH-UJy" id="nCF-Mi-j45"/>
                         <outlet property="previewView" destination="XCl-P6-XTe" id="hTh-kA-5Cf"/>
+                        <outlet property="switchCameraButton" destination="qx0-NY-Ceh" id="tIv-Cc-Ru9"/>
                         <outlet property="torchButton" destination="MD6-h2-yTR" id="nCX-VH-elX"/>
                     </connections>
                 </viewController>
@@ -264,10 +285,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CaptureIcon" width="460" height="460"/>
-        <image name="DownArrow" width="128" height="128"/>
-        <image name="FlashOff" width="200" height="200"/>
-        <image name="TorchOff" width="512" height="512"/>
-        <image name="switchCamera" width="216" height="216"/>
+        <image name="CaptureIcon" width="143" height="143"/>
+        <image name="DownArrow" width="40" height="17"/>
+        <image name="FlashOff" width="117" height="184"/>
+        <image name="SwitchCamera" width="238" height="110"/>
+        <image name="TorchOff" width="98" height="133"/>
     </resources>
 </document>

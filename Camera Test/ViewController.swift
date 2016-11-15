@@ -9,24 +9,10 @@
 import UIKit
 import CoreGraphics
 import GoogleMobileAds
+import SDWebImage
 
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate,GADBannerViewDelegate, KTCameraPickerDelegate, ProductsCollectionViewDelegate {
-    
-    @IBOutlet weak var bannerView: GADBannerView!
-    
-    @IBOutlet var menuViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var hideMenuFullHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var hideMenuQuarterHeightConstraint: NSLayoutConstraint!
-
-    @IBOutlet var shareMenuTopConstraint: NSLayoutConstraint!
-    @IBOutlet var changeProductTopConstraint: NSLayoutConstraint!
-    @IBOutlet var augmentRealityTopConstraint: NSLayoutConstraint!
-
-
-
-
-    @IBOutlet var menuView: UIView!
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CustomOverlayDelegate, GalleryImageAugmentDelegate,GADBannerViewDelegate, KTCameraPickerDelegate, ProductsCollectionViewDelegate, PiktoraTutorialDelegate {
 
     @IBOutlet weak var cameraImageView: UIImageView!
     var userImageSet: Bool = false
@@ -39,30 +25,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let overlayPicker = UIImagePickerController.init()
     var galleryImage: UIImage? = nil
 
+
+    @IBOutlet var shopAndShareButton: UIButton!
+    @IBOutlet var productScreenButton: UIButton!
+    @IBOutlet var changeProductButton: UIButton!
+    @IBOutlet var pikItButton: UIButton!
+
     var menuExpanded = false
 
-    @IBOutlet var hideMenuLabel: UILabel!
+    var tutorialPageViewController: UIPageViewController?
+    let tutorialImages = [#imageLiteral(resourceName: "TutorialPage1"), #imageLiteral(resourceName: "TutorialPage2"), #imageLiteral(resourceName: "TutorialPage3")]
 
-    @IBOutlet var hideMenuView: UIView!
-    @IBOutlet var shareMenuView: UIView!
-    @IBOutlet var changeProductMenuView: UIView!
-    @IBOutlet var augmentRealityMenuView: UIView!
-    
+    var selectedProductInfo : FKM_ProductInfo?
+
+    // Buy and share objects
+    @IBOutlet var buyButton: UIButton!
+    @IBOutlet var shareButton: UIButton!
+    @IBOutlet var buyAndShareButtonView: UIView!
+    @IBOutlet var buyAndShareViewHeightConstraint: NSLayoutConstraint!
+
+    @IBOutlet var buyButtonHeightConstraint: NSLayoutConstraint!
+
+    var buyAndShareExpanded = false
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.setupGestureRecognizers()
-        self.collapse()
-        self.view.backgroundColor = UIColor.black
+
+        if UserDefaults.standard.value(forKey: "FirstLaunch") == nil {
+            self.setupAndShowTutorialController()
+            UserDefaults.standard.set(false, forKey: "FirstLaunch")
+        }
+
 
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         imagePicker.delegate = self
         self.cameraImageView.contentMode = UIViewContentMode.scaleAspectFit
 
-
-        
         // overLayView.backgroundColor = UIColor(patternImage: UIImage(named: "watchImage.jpg")!)
-        let image = #imageLiteral(resourceName: "Watch1")
+        let image = #imageLiteral(resourceName: "PlaceHolderProduct")
         var (r,g,b,a,t) = image.getAverageOfCorners()
         overLayView = UIImageView(image: cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t)) )
 
@@ -92,103 +95,80 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         self.overLayView?.isHidden = true
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.imageViewTapped(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        self.cameraImageView.isUserInteractionEnabled = true
-        self.cameraImageView.addGestureRecognizer(tapGestureRecognizer)
         (r, g, b, a, t) = image.getAverageOfCorners()
-        self.cameraImageView.image = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+        self.cameraImageView.image = image
 
-
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.augmentReality(sender:)))
+        pikItButton.addGestureRecognizer(tapGestureRecognizer)
         // ---- for bannerView Ads
         let request = GADRequest()
         request.testDevices = [kGADSimulatorID]
-        bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-8227877258412950/1872033626"
-        bannerView.rootViewController = self
-        bannerView.load(request)
-        
+
+        self.setupButtons()
+        self.setupBuyAndShareUI()
+        self.collapse()
+        UserDefaults.standard.set(nil, forKey: "ProductImageURL")
     }
 
-    func setupGestureRecognizers() {
-        let hideMenuGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.expandOrCollapse(sender:)))
-        self.hideMenuView.addGestureRecognizer(hideMenuGesture)
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
 
-        let shareMenuGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.sharePicture(sender:)))
-        self.shareMenuView.addGestureRecognizer(shareMenuGesture)
+        if let url = UserDefaults.standard.url(forKey: "ProductImageURL") {
+            SDWebImageManager.shared().downloadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (_, _) in
 
-        let changeProductGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.changeProduct(sender:)))
-        self.changeProductMenuView.addGestureRecognizer(changeProductGesture)
+            }, completed: { (image, error, _, finished, _) in
+                DispatchQueue.main.async {
+                    if finished && error == nil && image != nil {
+                        let (r, g, b, a, t) = image!.getAverageOfCorners()
+                        self.cameraImageView.image = image
+                        self.userImageSet = false
+                        self.overLayView.contentMode = .scaleAspectFit
+                        self.overLayView.image = self.cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+                    }
+                }
+            })
+        }
+    }
 
-        let augmentRealityGesture = UITapGestureRecognizer.init(target: self, action: #selector(ViewController.augmentReality(sender:)))
-        self.augmentRealityMenuView.addGestureRecognizer(augmentRealityGesture)
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+        if self.buyAndShareExpanded {
+            self.buyAndShareExpanded = false
+            self.collapse()
+        }
+        UserDefaults.standard.set(nil, forKey: "ProductImageURL")
+    }
 
+    @IBAction func changeProductTapped(_ sender: Any) {
+        self.showProductSelectionTableView()
+    }
 
+    @IBAction func chooseProductTapped(_ sender: Any) {
+        self.showProductSelectionTableView()
+    }
+    func showProductSelectionTableView() {
+        let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+        let vc  = storyboard.instantiateViewController(withIdentifier: "WebsiteSelectionViewController") as! WebsiteSelectionViewController
+        vc.modalPresentationStyle = .pageSheet
+        vc.parentVC = self
+        vc.delegate = self
+        let navC = UINavigationController(rootViewController: vc)
+        self.navigationController?.present(navC, animated: true, completion: nil)
     }
 
     func expandOrCollapse(sender: UITapGestureRecognizer) {
         if (self.menuExpanded) {
-            self.collapse()
+
         } else {
             if (self.userImageSet){
                 self.galleryImage = self.cameraImageView.image
             }
-            self.expand()
         }
         
     }
 
-    func collapse() {
-        self.view.layoutIfNeeded()
-        self.hideMenuLabel.text = "Menu"
-        self.menuView.layoutIfNeeded()
-        self.hideMenuQuarterHeightConstraint.isActive = false
-        self.hideMenuFullHeightConstraint.isActive = true
-
-        self.menuViewBottomConstraint.constant = (self.view.frame.size.height * 3)/4
-        
-        self.menuView.bringSubview(toFront: self.hideMenuView)
-        self.shareMenuTopConstraint.constant = -self.shareMenuView.frame.size.height
-        self.changeProductTopConstraint.constant = self.changeProductMenuView.frame.size.height
-        self.augmentRealityTopConstraint.constant = self.augmentRealityMenuView.frame.height
-        if self.overLayView != nil && self.userImageSet {
-            self.overLayView.isHidden = false
-        }
-
-        
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: {
-            self.view.layoutIfNeeded()
-            self.menuView.layoutIfNeeded()
-        }) { (completion: Bool) in
-            self.menuExpanded = false
-        }
-    }
-
-    func expand() {
-        self.view.layoutIfNeeded()
-        self.hideMenuLabel.text = "Hide Menu"
-        if self.overLayView != nil {
-            self.overLayView.isHidden = true
-        }
-        self.menuView.layoutIfNeeded()
-        self.hideMenuFullHeightConstraint.isActive = false
-        self.hideMenuQuarterHeightConstraint.isActive = true
-
-        self.menuViewBottomConstraint.constant = 0
-
-        self.menuView.bringSubview(toFront: self.hideMenuView)
-        self.shareMenuTopConstraint.constant = 0
-        self.changeProductTopConstraint.constant = 0
-        self.augmentRealityTopConstraint.constant = 0
-
-
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: {
-            self.view.layoutIfNeeded()
-            self.menuView.layoutIfNeeded()
-        }) { (completion: Bool) in
-            self.menuExpanded = true
-        }
-    }
 
     func sharePicture(sender: UITapGestureRecognizer) {
         if let image = self.galleryImage {
@@ -218,28 +198,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func augmentReality(sender: UITapGestureRecognizer) {
-//        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-//        self.overLayView?.isHidden = false
-//        imagePicker.delegate = self
-//
-//        let overlayViewController = OverlayViewController(nibName: "OverlayViewController", bundle: nil)
-//        let customView:CustomOverlayView = overlayViewController.view as! CustomOverlayView
-//        customView.frame = imagePicker.view.frame
-//        self.imagePicker.showsCameraControls = false
-//        let image = overLayView?.image
-//        overLayView?.center = self.view.center
-//        overLayView?.image = image
-//
-//        self.navigationController?.present(imagePicker, animated: true, completion: {
-//            self.imagePicker.view.addSubview(self.overLayView)
-//            customView.delegate = self
-//            customView.frame = self.imagePicker.view.frame
-//            self.imagePicker.cameraOverlayView = customView
-//            self.imagePicker.showsCameraControls = false
-//        })
         let cameraStoryboard = UIStoryboard.init(name: "Camera", bundle: nil)
         let vc = cameraStoryboard.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
+        vc.selectedProdInfo = self.selectedProductInfo
         vc.delegate = self
+        vc.parentVC = self
         let image = overLayView?.image
         overLayView?.center = self.view.center
         overLayView?.image = image
@@ -247,7 +210,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         vc.overlayImageView = overLayView
 
 
-        self.navigationController?.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
 
@@ -370,7 +333,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if (self.menuExpanded) {
-            self.collapse()
         }
         if picker == self.imagePicker {
             var image = info[UIImagePickerControllerEditedImage] as? UIImage
@@ -514,7 +476,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func cameraCancelTapped(VC: CameraViewController) {
         overLayView.isHidden = true
-        VC.dismiss(animated: true, completion: nil)
     }
 
     func galleryDoneTapped(VC: CameraViewController) {
@@ -523,28 +484,130 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         VC.collectionViewHideButton.isHidden = false
         VC.imagesCollectionView.isHidden = false
         self.userImageSet = true
-        if self.menuExpanded {
-            self.collapse()
-        }
-        VC.dismiss(animated: true, completion: nil)
     }
 
     func galleryCancelTapped(VC: CameraViewController) {
         overLayView.isHidden = true
-        VC.dismiss(animated: true, completion: nil)
     }
 
     //MARK: Products collection view delegate
 
     func didFinishPickingImage(image: UIImage) {
         self.userImageSet = false
-        if self.menuExpanded {
-            self.collapse()
-        }
         self.overLayView.contentMode = .scaleAspectFit
         self.overLayView.image = image
-        self.cameraImageView.image = image
+        let (r,g,b,a,t) = image.getAverageOfCorners()
+        let filteredImage = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+        self.cameraImageView.image = filteredImage
 
+    }
+
+    // MARK: UISetup
+
+    func setupButtons() {
+        self.changeProductButton.layer.cornerRadius = 15.0
+        self.changeProductButton.layer.borderWidth = 1.0
+        self.changeProductButton.layer.borderColor = UIColor(colorLiteralRed: 21.0/255.0, green: 67.0/205.0, blue: 94.0/255.0, alpha: 1.0).cgColor
+    }
+
+    func setupAndShowTutorialController() {
+        tutorialPageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        tutorialPageViewController?.dataSource = self
+        tutorialPageViewController?.view.bounds = self.view.bounds
+        let vc = TutorialViewController(nibName: "TutorialViewController", bundle: nil)
+        vc.delegate = self
+        vc.index = 0
+        vc.tutorialImage = self.tutorialImages[vc.index]
+        tutorialPageViewController?.setViewControllers([vc], direction: .forward, animated: true, completion: nil)
+        self.view.addSubview((tutorialPageViewController?.view)!)
+
+        tutorialPageViewController?.didMove(toParentViewController: self)
+    }
+
+    // MARK: Buy and share handlers and ui setup
+    func setupBuyAndShareUI() {
+        self.buyAndShareButtonView.layer.cornerRadius = 10.0
+        self.buyAndShareButtonView.layer.borderWidth = 1.0
+        self.buyAndShareButtonView.layer.borderColor = UIColor.init(colorLiteralRed: 100.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0).cgColor
+
+        self.buyButton.layer.borderWidth = 1.0
+        self.buyButton.layer.borderColor = UIColor.init(colorLiteralRed: 100.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0).cgColor
+
+        self.shareButton.layer.borderWidth = 1.0
+        self.shareButton.layer.borderColor = UIColor.init(colorLiteralRed: 100.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0).cgColor
+
+
+    }
+
+    func expand() {
+        self.buyAndShareButtonView.layoutIfNeeded()
+        if self.selectedProductInfo != nil {
+            self.buyButtonHeightConstraint.constant = 45
+        } else {
+            self.buyButtonHeightConstraint.constant = 0
+        }
+        self.buyAndShareViewHeightConstraint.constant = self.buyButtonHeightConstraint.constant + 45.0
+        UIView.animate(withDuration: 0.1, animations: {
+            self.buyAndShareButtonView.layoutIfNeeded()
+        })
+    }
+
+    func collapse() {
+        self.buyAndShareButtonView.layoutIfNeeded()
+        self.buyButtonHeightConstraint.constant = 0
+        self.buyAndShareViewHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.1, animations: {
+            self.buyAndShareButtonView.layoutIfNeeded()
+        })
+    }
+
+    func expandOrCollapse() {
+        if self.buyAndShareExpanded {
+            self.buyAndShareExpanded = !self.buyAndShareExpanded
+            self.collapse()
+        } else {
+            self.buyAndShareExpanded = !self.buyAndShareExpanded
+            self.expand()
+        }
+
+    }
+
+    @IBAction func buyButtonTapped(_ sender: Any) {
+        if let prodInfo = self.selectedProductInfo {
+            if let prodUrl = prodInfo.productBaseInfoV1?.productURL {
+                UIApplication.shared.openURL(URL(string: prodUrl)!)
+            }
+        }
+    }
+
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        if let image = self.cameraImageView.image {
+            let activityItems = [image]
+            let activityVC = UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil)
+            self.navigationController?.present(activityVC, animated: true, completion:nil)
+        } else {
+            let vc = UIAlertController.init(title: "Oops!", message: "You haven't clicked or selected an image. You don't want to share a blank image do you? :)", preferredStyle: .alert)
+            vc.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action: UIAlertAction) in
+
+            }))
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+
+    @IBAction func buyAndShareButtonTapped(_ sender: Any) {
+        self.expandOrCollapse()
+    }
+
+    // MARK: Tutorial Delegate
+    func hideTutorialTapped() {
+        (tutorialPageViewController?.view)!.removeFromSuperview()
+        if let tutorialView = tutorialPageViewController?.view {
+            tutorialView.isHidden = true
+        }
+    }
+
+    @IBAction func showTutorialTapped(_ sender: Any) {
+        self.setupAndShowTutorialController()
     }
 
 
@@ -553,8 +616,42 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
 
-
-
-
 }
+
+extension ViewController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        if let vc = viewController as? TutorialViewController {
+            if vc.index >= 2 {
+                return nil
+            }
+            let nextVC = TutorialViewController(nibName: "TutorialViewController", bundle: nil)
+            nextVC.delegate = self
+            nextVC.index = (vc.index + 1)
+            nextVC.tutorialImage = self.tutorialImages[nextVC.index]
+            return nextVC
+        }
+        return nil
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if let vc = viewController as? TutorialViewController {
+            if vc.index <= 0 {
+                return nil
+            }
+            let nextVC = TutorialViewController(nibName: "TutorialViewController", bundle: nil)
+            nextVC.delegate = self
+            nextVC.index = (vc.index - 1)
+            nextVC.tutorialImage = self.tutorialImages[nextVC.index]
+            return nextVC
+        }
+        return nil
+
+    }
+
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return 3
+    }
+}
+
+
 

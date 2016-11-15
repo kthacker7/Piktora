@@ -39,75 +39,13 @@ class ProductsCollectionViewController: UIViewController, UICollectionViewDataSo
 
         let nib = UINib(nibName: "PhotosCollectionViewCell", bundle: nil)
         productsCollectionView.register(nib, forCellWithReuseIdentifier: "PhotosCollectionViewCell")
-        self.loadImages()
-        self.loadCategories()
 
     }
 
-    func loadCategories() {
-        let connector = PiktoraConnector()
-        connector.get(endPoint: "api/iamdonkun.json", success: {(categoryList) in
-            self.getRelevantCategories(categoryList: categoryList)
-        })
-    }
 
-    func getRelevantCategories(categoryList: FKM_CategoryList) {
-        if let apiGroups = categoryList.apiGroups {
-            if let affiliate = apiGroups.affiliate {
-                if let apiListings = affiliate.apiListings {
-                    for listing in apiListings.values {
-                        if let apiName = listing.apiName {
-                            if self.supportedCategories.contains(apiName) && listing.availableVariants != nil && listing.availableVariants!["v1.1.0"] != nil {
-                                let variant = (listing.availableVariants!)["v1.1.0"]!
-                                self.relevantCategories.append(variant)
-                                if let categoryID = variant.getCategoryID() {
-                                    var removedFormatCID = categoryID
-                                    removedFormatCID = removedFormatCID.replacingOccurrences(of: ".json", with: "")
-                                    removedFormatCID = removedFormatCID.replacingOccurrences(of: ".xml", with: "")
-                                    self.relevantCategoryIDs.append(removedFormatCID)
-                                }
 
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    func loadImages() {
-        let images = [#imageLiteral(resourceName: "Accessories1"), #imageLiteral(resourceName: "Accessories2"), #imageLiteral(resourceName: "Accessories3"), #imageLiteral(resourceName: "Accessories4"), #imageLiteral(resourceName: "Furniture1"), #imageLiteral(resourceName: "Furniture2"), #imageLiteral(resourceName: "Furniture3"), #imageLiteral(resourceName: "Furniture4"), #imageLiteral(resourceName: "Furniture5"), #imageLiteral(resourceName: "Furniture6"), #imageLiteral(resourceName: "Glasses1"), #imageLiteral(resourceName: "Glasses2"), #imageLiteral(resourceName: "Glasses3"), #imageLiteral(resourceName: "Glasses4"), #imageLiteral(resourceName: "Watch1"), #imageLiteral(resourceName: "Watch2"), #imageLiteral(resourceName: "Watch3"), #imageLiteral(resourceName: "Watch4"), #imageLiteral(resourceName: "Watch5"), #imageLiteral(resourceName: "Watch6")]
-        var i = 0
-        while i < 20 {
-            let image = images[i]
-            productImages.append(image)
 
-            i += 1
-        }
-        let backgroundQueue = DispatchQueue.global(qos: .background)
-        backgroundQueue.async {
-            var imagesReplaced : [UIImage] = []
-            let cameraHelper = CameraHelper()
-            for image in images {
-                var copyImage = image
-                let (r,g,b,a,t) = image.getAverageOfCorners()
-                if a != 0 {
-                    copyImage = (cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t)))
-                    imagesReplaced.append(copyImage)
-                } else {
-                    imagesReplaced.append(image)
-                }
-            }
-            DispatchQueue.main.async {
-                self.productImages = imagesReplaced
-                self.productsCollectionView.reloadData()
-                self.imagesFiltered = true
-                if self.imageSelected {
-                    self.doneButton.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 149.0/255.0, blue: 218.0/255.0, alpha: 1.0)
-                }
-            }
-        }
-    }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

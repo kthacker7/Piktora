@@ -21,15 +21,20 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - ObjectMapper (2.1.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - ObjectMapper (~> 2.1)
+  - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 0a811548c0e7cd3058bdd43a4804f445906f8fe4
+PODFILE CHECKSUM: 0630da752037446c1cf165bdfdf2b11797e01283
 
 COCOAPODS: 1.0.1
