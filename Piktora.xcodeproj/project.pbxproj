@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30095C9D1DC7BFF9006D9F53 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30095C9B1DC7BFF9006D9F53 /* TutorialViewController.swift */; };
+		30095C9E1DC7BFF9006D9F53 /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30095C9C1DC7BFF9006D9F53 /* TutorialViewController.xib */; };
+		300ABAE51DBCF89200DAA7FB /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300ABAE41DBCF89200DAA7FB /* CategorySelectionViewController.swift */; };
 		301F183A1DA90E30000F4F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301F18341DA90E30000F4F77 /* Assets.xcassets */; };
-		301F183B1DA90E30000F4F77 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 301F18351DA90E30000F4F77 /* Info.plist */; };
 		301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18361DA90E30000F4F77 /* PhotosCollectionViewCell.swift */; };
 		301F183D1DA90E30000F4F77 /* PhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301F18371DA90E30000F4F77 /* PhotosCollectionViewCell.xib */; };
 		301F183E1DA90E30000F4F77 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18381DA90E30000F4F77 /* PreviewView.swift */; };
@@ -16,6 +18,17 @@
 		301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301F18401DA90E4F000F4F77 /* Camera.storyboard */; };
 		301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */; };
 		301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */; };
+		302FBC1A1DC23F960014FB8B /* ImageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */; };
+		302FBC1D1DC25CB70014FB8B /* FKM_FeedsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */; };
+		302FBC1F1DC25F1D0014FB8B /* FKM_ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */; };
+		302FBC211DC262330014FB8B /* FKM_ProductBaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC201DC262330014FB8B /* FKM_ProductBaseInfo.swift */; };
+		302FBC231DC266C10014FB8B /* FKM_Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC221DC266C10014FB8B /* FKM_Price.swift */; };
+		302FBC251DC26A910014FB8B /* FKM_ProductShippingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC241DC26A910014FB8B /* FKM_ProductShippingInfo.swift */; };
+		302FBC291DC35D880014FB8B /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC271DC35D880014FB8B /* ProductCollectionViewCell.swift */; };
+		302FBC2A1DC35D880014FB8B /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302FBC281DC35D880014FB8B /* ProductCollectionViewCell.xib */; };
+		303A9FA41DB7538800B855B1 /* FKM_CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */; };
+		304270FC1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304270FB1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift */; };
+		304DC57E1DB4927D0098054D /* PiktoraConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304DC57D1DB4927D0098054D /* PiktoraConnector.swift */; };
 		3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BB1D96998700A9078A /* UIImageExtension.swift */; };
 		3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3076E2BD1D9699E300A9078A /* UIColorExtension.swift */; };
 		3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390A1D7ECF2500A49653 /* AppDelegate.swift */; };
@@ -23,28 +36,35 @@
 		308139101D7ECF2500A49653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3081390E1D7ECF2500A49653 /* Main.storyboard */; };
 		308139121D7ECF2500A49653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 308139111D7ECF2500A49653 /* Assets.xcassets */; };
 		308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 308139131D7ECF2500A49653 /* LaunchScreen.storyboard */; };
-		3081391D1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3081391C1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png */; };
-		308139211D7EFA3A00A49653 /* ResizableUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 308139201D7EFA3A00A49653 /* ResizableUIView.m */; };
+		3098158C1DBCCD350071B4BC /* ProductSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3098158B1DBCCD350071B4BC /* ProductSelection.storyboard */; };
+		30984F491DCDFBF900B08B75 /* Piktora_Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 30984F481DCDFBF800B08B75 /* Piktora_Splash.png */; };
+		30995C921DC8E8760032CEF9 /* BuyAndShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30995C911DC8E8760032CEF9 /* BuyAndShareViewController.swift */; };
 		30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */; };
 		30A585201D846B1300F3DED1 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */; };
 		30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A585211D846B2700F3DED1 /* CustomOverlayView.swift */; };
-		30A585241D846EA800F3DED1 /* cameraImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A585231D846EA800F3DED1 /* cameraImage.png */; };
 		30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */; };
-		30A615F11D8561E000793EBA /* switchCameraImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F01D8561E000793EBA /* switchCameraImage.png */; };
-		30A615F31D8565A900793EBA /* flashImage.ico in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F21D8565A900793EBA /* flashImage.ico */; };
 		30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */; };
 		30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */; };
+		30D30E191DBCCF62004A86B2 /* WebsiteSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D30E181DBCCF62004A86B2 /* WebsiteSelectionViewController.swift */; };
+		30D30E1D1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D30E1B1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift */; };
+		30D30E1E1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D30E1C1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib */; };
 		30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E8A5361D83E74A00455EB1 /* CameraHelper.m */; };
-		30E8A5391D83EFA500455EB1 /* watchImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30E8A5381D83EFA500455EB1 /* watchImage.jpg */; };
 		30E8A53B1D83FA7100455EB1 /* OverlayWithImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */; };
 		30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */; };
+		30EB92A81DB75EA600EA9E2B /* FKM_APIGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92A71DB75EA600EA9E2B /* FKM_APIGroup.swift */; };
+		30EB92AA1DB75F4000EA9E2B /* FKM_Affiliate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92A91DB75F4000EA9E2B /* FKM_Affiliate.swift */; };
+		30EB92AC1DB7605F00EA9E2B /* FKM_APIListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92AB1DB7605F00EA9E2B /* FKM_APIListing.swift */; };
+		30EB92AE1DB761B600EA9E2B /* FKM_CategoryVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB92AD1DB761B600EA9E2B /* FKM_CategoryVariant.swift */; };
+		87F1CED166295FEE1AAF740C /* Pods_Piktora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A71B0939B5BA2386C9C3D847 /* Pods_Piktora.framework */; };
 		E95838F11D968E830031F10F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95838F01D968E830031F10F /* GoogleService-Info.plist */; };
 		E95838F31D968EE90031F10F /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95838F21D968EE90031F10F /* GoogleMobileAds.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30095C9B1DC7BFF9006D9F53 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		30095C9C1DC7BFF9006D9F53 /* TutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
+		300ABAE41DBCF89200DAA7FB /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
 		301F18341DA90E30000F4F77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		301F18351DA90E30000F4F77 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		301F18361DA90E30000F4F77 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		301F18371DA90E30000F4F77 /* PhotosCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosCollectionViewCell.xib; sourceTree = "<group>"; };
 		301F18381DA90E30000F4F77 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -52,6 +72,17 @@
 		301F18401DA90E4F000F4F77 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTCameraPickerDelegate.swift; sourceTree = "<group>"; };
 		301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewController.swift; sourceTree = "<group>"; };
+		302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectionViewController.swift; sourceTree = "<group>"; };
+		302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_FeedsResponse.swift; sourceTree = "<group>"; };
+		302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductInfo.swift; sourceTree = "<group>"; };
+		302FBC201DC262330014FB8B /* FKM_ProductBaseInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductBaseInfo.swift; sourceTree = "<group>"; };
+		302FBC221DC266C10014FB8B /* FKM_Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_Price.swift; sourceTree = "<group>"; };
+		302FBC241DC26A910014FB8B /* FKM_ProductShippingInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductShippingInfo.swift; sourceTree = "<group>"; };
+		302FBC271DC35D880014FB8B /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		302FBC281DC35D880014FB8B /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_CategoryList.swift; sourceTree = "<group>"; };
+		304270FB1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonCategorySelectionViewController.swift; sourceTree = "<group>"; };
+		304DC57D1DB4927D0098054D /* PiktoraConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiktoraConnector.swift; sourceTree = "<group>"; };
 		3076E2BB1D96998700A9078A /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		3076E2BD1D9699E300A9078A /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		308139071D7ECF2500A49653 /* Piktora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piktora.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,24 +92,30 @@
 		308139111D7ECF2500A49653 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		308139141D7ECF2500A49653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		308139161D7ECF2500A49653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3081391C1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tripadvisor_bullet_half_ico@1x.png"; sourceTree = "<group>"; };
 		3081391E1D7EFA3A00A49653 /* Camera Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Camera Test-Bridging-Header.h"; sourceTree = "<group>"; };
-		3081391F1D7EFA3A00A49653 /* ResizableUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizableUIView.h; sourceTree = "<group>"; };
-		308139201D7EFA3A00A49653 /* ResizableUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizableUIView.m; sourceTree = "<group>"; };
+		3098158B1DBCCD350071B4BC /* ProductSelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductSelection.storyboard; sourceTree = "<group>"; };
+		30984F481DCDFBF800B08B75 /* Piktora_Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Piktora_Splash.png; sourceTree = "<group>"; };
+		30995C911DC8E8760032CEF9 /* BuyAndShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyAndShareViewController.swift; sourceTree = "<group>"; };
 		30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
 		30A585211D846B2700F3DED1 /* CustomOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
-		30A585231D846EA800F3DED1 /* cameraImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraImage.png; sourceTree = "<group>"; };
 		30A615E91D85558600793EBA /* UIImage+ImageCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageCategory.h"; sourceTree = "<group>"; };
 		30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageCategory.m"; sourceTree = "<group>"; };
-		30A615F01D8561E000793EBA /* switchCameraImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCameraImage.png; sourceTree = "<group>"; };
-		30A615F21D8565A900793EBA /* flashImage.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = flashImage.ico; sourceTree = "<group>"; };
 		30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryImageAugmentViewController.swift; sourceTree = "<group>"; };
 		30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryImageAugmentViewController.xib; sourceTree = "<group>"; };
+		30D30E181DBCCF62004A86B2 /* WebsiteSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteSelectionViewController.swift; sourceTree = "<group>"; };
+		30D30E1B1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteTableViewCell.swift; sourceTree = "<group>"; };
+		30D30E1C1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebsiteTableViewCell.xib; sourceTree = "<group>"; };
 		30E8A5361D83E74A00455EB1 /* CameraHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraHelper.m; sourceTree = "<group>"; };
-		30E8A5381D83EFA500455EB1 /* watchImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = watchImage.jpg; sourceTree = "<group>"; };
 		30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayWithImageView.xib; sourceTree = "<group>"; };
 		30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayWithImageView.swift; sourceTree = "<group>"; };
+		30EB92A71DB75EA600EA9E2B /* FKM_APIGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_APIGroup.swift; sourceTree = "<group>"; };
+		30EB92A91DB75F4000EA9E2B /* FKM_Affiliate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_Affiliate.swift; sourceTree = "<group>"; };
+		30EB92AB1DB7605F00EA9E2B /* FKM_APIListing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_APIListing.swift; sourceTree = "<group>"; };
+		30EB92AD1DB761B600EA9E2B /* FKM_CategoryVariant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_CategoryVariant.swift; sourceTree = "<group>"; };
+		A71B0939B5BA2386C9C3D847 /* Pods_Piktora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Piktora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2A67724BF89E9320E16ED57 /* Pods-Piktora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piktora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Piktora/Pods-Piktora.debug.xcconfig"; sourceTree = "<group>"; };
+		CC2E98D00AF9E1C73D03449A /* Pods-Piktora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piktora.release.xcconfig"; path = "Pods/Target Support Files/Pods-Piktora/Pods-Piktora.release.xcconfig"; sourceTree = "<group>"; };
 		E95838F01D968E830031F10F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E95838F21D968EE90031F10F /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,25 +126,216 @@
 			buildActionMask = 2147483647;
 			files = (
 				E95838F31D968EE90031F10F /* GoogleMobileAds.framework in Frameworks */,
+				87F1CED166295FEE1AAF740C /* Pods_Piktora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30095C9A1DC7BFD8006D9F53 /* TutorialController */ = {
+			isa = PBXGroup;
+			children = (
+				30095C9B1DC7BFF9006D9F53 /* TutorialViewController.swift */,
+				30095C9C1DC7BFF9006D9F53 /* TutorialViewController.xib */,
+			);
+			name = TutorialController;
+			sourceTree = "<group>";
+		};
 		301F18331DA90E1D000F4F77 /* KTCameraOverlay */ = {
 			isa = PBXGroup;
 			children = (
 				301F18341DA90E30000F4F77 /* Assets.xcassets */,
-				301F18351DA90E30000F4F77 /* Info.plist */,
+				304DC56F1DB2B4590098054D /* Views */,
+				304DC5731DB2B4A40098054D /* Controllers */,
+			);
+			name = KTCameraOverlay;
+			sourceTree = "<group>";
+		};
+		302FBC1B1DC25C880014FB8B /* FKM_FeedsResponse */ = {
+			isa = PBXGroup;
+			children = (
+				302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */,
+				302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */,
+				302FBC201DC262330014FB8B /* FKM_ProductBaseInfo.swift */,
+				302FBC221DC266C10014FB8B /* FKM_Price.swift */,
+				302FBC241DC26A910014FB8B /* FKM_ProductShippingInfo.swift */,
+			);
+			name = FKM_FeedsResponse;
+			sourceTree = "<group>";
+		};
+		302FBC261DC35D580014FB8B /* ProductCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				302FBC271DC35D880014FB8B /* ProductCollectionViewCell.swift */,
+				302FBC281DC35D880014FB8B /* ProductCollectionViewCell.xib */,
+			);
+			name = ProductCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		303A9FA21DB752E000B855B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				302FBC1B1DC25C880014FB8B /* FKM_FeedsResponse */,
+				303A9FA51DB7539200B855B1 /* FKM_CategoryResponse */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		303A9FA51DB7539200B855B1 /* FKM_CategoryResponse */ = {
+			isa = PBXGroup;
+			children = (
+				303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */,
+				30EB92A71DB75EA600EA9E2B /* FKM_APIGroup.swift */,
+				30EB92A91DB75F4000EA9E2B /* FKM_Affiliate.swift */,
+				30EB92AB1DB7605F00EA9E2B /* FKM_APIListing.swift */,
+				30EB92AD1DB761B600EA9E2B /* FKM_CategoryVariant.swift */,
+			);
+			name = FKM_CategoryResponse;
+			sourceTree = "<group>";
+		};
+		304270F81DE06E8100FB2EE3 /* FlipkartSelectionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				300ABAE41DBCF89200DAA7FB /* CategorySelectionViewController.swift */,
+				302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */,
+			);
+			name = FlipkartSelectionControllers;
+			sourceTree = "<group>";
+		};
+		304270F91DE06EA800FB2EE3 /* AmazonSelectionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				304270FB1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift */,
+			);
+			name = AmazonSelectionControllers;
+			sourceTree = "<group>";
+		};
+		304DC56F1DB2B4590098054D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				304DC5711DB2B47E0098054D /* Storyboards */,
+				304DC5721DB2B4890098054D /* CustomViews */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		304DC5701DB2B4710098054D /* PhotosCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
 				301F18361DA90E30000F4F77 /* PhotosCollectionViewCell.swift */,
-				301F18401DA90E4F000F4F77 /* Camera.storyboard */,
 				301F18371DA90E30000F4F77 /* PhotosCollectionViewCell.xib */,
+			);
+			name = PhotosCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		304DC5711DB2B47E0098054D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				301F18401DA90E4F000F4F77 /* Camera.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		304DC5721DB2B4890098054D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				304DC5701DB2B4710098054D /* PhotosCollectionViewCell */,
 				301F18381DA90E30000F4F77 /* PreviewView.swift */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
+		304DC5731DB2B4A40098054D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				301F18391DA90E30000F4F77 /* CameraViewController.swift */,
 				301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */,
 			);
-			name = KTCameraOverlay;
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		304DC5741DB2B4C50098054D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				304DC5751DB2B5320098054D /* Storyboards */,
+				304DC5761DB2B54F0098054D /* CustomViews */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		304DC5751DB2B5320098054D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				308139131D7ECF2500A49653 /* LaunchScreen.storyboard */,
+				3081390E1D7ECF2500A49653 /* Main.storyboard */,
+				3098158B1DBCCD350071B4BC /* ProductSelection.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		304DC5761DB2B54F0098054D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				302FBC261DC35D580014FB8B /* ProductCollectionViewCell */,
+				30D30E1A1DBCD090004A86B2 /* WebsiteTableViewCell */,
+				304DC5771DB2B5580098054D /* OverlayWithImageView */,
+				304DC5781DB2B5620098054D /* OverlayViewController */,
+				304DC5791DB2B56D0098054D /* GalleryImageAugmentViewController */,
+				30A585211D846B2700F3DED1 /* CustomOverlayView.swift */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
+		304DC5771DB2B5580098054D /* OverlayWithImageView */ = {
+			isa = PBXGroup;
+			children = (
+				30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */,
+				30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */,
+			);
+			name = OverlayWithImageView;
+			sourceTree = "<group>";
+		};
+		304DC5781DB2B5620098054D /* OverlayViewController */ = {
+			isa = PBXGroup;
+			children = (
+				30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */,
+				30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */,
+			);
+			name = OverlayViewController;
+			sourceTree = "<group>";
+		};
+		304DC5791DB2B56D0098054D /* GalleryImageAugmentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */,
+				30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */,
+			);
+			name = GalleryImageAugmentViewController;
+			sourceTree = "<group>";
+		};
+		304DC57A1DB2B5910098054D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				30995C901DC8E1E40032CEF9 /* MainControllers */,
+				30095C9A1DC7BFD8006D9F53 /* TutorialController */,
+				30D30E171DBCCEFD004A86B2 /* Product_Selection_Controllers */,
+				301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		304DC57C1DB2B5BB0098054D /* Helpers and extensions */ = {
+			isa = PBXGroup;
+			children = (
+				30E8A5361D83E74A00455EB1 /* CameraHelper.m */,
+				30A615E91D85558600793EBA /* UIImage+ImageCategory.h */,
+				30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */,
+				3076E2BB1D96998700A9078A /* UIImageExtension.swift */,
+				3076E2BD1D9699E300A9078A /* UIColorExtension.swift */,
+				304DC57D1DB4927D0098054D /* PiktoraConnector.swift */,
+			);
+			name = "Helpers and extensions";
 			sourceTree = "<group>";
 		};
 		308138FE1D7ECF2500A49653 = {
@@ -118,6 +346,8 @@
 				E95838F21D968EE90031F10F /* GoogleMobileAds.framework */,
 				308139091D7ECF2500A49653 /* Camera Test */,
 				308139081D7ECF2500A49653 /* Products */,
+				F5ED5805878A987728735E8B /* Pods */,
+				93608C3EC6308E6E3F31276F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,35 +362,62 @@
 		308139091D7ECF2500A49653 /* Camera Test */ = {
 			isa = PBXGroup;
 			children = (
-				30E8A5361D83E74A00455EB1 /* CameraHelper.m */,
+				304DC57C1DB2B5BB0098054D /* Helpers and extensions */,
+				303A9FA21DB752E000B855B1 /* Models */,
+				304DC5741DB2B4C50098054D /* Views */,
+				304DC57A1DB2B5910098054D /* Controllers */,
 				3081390A1D7ECF2500A49653 /* AppDelegate.swift */,
-				3081390C1D7ECF2500A49653 /* ViewController.swift */,
-				3081390E1D7ECF2500A49653 /* Main.storyboard */,
-				308139111D7ECF2500A49653 /* Assets.xcassets */,
-				3081391C1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png */,
-				308139131D7ECF2500A49653 /* LaunchScreen.storyboard */,
-				308139161D7ECF2500A49653 /* Info.plist */,
-				3081391F1D7EFA3A00A49653 /* ResizableUIView.h */,
-				308139201D7EFA3A00A49653 /* ResizableUIView.m */,
 				3081391E1D7EFA3A00A49653 /* Camera Test-Bridging-Header.h */,
-				30E8A5381D83EFA500455EB1 /* watchImage.jpg */,
-				30E8A53A1D83FA7100455EB1 /* OverlayWithImageView.xib */,
-				30E8A53C1D83FB4E00455EB1 /* OverlayWithImageView.swift */,
-				30A5851D1D846B1300F3DED1 /* OverlayViewController.swift */,
-				30A5851E1D846B1300F3DED1 /* OverlayViewController.xib */,
-				30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */,
-				30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */,
-				30A585211D846B2700F3DED1 /* CustomOverlayView.swift */,
-				30A585231D846EA800F3DED1 /* cameraImage.png */,
-				30A615E91D85558600793EBA /* UIImage+ImageCategory.h */,
-				30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */,
-				30A615F01D8561E000793EBA /* switchCameraImage.png */,
-				30A615F21D8565A900793EBA /* flashImage.ico */,
-				3076E2BB1D96998700A9078A /* UIImageExtension.swift */,
-				3076E2BD1D9699E300A9078A /* UIColorExtension.swift */,
-				301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */,
+				308139111D7ECF2500A49653 /* Assets.xcassets */,
+				308139161D7ECF2500A49653 /* Info.plist */,
+				30984F481DCDFBF800B08B75 /* Piktora_Splash.png */,
 			);
 			path = "Camera Test";
+			sourceTree = "<group>";
+		};
+		30995C901DC8E1E40032CEF9 /* MainControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3081390C1D7ECF2500A49653 /* ViewController.swift */,
+				30995C911DC8E8760032CEF9 /* BuyAndShareViewController.swift */,
+			);
+			name = MainControllers;
+			sourceTree = "<group>";
+		};
+		30D30E171DBCCEFD004A86B2 /* Product_Selection_Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				304270F91DE06EA800FB2EE3 /* AmazonSelectionControllers */,
+				30D30E181DBCCF62004A86B2 /* WebsiteSelectionViewController.swift */,
+				304270F81DE06E8100FB2EE3 /* FlipkartSelectionControllers */,
+			);
+			name = Product_Selection_Controllers;
+			sourceTree = "<group>";
+		};
+		30D30E1A1DBCD090004A86B2 /* WebsiteTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				30D30E1B1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift */,
+				30D30E1C1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib */,
+			);
+			name = WebsiteTableViewCell;
+			sourceTree = "<group>";
+		};
+		93608C3EC6308E6E3F31276F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A71B0939B5BA2386C9C3D847 /* Pods_Piktora.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5ED5805878A987728735E8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2A67724BF89E9320E16ED57 /* Pods-Piktora.debug.xcconfig */,
+				CC2E98D00AF9E1C73D03449A /* Pods-Piktora.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,9 +427,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 308139191D7ECF2500A49653 /* Build configuration list for PBXNativeTarget "Piktora" */;
 			buildPhases = (
+				591B77F9837F9839983B470F /* [CP] Check Pods Manifest.lock */,
 				308139031D7ECF2500A49653 /* Sources */,
 				308139041D7ECF2500A49653 /* Frameworks */,
 				308139051D7ECF2500A49653 /* Resources */,
+				45F678047D8A91FAB2CBA3FB /* [CP] Embed Pods Frameworks */,
+				2F6009F9A650DE2BBE076E9F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,7 +450,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Kunal Thacker";
 				TargetAttributes = {
 					308139061D7ECF2500A49653 = {
@@ -224,48 +484,113 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3081391D1D7EE9CE00A49653 /* tripadvisor_bullet_half_ico@1x.png in Resources */,
-				30A615F11D8561E000793EBA /* switchCameraImage.png in Resources */,
 				30A585201D846B1300F3DED1 /* OverlayViewController.xib in Resources */,
-				30A615F31D8565A900793EBA /* flashImage.ico in Resources */,
 				30E8A53B1D83FA7100455EB1 /* OverlayWithImageView.xib in Resources */,
 				E95838F11D968E830031F10F /* GoogleService-Info.plist in Resources */,
 				301F183D1DA90E30000F4F77 /* PhotosCollectionViewCell.xib in Resources */,
-				301F183B1DA90E30000F4F77 /* Info.plist in Resources */,
+				3098158C1DBCCD350071B4BC /* ProductSelection.storyboard in Resources */,
 				301F183A1DA90E30000F4F77 /* Assets.xcassets in Resources */,
-				30E8A5391D83EFA500455EB1 /* watchImage.jpg in Resources */,
+				30984F491DCDFBF900B08B75 /* Piktora_Splash.png in Resources */,
 				308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */,
 				301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */,
 				308139121D7ECF2500A49653 /* Assets.xcassets in Resources */,
+				302FBC2A1DC35D880014FB8B /* ProductCollectionViewCell.xib in Resources */,
+				30D30E1E1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib in Resources */,
 				30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */,
-				30A585241D846EA800F3DED1 /* cameraImage.png in Resources */,
+				30095C9E1DC7BFF9006D9F53 /* TutorialViewController.xib in Resources */,
 				308139101D7ECF2500A49653 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2F6009F9A650DE2BBE076E9F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Piktora/Pods-Piktora-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45F678047D8A91FAB2CBA3FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Piktora/Pods-Piktora-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		591B77F9837F9839983B470F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		308139031D7ECF2500A49653 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30EB92AC1DB7605F00EA9E2B /* FKM_APIListing.swift in Sources */,
 				301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */,
 				301F183E1DA90E30000F4F77 /* PreviewView.swift in Sources */,
 				3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */,
-				308139211D7EFA3A00A49653 /* ResizableUIView.m in Sources */,
+				302FBC291DC35D880014FB8B /* ProductCollectionViewCell.swift in Sources */,
+				302FBC251DC26A910014FB8B /* FKM_ProductShippingInfo.swift in Sources */,
+				303A9FA41DB7538800B855B1 /* FKM_CategoryList.swift in Sources */,
+				302FBC211DC262330014FB8B /* FKM_ProductBaseInfo.swift in Sources */,
 				30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */,
+				30EB92AE1DB761B600EA9E2B /* FKM_CategoryVariant.swift in Sources */,
+				30095C9D1DC7BFF9006D9F53 /* TutorialViewController.swift in Sources */,
 				301F183F1DA90E30000F4F77 /* CameraViewController.swift in Sources */,
 				3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */,
+				30995C921DC8E8760032CEF9 /* BuyAndShareViewController.swift in Sources */,
+				304DC57E1DB4927D0098054D /* PiktoraConnector.swift in Sources */,
 				30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */,
 				301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */,
 				301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */,
 				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
 				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
+				302FBC1D1DC25CB70014FB8B /* FKM_FeedsResponse.swift in Sources */,
+				30EB92AA1DB75F4000EA9E2B /* FKM_Affiliate.swift in Sources */,
+				30D30E1D1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift in Sources */,
 				30E8A53D1D83FB4E00455EB1 /* OverlayWithImageView.swift in Sources */,
 				3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */,
+				304270FC1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift in Sources */,
+				300ABAE51DBCF89200DAA7FB /* CategorySelectionViewController.swift in Sources */,
+				302FBC231DC266C10014FB8B /* FKM_Price.swift in Sources */,
 				3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */,
+				302FBC1A1DC23F960014FB8B /* ImageSelectionViewController.swift in Sources */,
+				302FBC1F1DC25F1D0014FB8B /* FKM_ProductInfo.swift in Sources */,
 				30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */,
+				30EB92A81DB75EA600EA9E2B /* FKM_APIGroup.swift in Sources */,
+				30D30E191DBCCF62004A86B2 /* WebsiteSelectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +713,9 @@
 		};
 		3081391A1D7ECF2500A49653 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2A67724BF89E9320E16ED57 /* Pods-Piktora.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -406,12 +733,15 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		3081391B1D7ECF2500A49653 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC2E98D00AF9E1C73D03449A /* Pods-Piktora.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -427,7 +757,9 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCollectionViewCell" id="gTV-IL-0wX" customClass="ProductCollectionViewCell" customModule="Piktora" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="366"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="230" height="366"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAG-aF-7bW">
+                        <rect key="frame" x="5" y="5" width="220" height="356"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G1b-c1-vdA">
+                        <rect key="frame" x="10" y="10" width="210" height="210"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="G1b-c1-vdA" secondAttribute="height" multiplier="1:1" id="kQ9-mH-aT7"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Apple iPhone 6 (Space Grey with steel cover)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RK-6T-Chg">
+                        <rect key="frame" x="10" y="230" width="210" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsb-3l-sKB">
+                        <rect key="frame" x="10" y="274" width="210" height="17"/>
+                        <attributedString key="attributedText">
+                            <fragment content="Rs. 20,000 Rs. 15,000 (-25%)">
+                                <attributes>
+                                    <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNr-AA-ZAQ">
+                        <rect key="frame" x="15" y="301" width="200" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="FNr-AA-ZAQ" secondAttribute="height" multiplier="7:1" id="BZk-IN-xwu"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="BuyFromFlipkart"/>
+                        <connections>
+                            <action selector="buyButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="EWL-Zk-tMb"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.3921568627" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="dsb-3l-sKB" firstAttribute="top" secondItem="7RK-6T-Chg" secondAttribute="bottom" constant="10" id="9dq-NH-BsF"/>
+                <constraint firstItem="dsb-3l-sKB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="9rH-Qj-GC0"/>
+                <constraint firstItem="KAG-aF-7bW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="AiP-UD-Tmy"/>
+                <constraint firstItem="FNr-AA-ZAQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KAG-aF-7bW" secondAttribute="trailing" constant="-10" id="Cwh-9N-2rI"/>
+                <constraint firstItem="KAG-aF-7bW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="F4r-dM-tcm"/>
+                <constraint firstItem="FNr-AA-ZAQ" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="FU1-om-XGy"/>
+                <constraint firstAttribute="trailing" secondItem="KAG-aF-7bW" secondAttribute="trailing" constant="5" id="VL1-VX-0ve"/>
+                <constraint firstItem="FNr-AA-ZAQ" firstAttribute="top" secondItem="dsb-3l-sKB" secondAttribute="bottom" constant="10" id="ZcB-ul-k4m"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FNr-AA-ZAQ" secondAttribute="bottom" constant="10" id="ZpY-Br-Auc"/>
+                <constraint firstAttribute="trailing" secondItem="G1b-c1-vdA" secondAttribute="trailing" constant="10" id="dZh-wU-hX0"/>
+                <constraint firstItem="G1b-c1-vdA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="duV-gv-gNh"/>
+                <constraint firstItem="7RK-6T-Chg" firstAttribute="trailing" secondItem="dsb-3l-sKB" secondAttribute="trailing" id="fEh-7S-sfi"/>
+                <constraint firstItem="G1b-c1-vdA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="gBl-Vf-dBe"/>
+                <constraint firstItem="7RK-6T-Chg" firstAttribute="leading" secondItem="dsb-3l-sKB" secondAttribute="leading" id="kur-vY-fer"/>
+                <constraint firstItem="7RK-6T-Chg" firstAttribute="top" secondItem="G1b-c1-vdA" secondAttribute="bottom" constant="10" id="nXi-zF-Ql3"/>
+                <constraint firstAttribute="bottom" secondItem="KAG-aF-7bW" secondAttribute="bottom" constant="5" id="nYf-sq-gCI"/>
+                <constraint firstAttribute="trailing" secondItem="dsb-3l-sKB" secondAttribute="trailing" constant="10" id="ukh-IB-beJ"/>
+                <constraint firstItem="FNr-AA-ZAQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="xWc-jB-OvA"/>
+            </constraints>
+            <size key="customSize" width="228" height="409"/>
+            <connections>
+                <outlet property="productImageView" destination="G1b-c1-vdA" id="FW4-Ly-ilc"/>
+                <outlet property="productNameLabel" destination="7RK-6T-Chg" id="a3A-Ze-nF1"/>
+                <outlet property="productPriceLabel" destination="dsb-3l-sKB" id="KUl-nB-aDc"/>
+            </connections>
+            <point key="canvasLocation" x="123" y="289.5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="BuyFromFlipkart" width="175" height="25"/>
+    </resources>
+</document>
