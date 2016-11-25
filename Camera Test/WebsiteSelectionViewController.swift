@@ -10,13 +10,14 @@ import UIKit
 
 enum PK_Website : String {
     case FlipKart = "FlipKart"
+    case Amazon = "Amazon"
     case Gallery = ""
 }
 
 class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WebsiteTableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
 
-    let websites: [PK_Website] = [.FlipKart, .Gallery]
+    let websites: [PK_Website] = [.FlipKart, .Amazon, .Gallery]
     var flipkartCategoryList : FKM_CategoryList?
 
     var selectedWebsite: PK_Website?
@@ -30,6 +31,7 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Choose products from . . "
         let nib = UINib(nibName: "WebsiteTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "WebsiteTableViewCell")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(WebsiteSelectionViewController.backButtonTapped))
@@ -73,11 +75,14 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableView.frame.size.height / 2
+        return self.tableView.frame.size.height / CGFloat(websites.count)
     }
 
     func getImage(website: PK_Website) -> UIImage {
-        return #imageLiteral(resourceName: "FlipkartLogo")
+        if website == .FlipKart {
+            return #imageLiteral(resourceName: "FlipkartLogo")
+        }
+        return #imageLiteral(resourceName: "AmazonLogo")
     }
 
     // MARK: Table View Delegate
@@ -94,10 +99,7 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
                 imagePicker.delegate = self
                 self.present(imagePicker, animated: true, completion: nil)
             }))
-
             self.present(alert, animated: false, completion: nil)
-
-
         }
     }
 
@@ -137,6 +139,13 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
             vc.parentVC = self.parentVC
             vc.apiResponse = self.flipkartCategoryList
             vc.website = self.selectedWebsite
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if website == .Amazon {
+            let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "AmazonCategorySelectionViewController") as! AmazonCategorySelectionViewController
+//            vc.parentVC = self.parentVC
+//            vc.apiResponse = self.flipkartCategoryList
+//            vc.website = self.selectedWebsite
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

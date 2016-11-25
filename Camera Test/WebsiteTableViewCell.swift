@@ -40,6 +40,8 @@ class WebsiteTableViewCell: UITableViewCell {
             var website: PK_Website?
             if indexPath?.row == 0 {
                 website = .FlipKart
+            } else if indexPath?.row == 1{
+                website = .Amazon
             } else {
                 website = .Gallery
             }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FlipkartBuyButtonDelegate {
 
@@ -35,6 +36,9 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
         layout.minimumInteritemSpacing = 0.0
         layout.itemSize = CGSize(width: self.view.frame.size.width / 2 , height: self.view.frame.size.height / 2)
         self.collectionView.collectionViewLayout = layout
+        if #available(iOS 10.0, *) {
+            self.collectionView.prefetchDataSource = self
+        }
         self.activityIndicator.isHidden = true
         activityIndicator.center = self.view.center
         self.view.addSubview(activityIndicator)
@@ -203,5 +207,28 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension ImageSelectionViewController: UICollectionViewDataSourcePrefetching {
+
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
+                if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
+                    if prodInfo.productBaseInfoV1?.imageUrls != nil {
+                        let url = self.getImageUrl(urls: (prodInfo.productBaseInfoV1?.imageUrls)!)
+                        if url != "" {
+                            let _ = SDWebImageDownloader.shared().downloadImage(with: URL(string: url)!, options: .lowPriority, progress: { (_, _) in
+
+                            }, completed: { (_, _, _, _) in
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
 }

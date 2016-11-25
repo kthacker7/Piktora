@@ -64,6 +64,8 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     var captureConnection : AVCaptureConnection?
     var flashMode : AVCaptureFlashMode = AVCaptureFlashMode.auto
     var devicePosition : AVCaptureDevicePosition = AVCaptureDevicePosition.back
+    var toSetFlash = false
+    var toSetTorch = false
     @IBOutlet var flashView: UIView!
     var imageCaptured = false
     var setupComplete = false
@@ -251,8 +253,20 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
             if let cameraDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) {
                 defaultVideoDevice = cameraDevice
                 self.devicePosition = cameraDevice.position
+                self.toSetFlash = cameraDevice.hasFlash
+                self.toSetTorch = cameraDevice.hasTorch
+            }
+            if self.toSetFlash {
+                self.torchButton.isHidden = false
+            } else {
+                self.torchButton.isHidden = true
             }
 
+            if self.toSetFlash {
+                self.flashButton.isHidden = false
+            } else {
+                self.flashButton.isHidden = true
+            }
 
 
             let videoDeviceInput = try AVCaptureDeviceInput(device: defaultVideoDevice)

@@ -22,7 +22,6 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let count = self.apiResponse?.apiGroups?.affiliate?.apiListings?.count
         if count == nil || count! == 0 {
             self.tableView.isHidden = true

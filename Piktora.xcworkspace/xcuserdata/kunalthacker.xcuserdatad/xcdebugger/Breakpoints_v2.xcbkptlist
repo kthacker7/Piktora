@@ -4,36 +4,18 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CameraViewController.swift"
-            timestampString = "500741782.608445"
+            filePath = "Camera Test/PiktoraConnector.swift"
+            timestampString = "501408943.037678"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "capturePhoto(_:)"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "generateUrlWithSignature(params:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -43,59 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camera Test/FKM_CategoryList.swift"
-            timestampString = "500228605.301423"
+            filePath = "Camera Test/PiktoraConnector.swift"
+            timestampString = "501485704.281327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1"
-            endingLineNumber = "1">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Piktora.FKM_CategoryList.__deallocating_deinit"
-                  moduleName = "Piktora"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kunalthacker/camera-augmenter/Camera%20Test/FKM_CategoryList.swift"
-                  timestampString = "500755839.86793"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Piktora.FKM_CategoryList.deinit"
-                  moduleName = "Piktora"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kunalthacker/camera-augmenter/Camera%20Test/FKM_CategoryList.swift"
-                  timestampString = "500755839.869988"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Camera Test/BuyAndShareViewController.swift"
-            timestampString = "500754102.483083"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "handleRatingRequest()"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "generateUrlWithSignature(params:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camera Test/ImageSelectionViewController.swift"
-            timestampString = "500755838.486461"
+            filePath = "Camera Test/PiktoraConnector.swift"
+            timestampString = "501487130.265792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "filterFeedsResponse(feedsResponse:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "browseNodeLookupForNodeID(nodeID:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -4,3 +4,4 @@
 
 #import "CameraHelper.m"
 #import "UIImage+ImageCategory.h"
+#import <CommonCrypto/CommonHMAC.h>

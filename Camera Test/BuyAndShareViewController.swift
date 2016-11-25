@@ -284,6 +284,7 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
         if let image = self.overlayedImageView.image {
             let activityItems = [image]
             let activityVC = UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = self.view
             self.navigationController?.present(activityVC, animated: true, completion:nil)
         } else {
             let vc = UIAlertController.init(title: "Oops!", message: "You haven't clicked or selected an image. You don't want to share a blank image do you? :)", preferredStyle: .alert)
