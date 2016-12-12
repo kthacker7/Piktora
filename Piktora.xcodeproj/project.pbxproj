@@ -319,7 +319,7 @@
 			children = (
 				30995C901DC8E1E40032CEF9 /* MainControllers */,
 				30095C9A1DC7BFD8006D9F53 /* TutorialController */,
-				30D30E171DBCCEFD004A86B2 /* Product_Selection_Controllers */,
+				30D30E171DBCCEFD004A86B2 /* ProductSelectionControllers */,
 				301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */,
 			);
 			name = Controllers;
@@ -344,7 +344,7 @@
 				301F18331DA90E1D000F4F77 /* KTCameraOverlay */,
 				E95838F01D968E830031F10F /* GoogleService-Info.plist */,
 				E95838F21D968EE90031F10F /* GoogleMobileAds.framework */,
-				308139091D7ECF2500A49653 /* Camera Test */,
+				308139091D7ECF2500A49653 /* Piktora */,
 				308139081D7ECF2500A49653 /* Products */,
 				F5ED5805878A987728735E8B /* Pods */,
 				93608C3EC6308E6E3F31276F /* Frameworks */,
@@ -359,7 +359,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		308139091D7ECF2500A49653 /* Camera Test */ = {
+		308139091D7ECF2500A49653 /* Piktora */ = {
 			isa = PBXGroup;
 			children = (
 				304DC57C1DB2B5BB0098054D /* Helpers and extensions */,
@@ -372,6 +372,7 @@
 				308139161D7ECF2500A49653 /* Info.plist */,
 				30984F481DCDFBF800B08B75 /* Piktora_Splash.png */,
 			);
+			name = Piktora;
 			path = "Camera Test";
 			sourceTree = "<group>";
 		};
@@ -384,14 +385,14 @@
 			name = MainControllers;
 			sourceTree = "<group>";
 		};
-		30D30E171DBCCEFD004A86B2 /* Product_Selection_Controllers */ = {
+		30D30E171DBCCEFD004A86B2 /* ProductSelectionControllers */ = {
 			isa = PBXGroup;
 			children = (
 				304270F91DE06EA800FB2EE3 /* AmazonSelectionControllers */,
 				30D30E181DBCCF62004A86B2 /* WebsiteSelectionViewController.swift */,
 				304270F81DE06E8100FB2EE3 /* FlipkartSelectionControllers */,
 			);
-			name = Product_Selection_Controllers;
+			name = ProductSelectionControllers;
 			sourceTree = "<group>";
 		};
 		30D30E1A1DBCD090004A86B2 /* WebsiteTableViewCell */ = {
@@ -757,7 +758,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

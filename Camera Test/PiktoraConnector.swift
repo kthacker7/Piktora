@@ -20,7 +20,7 @@ class PiktoraConnector {
 
         let params = self.getRequestParams(website: .FlipKart)
         let configs = URLSessionConfiguration.default
-        configs.httpAdditionalHeaders = params as? [AnyHashable : Any]
+        configs.httpAdditionalHeaders = params
 
         let sessionManager = AFHTTPSessionManager.init(baseURL: nil, sessionConfiguration: configs)
 
@@ -47,7 +47,7 @@ class PiktoraConnector {
     func getProducts(urlString: String, success:@escaping (FKM_FeedsResponse) -> (), failure: @escaping (Error) -> ()) {
         let params = self.getRequestParams(website: .FlipKart)
         let configs = URLSessionConfiguration.default
-        configs.httpAdditionalHeaders = params as? [AnyHashable : Any]
+        configs.httpAdditionalHeaders = params
 
         let sessionManager = AFHTTPSessionManager.init(baseURL: nil, sessionConfiguration: configs)
 
@@ -70,7 +70,7 @@ class PiktoraConnector {
 
     }
 
-    func getRequestParams(website: PK_Website) -> NSMutableDictionary {
+    func getRequestParams(website: PK_Website) -> [AnyHashable : Any] {
         if website == .FlipKart {
             return ["Fk-Affiliate-Id" : "iamdonkun", "Fk-Affiliate-Token" : "0097bb5fbf0747549338f328e5a6201a"]
         } else {
@@ -82,7 +82,7 @@ class PiktoraConnector {
 
     func browseNodeLookupForNodeID(nodeID: String, success:@escaping () -> (), failure: @escaping (Error) -> ()) {
 
-        let commonParams = self.getRequestParams(website: .Amazon)
+        let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon)) 
         commonParams.setValue("BrowseNodeLookup", forKey: "Operation")
         commonParams.setValue(nodeID, forKey: "BrowseNodeId")
         commonParams.setValue("BrowseNodeInfo", forKey: "ResponseGroup")
@@ -147,37 +147,6 @@ class PiktoraConnector {
             signedURL += "Signature=" + signature
         }
         return signedURL
-    }
-
-//    private func signedParametersForParameters(parameters: [String: String]) -> [String: String] {
-//        let sortedKeys = Array(parameters.keys).sorted(by: <)
-//
-//        var components: [(String, String)] = []
-//        for key in sortedKeys {
-//            
-//            components += ParameterEncoding.URLEncodedInURL.queryComponents(key, parameters[key]!)
-//        }
-//
-//        let query = (components.map { "\($0)=\($1)" } as [String]).joined(separator: "&")
-//
-//        let stringToSign = "GET\nwebservices.amazon.com\n/onca/xml\n\(query)"
-//        let dataToSign = stringToSign.data(using: String.Encoding.utf8)
-//        let signature = AWSSignatureSignerUtility.hmacSign(dataToSign, withKey: self.AWSSecretKey, usingAlgorithm: UInt32(kCCHmacAlgSHA256))!
-//        var params2 = parameters
-//        params2.updateValue(signature, forKey: "Signature")
-//        let signedParams = params2
-//        
-//        return signedParams
-//    }
-
-    private func hmac(string: NSString, key: NSData) -> NSData {
-        let keyBytes = key.bytes
-        let data = string.cString(using: String.Encoding.utf8.rawValue)
-        let dataLen = Int(string.lengthOfBytes(using: String.Encoding.utf8.rawValue))
-        let digestLen = Int(CC_SHA256_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
-        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyBytes, key.length, data, dataLen, result);
-        return NSData(bytes: result, length: digestLen)
     }
 }
 

@@ -27,21 +27,15 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
     var delegate: ProductsCollectionViewDelegate? = nil
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var greyView: UIView!
+    
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Choose products from . . "
-        let nib = UINib(nibName: "WebsiteTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "WebsiteTableViewCell")
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(WebsiteSelectionViewController.backButtonTapped))
+        self.registerNibs()
+        self.setupUI()
         self.loadCategories()
-        self.tableView.backgroundColor = UIColor.black
-//        self.view.backgroundColor = UIColor.init(colorLiteralRed: 100.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0)
-//        self.navigationController?.navigationBar.backgroundColor = UIColor.init(colorLiteralRed: 100.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0)
-        self.activityIndicator.isHidden = true
-        activityIndicator.center = self.view.center
-        self.view.addSubview(activityIndicator)
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,7 +82,7 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: Table View Delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 {
+        if indexPath.row == 2 {
             let alert = UIAlertController(title: "Tip", message: "For best results, please select a product with a uniformly colored background, with no alternate objects!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
                 alert.dismiss(animated: false, completion: nil)
@@ -124,9 +118,10 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
 
     func didSelectWebsite(website: PK_Website) {
         self.selectedWebsite = website
-        if self.flipkartCategoryList != nil {
+        if self.flipkartCategoryList != nil || website == .Amazon {
             self.goToWebsite(website: website)
         } else {
+            self.greyView.isHidden = false
             self.activityIndicator.isHidden = false
             self.isActivityIndicatorAnimating = true
         }
@@ -143,15 +138,26 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
         } else if website == .Amazon {
             let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "AmazonCategorySelectionViewController") as! AmazonCategorySelectionViewController
-//            vc.parentVC = self.parentVC
-//            vc.apiResponse = self.flipkartCategoryList
-//            vc.website = self.selectedWebsite
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
     // MARK: Other methods
-
+    func setupUI() {
+        self.navigationItem.title = "Choose products from.."
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(WebsiteSelectionViewController.backButtonTapped))
+        self.tableView.backgroundColor = UIColor.black
+        self.activityIndicator.isHidden = true
+        activityIndicator.center = self.view.center
+        self.greyView.isHidden = true
+        self.view.addSubview(activityIndicator)
+    }
+    
+    func registerNibs() {
+        let nib = UINib(nibName: "WebsiteTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "WebsiteTableViewCell")
+    }
+    
     func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }

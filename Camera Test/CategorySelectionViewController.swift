@@ -56,7 +56,6 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryNameCell", for: indexPath)
-        cell.selectionStyle = .none
         if indexPath.row < self.relevantCategories.count {
             if let categoryAPIName = self.relevantCategories[indexPath.row].resourceName {
                 let categoryName = self.getCategoryFromApi(apiName: categoryAPIName)
