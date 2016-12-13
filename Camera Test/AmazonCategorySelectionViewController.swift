@@ -35,6 +35,11 @@ struct AmazonCategory {
     let nodeID : AMZBrowseNode
 }
 
+struct AmazonSubcategory {
+    let name : String
+    let nodeID : String
+}
+
 class AmazonCategorySelectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let supportedCategories = [AmazonCategory(name: .Automotive, nodeID: .Automotive),
                                AmazonCategory(name: .ClothingAndAccessories, nodeID: .ClothingAndAccessories),
@@ -44,9 +49,20 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
                                AmazonCategory(name: .ShoesAndHandbags, nodeID: .ShoesAndHandbags),
                                AmazonCategory(name: .Sports, nodeID: .Sports),
                                AmazonCategory(name: .Watches, nodeID: .Watches)]
+    var isSecondLevel = false
+    var alternateCategoryList : [AmazonSubcategory]?
+    var chosenName : AMZCategoryName?
+    var chosenID : AMZBrowseNode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.isSecondLevel && self.chosenID != nil {
+            self.navigationItem.title = self.chosenName?.rawValue
+            self.loadSubCategoryList()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,7 +77,13 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return supportedCategories.count
+        if !self.isSecondLevel {
+            return supportedCategories.count
+        }
+        if self.alternateCategoryList != nil {
+            return self.alternateCategoryList!.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,9 +99,27 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     // MARK: Table View Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "AmazonCategorySelectionViewController") as? AmazonCategorySelectionViewController {
+            vc.isSecondLevel = true
+            if indexPath.row < self.supportedCategories.count {
+                vc.chosenName = self.supportedCategories[indexPath.row].name
+                vc.chosenID = self.supportedCategories[indexPath.row].nodeID
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // MARK: Helper Methods
     
+    func loadSubCategoryList() {
+        if self.chosenID != nil {
+            let connector = PiktoraConnector()
+            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, success: {_ in
+                
+            }, failure: { (error) in
+                
+            })
+        }
+    }
 }

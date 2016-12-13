@@ -37,6 +37,11 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
         self.setupUI()
         self.loadCategories()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.activityIndicator.isHidden = true
+        self.greyView.isHidden = true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

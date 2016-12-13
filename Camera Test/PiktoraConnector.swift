@@ -79,10 +79,34 @@ class PiktoraConnector {
     }
 
     // MARK: Amazon Api
+    struct ResponseWithTime {
+        var time: Date
+        var response: Any
+    }
+    
+    var responseCache: [Int : ResponseWithTime] = [:]
+    
+    func browseNodeLookupForNodeID(nodeID: String, success:@escaping (Any) -> (), failure: @escaping (Error) -> ()) {
+        if let savedCache = UserDefaults.standard.value(forKey: "ResponseCache") as? NSDictionary as? [Int : ResponseWithTime] {
+            if !(NSDictionary(dictionary: responseCache).isEqual(to: savedCache)) {
+                self.responseCache = savedCache
+            }
+        }
+        if let response = responseCache[Int(nodeID)!] {
+            var time = response.time.timeIntervalSinceNow
+            if time < 0 {
+                time = time * (-1.0)
+            }
+            if time <= 10 * 60.0 {
+                success(response.response)
+                return
+            } else {
+                let _ = responseCache.removeValue(forKey: Int(nodeID)!)
+                UserDefaults.standard.set(self.responseCache, forKey: "ResponseCache")
+            }
+        }
 
-    func browseNodeLookupForNodeID(nodeID: String, success:@escaping () -> (), failure: @escaping (Error) -> ()) {
-
-        let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon)) 
+        let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon))
         commonParams.setValue("BrowseNodeLookup", forKey: "Operation")
         commonParams.setValue(nodeID, forKey: "BrowseNodeId")
         commonParams.setValue("BrowseNodeInfo", forKey: "ResponseGroup")
@@ -98,9 +122,9 @@ class PiktoraConnector {
         sessionManager.responseSerializer = AFXMLParserResponseSerializer()
         sessionManager.get(url, parameters: nil, success: {(dataTask, responseObject: Any) in
             NSLog("Success")
-            success()
-
-
+            self.responseCache[Int(nodeID)!] = ResponseWithTime(time: Date(), response: responseObject)
+            UserDefaults.standard.set(self.responseCache as NSDictionary, forKey: "ResponseCache")
+            success(responseObject)
         }, failure: {(task: URLSessionDataTask?, error: Error) in
             NSLog("Failure")
             failure(error)
