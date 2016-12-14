@@ -54,6 +54,8 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     var chosenName : AMZCategoryName?
     var chosenID : AMZBrowseNode?
     
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -88,25 +90,36 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryNameCell", for: indexPath)
-        if indexPath.row < self.supportedCategories.count {
-            let categoryName = self.supportedCategories[indexPath.row].name
-            cell.textLabel?.text = categoryName.rawValue
-            cell.textLabel?.font = UIFont(name: "Helvetica", size: 14.0)
+        var cellText = ""
+        if !self.isSecondLevel {
+            if indexPath.row < self.supportedCategories.count {
+                let categoryName = self.supportedCategories[indexPath.row].name
+                cellText = categoryName.rawValue
+            }
+        } else {
+            if self.alternateCategoryList != nil && indexPath.row < self.alternateCategoryList!.count {
+                let categoryName = self.alternateCategoryList![indexPath.row].name
+                cellText = categoryName
+            }
         }
+        cell.textLabel?.text = cellText
+        cell.textLabel?.font = UIFont(name: "Helvetica", size: 14.0)
         return cell
     }
     
     // MARK: Table View Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "AmazonCategorySelectionViewController") as? AmazonCategorySelectionViewController {
-            vc.isSecondLevel = true
-            if indexPath.row < self.supportedCategories.count {
-                vc.chosenName = self.supportedCategories[indexPath.row].name
-                vc.chosenID = self.supportedCategories[indexPath.row].nodeID
+        if !self.isSecondLevel {
+            let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "AmazonCategorySelectionViewController") as? AmazonCategorySelectionViewController {
+                vc.isSecondLevel = true
+                if indexPath.row < self.supportedCategories.count {
+                    vc.chosenName = self.supportedCategories[indexPath.row].name
+                    vc.chosenID = self.supportedCategories[indexPath.row].nodeID
+                }
+                self.navigationController?.pushViewController(vc, animated: true)
             }
-            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -114,9 +127,10 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     
     func loadSubCategoryList() {
         if self.chosenID != nil {
-            let connector = PiktoraConnector()
-            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, success: {_ in
-                
+            let connector = PiktoraConnector.sharedInstance
+            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, success: { response in
+                self.alternateCategoryList = response.nodes
+                self.tableView.reloadData()
             }, failure: { (error) in
                 
             })

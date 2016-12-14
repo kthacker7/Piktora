@@ -99,7 +99,7 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
     // MARK: Other
 
     func loadCategories() {
-        let connector = PiktoraConnector()
+        let connector = PiktoraConnector.sharedInstance
         self.activityIndicator.isHidden = false
         self.isActivityIndicatorAnimating = true
         self.activityIndicator.startAnimating()

@@ -129,7 +129,7 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     func loadProducts() {
-        let connector = PiktoraConnector()
+        let connector = PiktoraConnector.sharedInstance
         self.activityIndicator.isHidden = false
         self.isActivityIndicatorAnimating = true
         self.activityIndicator.startAnimating()

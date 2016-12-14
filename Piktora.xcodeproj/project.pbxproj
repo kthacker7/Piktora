@@ -18,6 +18,7 @@
 		301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301F18401DA90E4F000F4F77 /* Camera.storyboard */; };
 		301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */; };
 		301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */; };
+		302B6F9C1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */; };
 		302FBC1A1DC23F960014FB8B /* ImageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */; };
 		302FBC1D1DC25CB70014FB8B /* FKM_FeedsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */; };
 		302FBC1F1DC25F1D0014FB8B /* FKM_ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */; };
@@ -72,6 +73,7 @@
 		301F18401DA90E4F000F4F77 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTCameraPickerDelegate.swift; sourceTree = "<group>"; };
 		301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewController.swift; sourceTree = "<group>"; };
+		302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMZBrowseNodeResponse.swift; sourceTree = "<group>"; };
 		302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectionViewController.swift; sourceTree = "<group>"; };
 		302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_FeedsResponse.swift; sourceTree = "<group>"; };
 		302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductInfo.swift; sourceTree = "<group>"; };
@@ -152,6 +154,23 @@
 			name = KTCameraOverlay;
 			sourceTree = "<group>";
 		};
+		302B6F991E00B1C30009B0C0 /* Flipkart Models */ = {
+			isa = PBXGroup;
+			children = (
+				302FBC1B1DC25C880014FB8B /* FKM_FeedsResponse */,
+				303A9FA51DB7539200B855B1 /* FKM_CategoryResponse */,
+			);
+			name = "Flipkart Models";
+			sourceTree = "<group>";
+		};
+		302B6F9A1E00B1CE0009B0C0 /* Amazon Models */ = {
+			isa = PBXGroup;
+			children = (
+				302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */,
+			);
+			name = "Amazon Models";
+			sourceTree = "<group>";
+		};
 		302FBC1B1DC25C880014FB8B /* FKM_FeedsResponse */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,8 +195,8 @@
 		303A9FA21DB752E000B855B1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				302FBC1B1DC25C880014FB8B /* FKM_FeedsResponse */,
-				303A9FA51DB7539200B855B1 /* FKM_CategoryResponse */,
+				302B6F9A1E00B1CE0009B0C0 /* Amazon Models */,
+				302B6F991E00B1C30009B0C0 /* Flipkart Models */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -577,6 +596,7 @@
 				301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */,
 				301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */,
 				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
+				302B6F9C1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift in Sources */,
 				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
 				302FBC1D1DC25CB70014FB8B /* FKM_FeedsResponse.swift in Sources */,
 				30EB92AA1DB75F4000EA9E2B /* FKM_Affiliate.swift in Sources */,

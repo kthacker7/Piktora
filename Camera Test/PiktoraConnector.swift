@@ -13,6 +13,8 @@ import AWSCore
 import Alamofire
 
 class PiktoraConnector {
+    static let sharedInstance = PiktoraConnector()
+    
     let AWSSecretKey = "iuNcNbf2zxLyDvChzR/yOosqmRuaSva+hmmEWMcA"
     // MARK: Flipkart
 
@@ -80,7 +82,7 @@ class PiktoraConnector {
 
     // MARK: Amazon Api
     
-    func browseNodeLookupForNodeID(nodeID: String, success:@escaping (Any) -> (), failure: @escaping (Error) -> ()) {
+    func browseNodeLookupForNodeID(nodeID: String, success:@escaping (AMZBrowseNodeResponse) -> (), failure: @escaping (Error) -> ()) {
         let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon))
         commonParams.setValue("BrowseNodeLookup", forKey: "Operation")
         commonParams.setValue(nodeID, forKey: "BrowseNodeId")
@@ -97,7 +99,9 @@ class PiktoraConnector {
         sessionManager.responseSerializer = AFXMLParserResponseSerializer()
         sessionManager.get(url, parameters: nil, success: {(dataTask, responseObject: Any) in
             NSLog("Success")
-            success(responseObject)
+            let response = AMZBrowseNodeResponse()
+            response.initFromXMLResponse(responseObject: responseObject)
+            success(response)
         }, failure: {(task: URLSessionDataTask?, error: Error) in
             NSLog("Failure")
             failure(error)

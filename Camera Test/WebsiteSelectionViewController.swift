@@ -168,7 +168,7 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func loadCategories() {
-        let connector = PiktoraConnector()
+        let connector = PiktoraConnector.sharedInstance
         if !self.activityIndicator.isHidden {
             self.activityIndicator.startAnimating()
         }
