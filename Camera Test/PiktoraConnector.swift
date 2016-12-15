@@ -15,11 +15,36 @@ import Alamofire
 class PiktoraConnector {
     static let sharedInstance = PiktoraConnector()
     
-    let AWSSecretKey = "iuNcNbf2zxLyDvChzR/yOosqmRuaSva+hmmEWMcA"
     // MARK: Flipkart
+    
+    struct FKMCategoryListResponseWithTime {
+        var time: Date
+        var response: FKM_CategoryList
+    }
+    
+    struct FKMFeedsResponseWithTime {
+        var time: Date
+        var response: FKM_FeedsResponse
+    }
+    
+    var FKMCategoryListResponseCache: [String : FKMCategoryListResponseWithTime] = [:]
+    var FKMFeedsResponseCache: [String : FKMFeedsResponseWithTime] = [:]
 
     func getCategoryList(endPoint: String, success:@escaping (FKM_CategoryList) -> (), failure: @escaping (Error) -> ()) {
-
+        
+        if let response = FKMCategoryListResponseCache[endPoint] {
+            var time = response.time.timeIntervalSinceNow
+            if time < 0 {
+                time = time * (-1.0)
+            }
+            if time <= 3 * 60.0 {
+                success(response.response)
+                return
+            } else {
+                let _ = FKMCategoryListResponseCache.removeValue(forKey: endPoint)
+            }
+        }
+        
         let params = self.getRequestParams(website: .FlipKart)
         let configs = URLSessionConfiguration.default
         configs.httpAdditionalHeaders = params
@@ -38,6 +63,7 @@ class PiktoraConnector {
             let response = FKM_CategoryList(map: map)
 
             NSLog("Success")
+            self.FKMCategoryListResponseCache[endPoint] = FKMCategoryListResponseWithTime(time: Date(), response: response)
             success(response)
         }, failure: {
             (task: URLSessionDataTask?, error: Error) in
@@ -47,6 +73,22 @@ class PiktoraConnector {
     }
 
     func getProducts(urlString: String, success:@escaping (FKM_FeedsResponse) -> (), failure: @escaping (Error) -> ()) {
+        if let response = FKMFeedsResponseCache[urlString] {
+            var time = response.time.timeIntervalSinceNow
+            if time < 0 {
+                time = time * (-1.0)
+            }
+            var validTill = 10 * 60.0
+            if response.response.validTill != nil {
+                validTill = Double(response.response.validTill!)
+            }
+            if time <= validTill {
+                success(response.response)
+                return
+            } else {
+                let _ = FKMFeedsResponseCache.removeValue(forKey: urlString)
+            }
+        }
         let params = self.getRequestParams(website: .FlipKart)
         let configs = URLSessionConfiguration.default
         configs.httpAdditionalHeaders = params
@@ -62,9 +104,8 @@ class PiktoraConnector {
             NSLog("Success")
             let map = Map.init(mappingType: MappingType.fromJSON, JSON: (responseObject as! NSDictionary) as! [String : Any])
             let response = FKM_FeedsResponse(map: map)
+            self.FKMFeedsResponseCache[urlString] = FKMFeedsResponseWithTime(time: Date(), response: response)
             success(response)
-
-
         }, failure: {(task: URLSessionDataTask?, error: Error) in
             NSLog("Failure")
             failure(error)
@@ -82,11 +123,33 @@ class PiktoraConnector {
 
     // MARK: Amazon Api
     
-    func browseNodeLookupForNodeID(nodeID: String, success:@escaping (AMZBrowseNodeResponse) -> (), failure: @escaping (Error) -> ()) {
+    let AWSSecretKey = "iuNcNbf2zxLyDvChzR/yOosqmRuaSva+hmmEWMcA"
+    
+    struct AMZBrowseNodeResponseWithTime {
+        var time: Date
+        var response: AMZBrowseNodeResponse
+    }
+    
+    var AMZResponseCache: [Int : AMZBrowseNodeResponseWithTime] = [:]
+
+    func browseNodeLookupForNodeID(nodeID: String, responseGroups: String, success:@escaping (AMZBrowseNodeResponse) -> (), failure: @escaping (Error) -> ()) {
+        if let response = AMZResponseCache[Int(nodeID)!] {
+            var time = response.time.timeIntervalSinceNow
+            if time < 0 {
+                time = time * (-1.0)
+            }
+            if time <= 10 * 60.0 {
+                success(response.response)
+                return
+            } else {
+                let _ = AMZResponseCache.removeValue(forKey: Int(nodeID)!)
+            }
+        }
+        
         let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon))
         commonParams.setValue("BrowseNodeLookup", forKey: "Operation")
         commonParams.setValue(nodeID, forKey: "BrowseNodeId")
-        commonParams.setValue("BrowseNodeInfo", forKey: "ResponseGroup")
+        commonParams.setValue(responseGroups, forKey: "ResponseGroup")
         let characterSet = CharacterSet(charactersIn: ":,").inverted
         let stringFromDate = Date().iso8601.addingPercentEncoding(withAllowedCharacters: characterSet)
 
@@ -101,6 +164,7 @@ class PiktoraConnector {
             NSLog("Success")
             let response = AMZBrowseNodeResponse()
             response.initFromXMLResponse(responseObject: responseObject)
+            self.AMZResponseCache[Int(nodeID)!] = AMZBrowseNodeResponseWithTime(time: Date(), response: response)
             success(response)
         }, failure: {(task: URLSessionDataTask?, error: Error) in
             NSLog("Failure")

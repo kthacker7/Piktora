@@ -30,16 +30,6 @@ enum AMZBrowseNode : String {
     case Watches = "1350388031"
 }
 
-struct AmazonCategory {
-    let name : AMZCategoryName
-    let nodeID : AMZBrowseNode
-}
-
-struct AmazonSubcategory {
-    let name : String
-    let nodeID : String
-}
-
 class AmazonCategorySelectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let supportedCategories = [AmazonCategory(name: .Automotive, nodeID: .Automotive),
                                AmazonCategory(name: .ClothingAndAccessories, nodeID: .ClothingAndAccessories),
@@ -55,9 +45,13 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     var chosenID : AMZBrowseNode?
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var greyView: UIView!
+    
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,14 +119,44 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     
     // MARK: Helper Methods
     
+    func setupUI() {
+        self.activityIndicator.center = self.view.center
+        self.hideActivityIndicator()
+        self.view.addSubview(activityIndicator)
+    }
+    
+    func hideActivityIndicator() {
+        self.greyView.isHidden = true
+        self.activityIndicator.isHidden = true
+        self.activityIndicator.stopAnimating()
+    }
+    
+    func showActivityIndicator() {
+        self.greyView.isHidden = false
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+    }
+    
     func loadSubCategoryList() {
         if self.chosenID != nil {
             let connector = PiktoraConnector.sharedInstance
-            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, success: { response in
+            self.showActivityIndicator()
+            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, responseGroups: "BrowseNodeInfo", success: { response in
+                self.hideActivityIndicator()
                 self.alternateCategoryList = response.nodes
                 self.tableView.reloadData()
             }, failure: { (error) in
-                
+                self.hideActivityIndicator()
+                let alert = UIAlertController(title: "Oops, something went wrong", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: .default , handler: { (_) in
+                    alert.dismiss(animated: false, completion: nil)
+                    self.loadSubCategoryList()
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+                    alert.dismiss(animated: false, completion: nil)
+                }))
+                self.present(alert, animated: false, completion: nil)
             })
         }
     }

@@ -26,39 +26,26 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "ProductCollectionViewCell", bundle: nil)
-        self.collectionView.register(nib, forCellWithReuseIdentifier: "ProductCollectionViewCell")
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = UICollectionViewScrollDirection.vertical
-        layout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        layout.minimumLineSpacing = 0.0
-        layout.minimumInteritemSpacing = 0.0
-        layout.itemSize = CGSize(width: self.view.frame.size.width / 2 , height: self.view.frame.size.height / 2)
-        self.collectionView.collectionViewLayout = layout
-        if #available(iOS 10.0, *) {
-            self.collectionView.prefetchDataSource = self
-        }
-        self.activityIndicator.isHidden = true
-        activityIndicator.center = self.view.center
-        self.view.addSubview(activityIndicator)
+        self.setupUI()
         self.loadProducts()
-        self.navigationItem.title = "Try any of these products!"
         self.setupAd()
     }
 
     // MARK: Collection view data source
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
-        cell.delegate = self
-        if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
-            if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
-                cell.indexPath = indexPath
-                cell.setupUI(prodInfo: prodInfo)
+        if self.website == .FlipKart {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FlipkartProductCollectionViewCell", for: indexPath) as! FlipkartProductCollectionViewCell
+            cell.delegate = self
+            if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
+                if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
+                    cell.indexPath = indexPath
+                    cell.setupUI(prodInfo: prodInfo)
+                }
             }
+            return cell
         }
-        return cell
+        
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -86,9 +73,7 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         self.dismiss(animated: true, completion: nil)
-
     }
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -108,6 +93,26 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     // MARK: Other
+    func setupUI() {
+        let nib = UINib(nibName: "FlipkartProductCollectionViewCell", bundle: nil)
+        self.collectionView.register(nib, forCellWithReuseIdentifier: "FlipkartProductCollectionViewCell")
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = UICollectionViewScrollDirection.vertical
+        layout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+        layout.minimumLineSpacing = 0.0
+        layout.minimumInteritemSpacing = 0.0
+        layout.itemSize = CGSize(width: self.view.frame.size.width / 2 , height: self.view.frame.size.height / 2)
+        self.collectionView.collectionViewLayout = layout
+        if #available(iOS 10.0, *) {
+            self.collectionView.prefetchDataSource = self
+        }
+        self.navigationItem.title = "Try any of these products!"
+        self.activityIndicator.isHidden = true
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+    }
+    
     func setupAd() {
         if UIApplication.shared.canOpenURL(URL(string: "flipkart://")!) {
             self.adButton.setImage(#imageLiteral(resourceName: "DOTDBanner"), for: .normal)

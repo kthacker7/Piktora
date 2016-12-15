@@ -1,5 +1,5 @@
 //
-//  ProductCollectionViewCell.swift
+//  FlipkartProductCollectionViewCell
 //  Piktora
 //
 //  Created by Kunal Thacker on 28/10/16.
@@ -13,7 +13,7 @@ protocol FlipkartBuyButtonDelegate {
     func buyButtonPressed(indexPath: IndexPath)
 }
 
-class ProductCollectionViewCell: UICollectionViewCell {
+class FlipkartProductCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var productImageView: UIImageView!
     @IBOutlet var productNameLabel: UILabel!

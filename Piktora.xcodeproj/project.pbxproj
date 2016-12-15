@@ -19,14 +19,15 @@
 		301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */; };
 		301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */; };
 		302B6F9C1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */; };
+		302B6F9E1E0171590009B0C0 /* AMZResponseClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6F9D1E0171590009B0C0 /* AMZResponseClasses.swift */; };
 		302FBC1A1DC23F960014FB8B /* ImageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */; };
 		302FBC1D1DC25CB70014FB8B /* FKM_FeedsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */; };
 		302FBC1F1DC25F1D0014FB8B /* FKM_ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */; };
 		302FBC211DC262330014FB8B /* FKM_ProductBaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC201DC262330014FB8B /* FKM_ProductBaseInfo.swift */; };
 		302FBC231DC266C10014FB8B /* FKM_Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC221DC266C10014FB8B /* FKM_Price.swift */; };
 		302FBC251DC26A910014FB8B /* FKM_ProductShippingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC241DC26A910014FB8B /* FKM_ProductShippingInfo.swift */; };
-		302FBC291DC35D880014FB8B /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC271DC35D880014FB8B /* ProductCollectionViewCell.swift */; };
-		302FBC2A1DC35D880014FB8B /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302FBC281DC35D880014FB8B /* ProductCollectionViewCell.xib */; };
+		302FBC291DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302FBC271DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift */; };
+		302FBC2A1DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302FBC281DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib */; };
 		303A9FA41DB7538800B855B1 /* FKM_CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */; };
 		304270FC1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304270FB1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift */; };
 		304DC57E1DB4927D0098054D /* PiktoraConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304DC57D1DB4927D0098054D /* PiktoraConnector.swift */; };
@@ -74,14 +75,15 @@
 		301F18421DA9188C000F4F77 /* KTCameraPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTCameraPickerDelegate.swift; sourceTree = "<group>"; };
 		301F18441DA9352C000F4F77 /* ProductsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewController.swift; sourceTree = "<group>"; };
 		302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMZBrowseNodeResponse.swift; sourceTree = "<group>"; };
+		302B6F9D1E0171590009B0C0 /* AMZResponseClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMZResponseClasses.swift; sourceTree = "<group>"; };
 		302FBC191DC23F960014FB8B /* ImageSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectionViewController.swift; sourceTree = "<group>"; };
 		302FBC1C1DC25CB70014FB8B /* FKM_FeedsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_FeedsResponse.swift; sourceTree = "<group>"; };
 		302FBC1E1DC25F1D0014FB8B /* FKM_ProductInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductInfo.swift; sourceTree = "<group>"; };
 		302FBC201DC262330014FB8B /* FKM_ProductBaseInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductBaseInfo.swift; sourceTree = "<group>"; };
 		302FBC221DC266C10014FB8B /* FKM_Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_Price.swift; sourceTree = "<group>"; };
 		302FBC241DC26A910014FB8B /* FKM_ProductShippingInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_ProductShippingInfo.swift; sourceTree = "<group>"; };
-		302FBC271DC35D880014FB8B /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
-		302FBC281DC35D880014FB8B /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		302FBC271DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipkartProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		302FBC281DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlipkartProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		303A9FA31DB7538800B855B1 /* FKM_CategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKM_CategoryList.swift; sourceTree = "<group>"; };
 		304270FB1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonCategorySelectionViewController.swift; sourceTree = "<group>"; };
 		304DC57D1DB4927D0098054D /* PiktoraConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiktoraConnector.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */,
+				302B6F9D1E0171590009B0C0 /* AMZResponseClasses.swift */,
 			);
 			name = "Amazon Models";
 			sourceTree = "<group>";
@@ -186,8 +189,8 @@
 		302FBC261DC35D580014FB8B /* ProductCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				302FBC271DC35D880014FB8B /* ProductCollectionViewCell.swift */,
-				302FBC281DC35D880014FB8B /* ProductCollectionViewCell.xib */,
+				302FBC271DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift */,
+				302FBC281DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib */,
 			);
 			name = ProductCollectionViewCell;
 			sourceTree = "<group>";
@@ -514,7 +517,7 @@
 				308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */,
 				301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */,
 				308139121D7ECF2500A49653 /* Assets.xcassets in Resources */,
-				302FBC2A1DC35D880014FB8B /* ProductCollectionViewCell.xib in Resources */,
+				302FBC2A1DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib in Resources */,
 				30D30E1E1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib in Resources */,
 				30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */,
 				30095C9E1DC7BFF9006D9F53 /* TutorialViewController.xib in Resources */,
@@ -581,10 +584,11 @@
 				301F18451DA9352C000F4F77 /* ProductsCollectionViewController.swift in Sources */,
 				301F183E1DA90E30000F4F77 /* PreviewView.swift in Sources */,
 				3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */,
-				302FBC291DC35D880014FB8B /* ProductCollectionViewCell.swift in Sources */,
+				302FBC291DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift in Sources */,
 				302FBC251DC26A910014FB8B /* FKM_ProductShippingInfo.swift in Sources */,
 				303A9FA41DB7538800B855B1 /* FKM_CategoryList.swift in Sources */,
 				302FBC211DC262330014FB8B /* FKM_ProductBaseInfo.swift in Sources */,
+				302B6F9E1E0171590009B0C0 /* AMZResponseClasses.swift in Sources */,
 				30A585221D846B2700F3DED1 /* CustomOverlayView.swift in Sources */,
 				30EB92AE1DB761B600EA9E2B /* FKM_CategoryVariant.swift in Sources */,
 				30095C9D1DC7BFF9006D9F53 /* TutorialViewController.swift in Sources */,

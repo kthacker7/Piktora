@@ -200,6 +200,7 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
                 alert.dismiss(animated: false, completion: nil)
             }))
+            self.present(alert, animated: false, completion: nil)
 
         })
     }

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camera Test/AMZBrowseNodeResponse.swift"
-            timestampString = "503363962.376371"
+            filePath = "Camera Test/PiktoraConnector.swift"
+            timestampString = "503405630.359656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "initFromXMLResponse(responseObject:)"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "browseNodeLookupForNodeID(nodeID:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Camera Test/PiktoraConnector.swift"
-            timestampString = "503363979.34251"
+            timestampString = "503405630.359656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "browseNodeLookupForNodeID(nodeID:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>
