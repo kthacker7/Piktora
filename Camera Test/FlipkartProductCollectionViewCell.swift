@@ -62,7 +62,7 @@ class FlipkartProductCollectionViewCell: UICollectionViewCell {
         if prodInfo.productBaseInfoV1?.imageUrls != nil {
             let url = self.getImageUrl(urls: (prodInfo.productBaseInfoV1?.imageUrls)!)
             if url != "" {
-                self.productImageView.sd_setImage(with: URL(string: url)!)
+                self.productImageView.sd_setImage(with: URL(string: url)!, placeholderImage: #imageLiteral(resourceName: "ImageSelectionPlaceholder"))
             }
         }
     }

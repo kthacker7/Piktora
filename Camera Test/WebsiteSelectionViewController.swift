@@ -133,22 +133,17 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func goToWebsite(website:PK_Website) {
-        if website == .FlipKart {
-            let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "CategorySelectionViewController") as! CategorySelectionViewController
-            vc.parentVC = self.parentVC
-            vc.apiResponse = self.flipkartCategoryList
-            vc.website = self.selectedWebsite
-            self.navigationController?.pushViewController(vc, animated: true)
-        } else if website == .Amazon {
-            let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "AmazonCategorySelectionViewController") as! AmazonCategorySelectionViewController
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CategorySelectionViewController") as! CategorySelectionViewController
+        vc.parentVC = self.parentVC
+        vc.apiResponse = self.flipkartCategoryList
+        vc.website = website
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: Other methods
     func setupUI() {
+        
         self.navigationItem.title = "Choose products from.."
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(WebsiteSelectionViewController.backButtonTapped))
         self.tableView.backgroundColor = UIColor.black

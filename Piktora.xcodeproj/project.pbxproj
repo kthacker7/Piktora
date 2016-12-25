@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		30095C9D1DC7BFF9006D9F53 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30095C9B1DC7BFF9006D9F53 /* TutorialViewController.swift */; };
 		30095C9E1DC7BFF9006D9F53 /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30095C9C1DC7BFF9006D9F53 /* TutorialViewController.xib */; };
+		300993C51E0D2E8800C69104 /* AMZSearchResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300993C41E0D2E8800C69104 /* AMZSearchResultResponse.swift */; };
+		300993C71E0E8E6700C69104 /* AMZItemLookupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300993C61E0E8E6700C69104 /* AMZItemLookupResponse.swift */; };
 		300ABAE51DBCF89200DAA7FB /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300ABAE41DBCF89200DAA7FB /* CategorySelectionViewController.swift */; };
 		301F183A1DA90E30000F4F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 301F18341DA90E30000F4F77 /* Assets.xcassets */; };
 		301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F18361DA90E30000F4F77 /* PhotosCollectionViewCell.swift */; };
@@ -47,6 +49,8 @@
 		30A615EB1D85558600793EBA /* UIImage+ImageCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */; };
 		30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */; };
 		30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */; };
+		30C1FCBC1E031E6C000053FE /* AmazonProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C1FCBA1E031E6C000053FE /* AmazonProductCollectionViewCell.swift */; };
+		30C1FCBD1E031E6C000053FE /* AmazonProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C1FCBB1E031E6C000053FE /* AmazonProductCollectionViewCell.xib */; };
 		30D30E191DBCCF62004A86B2 /* WebsiteSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D30E181DBCCF62004A86B2 /* WebsiteSelectionViewController.swift */; };
 		30D30E1D1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D30E1B1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift */; };
 		30D30E1E1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D30E1C1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib */; };
@@ -65,6 +69,8 @@
 /* Begin PBXFileReference section */
 		30095C9B1DC7BFF9006D9F53 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		30095C9C1DC7BFF9006D9F53 /* TutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
+		300993C41E0D2E8800C69104 /* AMZSearchResultResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMZSearchResultResponse.swift; sourceTree = "<group>"; };
+		300993C61E0E8E6700C69104 /* AMZItemLookupResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMZItemLookupResponse.swift; sourceTree = "<group>"; };
 		300ABAE41DBCF89200DAA7FB /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
 		301F18341DA90E30000F4F77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		301F18361DA90E30000F4F77 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +113,8 @@
 		30A615EA1D85558600793EBA /* UIImage+ImageCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageCategory.m"; sourceTree = "<group>"; };
 		30A615F41D8573D800793EBA /* GalleryImageAugmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryImageAugmentViewController.swift; sourceTree = "<group>"; };
 		30A615F51D8573D800793EBA /* GalleryImageAugmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryImageAugmentViewController.xib; sourceTree = "<group>"; };
+		30C1FCBA1E031E6C000053FE /* AmazonProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmazonProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		30C1FCBB1E031E6C000053FE /* AmazonProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmazonProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		30D30E181DBCCF62004A86B2 /* WebsiteSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteSelectionViewController.swift; sourceTree = "<group>"; };
 		30D30E1B1DBCD0EA004A86B2 /* WebsiteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteTableViewCell.swift; sourceTree = "<group>"; };
 		30D30E1C1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebsiteTableViewCell.xib; sourceTree = "<group>"; };
@@ -170,6 +178,8 @@
 			children = (
 				302B6F9B1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift */,
 				302B6F9D1E0171590009B0C0 /* AMZResponseClasses.swift */,
+				300993C41E0D2E8800C69104 /* AMZSearchResultResponse.swift */,
+				300993C61E0E8E6700C69104 /* AMZItemLookupResponse.swift */,
 			);
 			name = "Amazon Models";
 			sourceTree = "<group>";
@@ -189,8 +199,8 @@
 		302FBC261DC35D580014FB8B /* ProductCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				302FBC271DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift */,
-				302FBC281DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib */,
+				30C1FCB91E031E26000053FE /* AmazonProductCell */,
+				30C1FCB81E031E15000053FE /* FlipkartProductCell */,
 			);
 			name = ProductCollectionViewCell;
 			sourceTree = "<group>";
@@ -407,6 +417,24 @@
 			name = MainControllers;
 			sourceTree = "<group>";
 		};
+		30C1FCB81E031E15000053FE /* FlipkartProductCell */ = {
+			isa = PBXGroup;
+			children = (
+				302FBC271DC35D880014FB8B /* FlipkartProductCollectionViewCell.swift */,
+				302FBC281DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib */,
+			);
+			name = FlipkartProductCell;
+			sourceTree = "<group>";
+		};
+		30C1FCB91E031E26000053FE /* AmazonProductCell */ = {
+			isa = PBXGroup;
+			children = (
+				30C1FCBA1E031E6C000053FE /* AmazonProductCollectionViewCell.swift */,
+				30C1FCBB1E031E6C000053FE /* AmazonProductCollectionViewCell.xib */,
+			);
+			name = AmazonProductCell;
+			sourceTree = "<group>";
+		};
 		30D30E171DBCCEFD004A86B2 /* ProductSelectionControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +537,7 @@
 			files = (
 				30A585201D846B1300F3DED1 /* OverlayViewController.xib in Resources */,
 				30E8A53B1D83FA7100455EB1 /* OverlayWithImageView.xib in Resources */,
+				30C1FCBD1E031E6C000053FE /* AmazonProductCollectionViewCell.xib in Resources */,
 				E95838F11D968E830031F10F /* GoogleService-Info.plist in Resources */,
 				301F183D1DA90E30000F4F77 /* PhotosCollectionViewCell.xib in Resources */,
 				3098158C1DBCCD350071B4BC /* ProductSelection.storyboard in Resources */,
@@ -596,11 +625,13 @@
 				3076E2BC1D96998700A9078A /* UIImageExtension.swift in Sources */,
 				30995C921DC8E8760032CEF9 /* BuyAndShareViewController.swift in Sources */,
 				304DC57E1DB4927D0098054D /* PiktoraConnector.swift in Sources */,
+				300993C71E0E8E6700C69104 /* AMZItemLookupResponse.swift in Sources */,
 				30E8A5371D83E74A00455EB1 /* CameraHelper.m in Sources */,
 				301F183C1DA90E30000F4F77 /* PhotosCollectionViewCell.swift in Sources */,
 				301F18431DA9188C000F4F77 /* KTCameraPickerDelegate.swift in Sources */,
 				30A5851F1D846B1300F3DED1 /* OverlayViewController.swift in Sources */,
 				302B6F9C1E00B2120009B0C0 /* AMZBrowseNodeResponse.swift in Sources */,
+				30C1FCBC1E031E6C000053FE /* AmazonProductCollectionViewCell.swift in Sources */,
 				30A615F61D8573D800793EBA /* GalleryImageAugmentViewController.swift in Sources */,
 				302FBC1D1DC25CB70014FB8B /* FKM_FeedsResponse.swift in Sources */,
 				30EB92AA1DB75F4000EA9E2B /* FKM_Affiliate.swift in Sources */,
@@ -609,6 +640,7 @@
 				3076E2BE1D9699E300A9078A /* UIColorExtension.swift in Sources */,
 				304270FC1DE06EDE00FB2EE3 /* AmazonCategorySelectionViewController.swift in Sources */,
 				300ABAE51DBCF89200DAA7FB /* CategorySelectionViewController.swift in Sources */,
+				300993C51E0D2E8800C69104 /* AMZSearchResultResponse.swift in Sources */,
 				302FBC231DC266C10014FB8B /* FKM_Price.swift in Sources */,
 				3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */,
 				302FBC1A1DC23F960014FB8B /* ImageSelectionViewController.swift in Sources */,
@@ -758,7 +790,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -784,7 +816,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Camera Test/Camera Test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

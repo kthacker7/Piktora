@@ -15,22 +15,28 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
     var website : PK_Website?
     var parentVC : ViewController?
 
+    // Flipkart variables
     var relevantCategories : [FKM_CategoryVariant] = []
     var supportedCategories = ["televisions", "landline_phones", "mens_clothing", "furniture", "bags_wallets_belts", "kids_clothing", "kids_footwear", "mens_footwear", "air_coolers", "watches", "womens_clothing", "luggage_travel", "refrigerator", "wearable_smart_devices", "microwave_ovens", "home_decor_and_festive_needs", "jewellery", "home_furnishing", "womens_footwear"]
+    
+    // Amazon Variables
+    var amazonCategories = ["Televisions", "Landline Phones", "Men's clothing", "Furniture", "Belts", "Bags", "Kid's Clothing", "Kids Footwear", "Mens Footwear", "Air Coolers", "Watches", "Women's clothing", "Travel Bags", "Refrigerator", "Wearable Devices", "Microwave Oven", "Homde Decor", "Festive Decor", "Jewellery", "Home Furnishing", "Women's Footwear"]
+    
     var isActivityIndicatorAnimating = false
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let count = self.apiResponse?.apiGroups?.affiliate?.apiListings?.count
-        if count == nil || count! == 0 {
-            self.tableView.isHidden = true
+        
+        
+        if self.website == nil || self.website == PK_Website.FlipKart {
+            self.setupFlipkart()
         } else {
-            self.getRelevantCategories(categoryList: self.apiResponse!)
+            self.setupAmazon()
         }
 
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.navigationItem.title = "Categories"
+        self.navigationItem.title = "Choose from.."
         self.activityIndicator.isHidden = true
         activityIndicator.center = self.view.center
         self.view.addSubview(activityIndicator)
@@ -44,22 +50,30 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
     // MARK: Table View Data Source
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return relevantCategories.count
+        if self.website == PK_Website.FlipKart {
+            return relevantCategories.count
+        }
+        return amazonCategories.count
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        if relevantCategories.count > 0 {
-            return 1
-        }
-        return 0
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryNameCell", for: indexPath)
-        if indexPath.row < self.relevantCategories.count {
-            if let categoryAPIName = self.relevantCategories[indexPath.row].resourceName {
-                let categoryName = self.getCategoryFromApi(apiName: categoryAPIName)
-                cell.textLabel?.text = categoryName
+        if self.website == PK_Website.FlipKart {
+            if indexPath.row < self.relevantCategories.count {
+                if let categoryAPIName = self.relevantCategories[indexPath.row].resourceName {
+                    let categoryName = self.getCategoryFromApi(apiName: categoryAPIName)
+                    cell.textLabel?.text = categoryName
+                    cell.textLabel?.font = UIFont(name: "Helvetica", size: 14.0)
+                }
+            }
+        } else if self.website == PK_Website.Amazon {
+            if indexPath.row < self.amazonCategories.count {
+                cell.textLabel?.text = self.amazonCategories[indexPath.row]
                 cell.textLabel?.font = UIFont(name: "Helvetica", size: 14.0)
             }
         }
@@ -69,11 +83,11 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
     // MARK: Table View Delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row < self.relevantCategories.count {
+        let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ImageSelectionViewController") as! ImageSelectionViewController
+        vc.website = self.website
+        if self.website == PK_Website.FlipKart && indexPath.row < self.relevantCategories.count {
             let getFeedsURL = self.relevantCategories[indexPath.row].get
-            let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "ImageSelectionViewController") as! ImageSelectionViewController
-            vc.website = self.website
             if let categoryName = self.relevantCategories[indexPath.row].resourceName {
                 vc.categoryName = categoryName
             }
@@ -84,9 +98,16 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
                     vc.feedsUrl = getFeedsURL
                 }
             }
-            self.navigationController?.pushViewController(vc, animated: true)
-            vc.parentVC = self.parentVC
+        } else {
+            if indexPath.row < self.amazonCategories.count {
+                let searchString = self.amazonCategories[indexPath.row]
+                if searchString == "Search" {
+                    
+                }
+            }
         }
+        vc.parentVC = self.parentVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 
@@ -96,7 +117,7 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
         self.loadCategories()
     }
 
-    // MARK: Other
+    // MARK: Flipkart methods
 
     func loadCategories() {
         let connector = PiktoraConnector.sharedInstance
@@ -177,6 +198,23 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
         var categoryName = apiNameCopy.replacingOccurrences(of: "_", with: " ")
         categoryName = categoryName.capitalized
         return categoryName
+    }
+    
+    func setupFlipkart() {
+        let count = self.apiResponse?.apiGroups?.affiliate?.apiListings?.count
+        if count == nil || count! == 0 {
+            self.tableView.isHidden = true
+        } else {
+            self.getRelevantCategories(categoryList: self.apiResponse!)
+        }
+    }
+    
+    // MARK: Amazon methods
+    
+    func setupAmazon() {
+        self.tableView.isHidden = false
+        self.amazonCategories = self.amazonCategories.sorted()
+        self.amazonCategories.insert("Search", at: 0)
     }
 
 

@@ -9,14 +9,32 @@
 import UIKit
 import SDWebImage
 
+struct AmazonItemWithDetails {
+    var title : String
+    var ASIN : String
+    var imageURL : String
+    var formattedPrice : String
+}
+
 class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FlipkartBuyButtonDelegate {
 
     var website: PK_Website?
+    
+    // Flipkart variables
     var feedsUrl = ""
     var feedsResponse: FKM_FeedsResponse?
     var parentVC: ViewController?
     var flipkartInstalled = false
     var categoryName = ""
+    
+    // Amazon variables
+    var amazonCategory : String?
+    var amazonProducts : AMZSearchResultResponse?
+    
+    var itemsLeft : Int = 0
+    var similarItemsLeft : Int = 0
+    
+    
 
     @IBOutlet var adButton: UIButton!
 
@@ -44,8 +62,15 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
                 }
             }
             return cell
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmazonProductCollectionViewCell", for: indexPath) as! AmazonProductCollectionViewCell
+            if self.amazonProducts != nil && (indexPath.row < self.amazonProducts!.items.count) {
+                let item = self.amazonProducts!.items[indexPath.row]
+                cell.setupUI(amazonItem: item)
+            }
+            return cell
         }
-        
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -53,8 +78,11 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count = self.feedsResponse?.productInfoList?.count {
-            return count
+        let count = self.feedsResponse?.productInfoList?.count
+        if count != nil && self.website == PK_Website.FlipKart {
+            return count!
+        } else if self.website == PK_Website.Amazon && self.amazonProducts != nil {
+            return self.amazonProducts!.items.count
         }
         return 0
     }
@@ -96,6 +124,8 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     func setupUI() {
         let nib = UINib(nibName: "FlipkartProductCollectionViewCell", bundle: nil)
         self.collectionView.register(nib, forCellWithReuseIdentifier: "FlipkartProductCollectionViewCell")
+        let nib2 = UINib(nibName: "AmazonProductCollectionViewCell", bundle: nil)
+        self.collectionView.register(nib2, forCellWithReuseIdentifier: "AmazonProductCollectionViewCell")
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
@@ -134,6 +164,14 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     func loadProducts() {
+        if self.website == PK_Website.FlipKart {
+            self.loadFlipkartProducts()
+        } else if self.website == PK_Website.Amazon {
+            self.loadAmazonProducts()
+        }
+    }
+    
+    func loadFlipkartProducts() {
         let connector = PiktoraConnector.sharedInstance
         self.activityIndicator.isHidden = false
         self.isActivityIndicatorAnimating = true
@@ -159,8 +197,99 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
                 alert.dismiss(animated: false, completion: nil)
             }))
+            self.present(alert, animated: false, completion: nil)
         })
     }
+    
+    func loadAmazonProducts() {
+        let connector = PiktoraConnector.sharedInstance
+        if self.amazonCategory != nil {
+            self.showActivityIndicator()
+            connector.browseNodeLookupForNodeID(nodeID: self.amazonCategory!.nodeID, responseGroups: "MostGifted%2CMostWishedFor%2CNewReleases%2CTopSellers", success: { (responseObject) in
+                let response = AMZSearchResultResponse()
+                response.initFromXMLResponse(responseObject: responseObject)
+                self.getAmazonImageURLS(response: response)
+            }, failure: { (error) in
+                self.hideActivityIndicator()
+                let alert = UIAlertController(title: "Oops, something went wrong", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: .default , handler: { (_) in
+                    alert.dismiss(animated: false, completion: nil)
+                    self.loadAmazonProducts()
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+                    alert.dismiss(animated: false, completion: nil)
+                }))
+                self.present(alert, animated: false, completion: nil)
+            })
+        }
+    }
+    
+    func getAmazonImageURLS(response: AMZSearchResultResponse) {
+        self.itemsLeft = response.itemSet.items.count
+        self.showActivityIndicator()
+        for item in response.itemSet.items {
+            let connector = PiktoraConnector.sharedInstance
+            connector.itemLookupForASIN(ASIN: item.ASIN, responseGroups: "Images%2COfferSummary%2CSimilarities", success: {(responseObject) in
+                self.hideActivityIndicator()
+                if let response = responseObject as? AMZItemLookupResponse {
+                    let item = AmazonItemWithDetails(title: item.title, ASIN: item.ASIN, imageURL: response.imageURL)
+                    self.amazonItems.append(item)
+                    for similarItem in response.similarItems {
+                        let itemWithDetails = AmazonItemWithDetails(title: similarItem.title, ASIN: similarItem.ASIN, imageURL: nil)
+                        self.amazonItems.append(itemWithDetails)
+                    }
+                    self.itemsLeft -= 1
+                    if self.itemsLeft <= 0 {
+                        self.amazonItems.sort(by: { (item1, item2) -> Bool in
+                            if item1.imageURL == nil {
+                                return false
+                            }
+                            return true
+                        })
+                        self.getSimilarItemsImageURL()
+                        self.collectionView.reloadData()
+                    }
+                }
+            }, failure: {(error) in
+            })
+        }
+    }
+    
+    func getSimilarItemsImageURL() {
+        var similarItemCount = 0
+        for item in self.amazonItems {
+            if item.imageURL == nil {
+                similarItemCount += 1
+            }
+        }
+        self.similarItemsLeft = similarItemCount
+        for item in self.amazonItems {
+            if item.imageURL == nil {
+                let connector = PiktoraConnector.sharedInstance
+                connector.itemLookupForASIN(ASIN: item.ASIN, responseGroups: "Images%2COfferSummary", success: { (responseObject) in
+                    if let response = responseObject as? AMZItemLookupResponse {
+                        let itemWithImage = AmazonItemWithDetails(title: item.title, ASIN: item.ASIN, imageURL: response.imageURL)
+                        self.amazonItems = self.amazonItems.filter({ (itemWithDetails) -> Bool in
+                            if itemWithDetails.ASIN == itemWithImage.ASIN {
+                                return false
+                            }
+                            return true
+                        })
+                        self.amazonItems.append(itemWithImage)
+                        self.similarItemsLeft -= 1
+                        
+                        if self.similarItemsLeft <= 0 {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }, failure: { (_) in
+                    
+                })
+            }
+        }
+    }
+    
 
     func filterFeedsResponse(feedsResponse: FKM_FeedsResponse) {
         if self.categoryName.lowercased() == "watches" {
@@ -180,6 +309,18 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
         }
         self.feedsResponse = feedsResponse
         self.collectionView.reloadData()
+    }
+    
+    func hideActivityIndicator() {
+//        self.greyView.isHidden = true
+        self.activityIndicator.isHidden = true
+        self.activityIndicator.stopAnimating()
+    }
+    
+    func showActivityIndicator() {
+//        self.greyView.isHidden = false
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
     }
 
     func backButtonPressed() {
@@ -218,15 +359,32 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
 extension ImageSelectionViewController: UICollectionViewDataSourcePrefetching {
 
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
-                if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
-                    if prodInfo.productBaseInfoV1?.imageUrls != nil {
-                        let url = self.getImageUrl(urls: (prodInfo.productBaseInfoV1?.imageUrls)!)
+        if self.website == PK_Website.FlipKart {
+            for indexPath in indexPaths {
+                if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
+                    if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
+                        if prodInfo.productBaseInfoV1?.imageUrls != nil {
+                            let url = self.getImageUrl(urls: (prodInfo.productBaseInfoV1?.imageUrls)!)
+                            if url != "" {
+                                let _ = SDWebImageDownloader.shared().downloadImage(with: URL(string: url)!, options: .lowPriority, progress: { (_, _) in
+                                    
+                                }, completed: { (_, _, _, _) in
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            for indexPath in indexPaths {
+                if indexPath.row < self.amazonItems.count {
+                    if let url = self.amazonItems[indexPath.row].imageURL {
+                        NSLog("Prefetching: ", url)
                         if url != "" {
                             let _ = SDWebImageDownloader.shared().downloadImage(with: URL(string: url)!, options: .lowPriority, progress: { (_, _) in
-
+                                
                             }, completed: { (_, _, _, _) in
+                                
                             })
                         }
                     }

@@ -44,6 +44,8 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
     var chosenName : AMZCategoryName?
     var chosenID : AMZBrowseNode?
     
+    var parentVC : ViewController?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var greyView: UIView!
     
@@ -112,6 +114,34 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
                     vc.chosenName = self.supportedCategories[indexPath.row].name
                     vc.chosenID = self.supportedCategories[indexPath.row].nodeID
                 }
+                vc.parentVC = self.parentVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        } else {
+//            if indexPath.row < self.relevantCategories.count {
+//                let getFeedsURL = self.relevantCategories[indexPath.row].get
+//                let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+//                let vc = storyboard.instantiateViewController(withIdentifier: "ImageSelectionViewController") as! ImageSelectionViewController
+//                vc.website = self.website
+//                if let categoryName = self.relevantCategories[indexPath.row].resourceName {
+//                    vc.categoryName = categoryName
+//                }
+//                if getFeedsURL != nil {
+//                    vc.feedsUrl = getFeedsURL!
+//                } else {
+//                    if let getFeedsURL = self.relevantCategories[indexPath.row].top {
+//                        vc.feedsUrl = getFeedsURL
+//                    }
+//                }
+//                self.navigationController?.pushViewController(vc, animated: true)
+//                vc.parentVC = self.parentVC
+//            }
+            if self.alternateCategoryList != nil && indexPath.row < self.alternateCategoryList!.count {
+                let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "ImageSelectionViewController") as! ImageSelectionViewController
+                vc.website = .Amazon
+//                vc.amazonCategory = self.alternateCategoryList![indexPath.row]
+                vc.parentVC = self.parentVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -141,9 +171,11 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
         if self.chosenID != nil {
             let connector = PiktoraConnector.sharedInstance
             self.showActivityIndicator()
-            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, responseGroups: "BrowseNodeInfo", success: { response in
+            connector.browseNodeLookupForNodeID(nodeID: self.chosenID!.rawValue, responseGroups: "BrowseNodeInfo", success: { responseObject in
                 self.hideActivityIndicator()
-                self.alternateCategoryList = response.nodes
+                if let response = responseObject as? AMZBrowseNodeResponse {
+                    self.alternateCategoryList = response.nodes
+                }
                 self.tableView.reloadData()
             }, failure: { (error) in
                 self.hideActivityIndicator()

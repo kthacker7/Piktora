@@ -132,14 +132,16 @@ class PiktoraConnector {
     
     var AMZResponseCache: [Int : AMZBrowseNodeResponseWithTime] = [:]
 
-    func browseNodeLookupForNodeID(nodeID: String, responseGroups: String, success:@escaping (AMZBrowseNodeResponse) -> (), failure: @escaping (Error) -> ()) {
-        if let response = AMZResponseCache[Int(nodeID)!] {
-            var time = response.time.timeIntervalSinceNow
+    func browseNodeLookupForNodeID(nodeID: String, responseGroups: String, success:@escaping (Any) -> (), failure: @escaping (Error) -> ()) {
+        let isSearchResults = (responseGroups as NSString).range(of: "MostGifted").location != NSNotFound
+        let response = AMZResponseCache[Int(nodeID)!]
+        if  response != nil && !isSearchResults {
+            var time = response!.time.timeIntervalSinceNow
             if time < 0 {
                 time = time * (-1.0)
             }
             if time <= 10 * 60.0 {
-                success(response.response)
+                success(response!.response)
                 return
             } else {
                 let _ = AMZResponseCache.removeValue(forKey: Int(nodeID)!)
@@ -162,16 +164,72 @@ class PiktoraConnector {
         sessionManager.responseSerializer = AFXMLParserResponseSerializer()
         sessionManager.get(url, parameters: nil, success: {(dataTask, responseObject: Any) in
             NSLog("Success")
-            let response = AMZBrowseNodeResponse()
+            if !isSearchResults {
+                let response = AMZBrowseNodeResponse()
+                response.initFromXMLResponse(responseObject: responseObject)
+                self.AMZResponseCache[Int(nodeID)!] = AMZBrowseNodeResponseWithTime(time: Date(), response: response)
+                success(response)
+                return
+            }
+            success(responseObject)
+        }, failure: {(task: URLSessionDataTask?, error: Error) in
+            NSLog("Failure")
+            failure(error)
+        })
+    }
+    
+    struct AMZItemLookupResponseWithTime {
+        var time: Date
+        var response: AMZItemLookupResponse
+        var responseGroups : String
+    }
+    
+    var AMZItemCache: [String : AMZItemLookupResponseWithTime] = [:]
+    
+    func itemLookupForASIN(ASIN: String, responseGroups: String, success:@escaping(Any) -> (), failure: @escaping (Error) -> ()) {
+        let response = AMZItemCache[ASIN]
+        if  response != nil {
+            var time = response!.time.timeIntervalSinceNow
+            if time < 0 {
+                time = time * (-1.0)
+            }
+            if time <= 60 * 60.0 {
+                if response?.responseGroups == responseGroups {
+                    success(response!.response)
+                    return
+                }
+            } else {
+                let _ = AMZItemCache.removeValue(forKey: ASIN)
+            }
+        }
+        
+        let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon))
+        commonParams.setValue("ItemLookup", forKey: "Operation")
+        commonParams.setValue(ASIN, forKey: "ItemId")
+        commonParams.setValue(responseGroups, forKey: "ResponseGroup")
+        let characterSet = CharacterSet(charactersIn: ":,").inverted
+        let stringFromDate = Date().iso8601.addingPercentEncoding(withAllowedCharacters: characterSet)
+        
+        commonParams.setValue(stringFromDate, forKey: "Timestamp")
+        let url = self.generateUrlWithSignature(params: commonParams)
+        
+        let configs = URLSessionConfiguration.default
+        
+        let sessionManager = AFHTTPSessionManager.init(baseURL: nil, sessionConfiguration: configs)
+        sessionManager.responseSerializer = AFXMLParserResponseSerializer()
+        sessionManager.get(url, parameters: nil, success: {(dataTask, responseObject: Any) in
+            NSLog("Success")
+            
+            let response = AMZItemLookupResponse()
+            response.ASIN = ASIN
             response.initFromXMLResponse(responseObject: responseObject)
-            self.AMZResponseCache[Int(nodeID)!] = AMZBrowseNodeResponseWithTime(time: Date(), response: response)
+            self.AMZItemCache[ASIN] = AMZItemLookupResponseWithTime(time: Date(), response: response, responseGroups: responseGroups)
             success(response)
         }, failure: {(task: URLSessionDataTask?, error: Error) in
             NSLog("Failure")
             failure(error)
         })
     }
-
     func generateUrlWithSignature(params: NSMutableDictionary) -> String{
 
         var keys = params.allKeys as? [String]

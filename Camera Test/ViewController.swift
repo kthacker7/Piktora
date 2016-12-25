@@ -496,11 +496,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func didFinishPickingImage(image: UIImage) {
         self.userImageSet = false
         self.overLayView.contentMode = .scaleAspectFit
-        self.overLayView.image = image
+        self.cameraImageView.image = image
         let (r,g,b,a,t) = image.getAverageOfCorners()
         let filteredImage = cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
-        self.cameraImageView.image = filteredImage
-
+        self.overLayView.image = filteredImage
     }
 
     // MARK: UISetup

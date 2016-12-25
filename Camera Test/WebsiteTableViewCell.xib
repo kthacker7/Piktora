@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,27 +22,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="212"/>
                         <color key="backgroundColor" red="0.39215686274509803" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5pK-Co-Kq3">
-                        <rect key="frame" x="0.0" y="203" width="320" height="2"/>
-                        <color key="backgroundColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="2" id="PSK-eX-nkb"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="5pK-Co-Kq3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1Lc-hi-hbo"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="5pK-Co-Kq3" secondAttribute="bottom" id="3vH-JD-6BR"/>
                     <constraint firstItem="cj4-3Y-ds3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8fb-hT-rvV"/>
                     <constraint firstItem="cj4-3Y-ds3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="C2Q-He-kPU"/>
-                    <constraint firstAttribute="trailing" secondItem="5pK-Co-Kq3" secondAttribute="trailing" id="F1e-ym-A8v"/>
                     <constraint firstAttribute="bottom" secondItem="cj4-3Y-ds3" secondAttribute="bottom" id="pNU-Md-Po1"/>
                     <constraint firstAttribute="trailing" secondItem="cj4-3Y-ds3" secondAttribute="trailing" id="wK9-9N-LSw"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="separatorView" destination="5pK-Co-Kq3" id="PL0-FU-Nq5"/>
                 <outlet property="websiteLogoImageView" destination="cj4-3Y-ds3" id="2q3-Ta-tCE"/>
             </connections>
         </tableViewCell>

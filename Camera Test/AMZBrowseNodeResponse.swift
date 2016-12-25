@@ -10,19 +10,7 @@ import Foundation
 
 class AMZBrowseNodeResponse: NSObject, XMLParserDelegate {
     var nodes: [AmazonSubcategory] = []
-    var itemSet: AmazonItemSet = AmazonItemSet(items : [], itemsWithURL : [])
     
-    private var currItems : [AmazonItem] = []
-    private var currItemsWithURL : [AmazonItemWithUrl] = []
-    
-    private var currItem : AmazonItem?
-    private var currItemName : String?
-    private var currItemASIN : String?
-    
-    private var currItemWithURL: AmazonItemWithUrl?
-    
-    private var currItemURL : String?
-    private var currItemProductGroup : String?
     
     
     private var currNode: AmazonSubcategory?
@@ -41,7 +29,7 @@ class AMZBrowseNodeResponse: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "Children" || elementName == "TopSellers" || elementName == "TopItemSet" {
+        if elementName == "Children" {
             self.isParsing = true
         }
         if self.isParsing {
@@ -51,18 +39,8 @@ class AMZBrowseNodeResponse: NSObject, XMLParserDelegate {
                 self.currNodeID = ""
                 self.currElement = nil
             }
-            if elementName == "TopSeller" {
-                self.currItemName = ""
-                self.currItemASIN = ""
-            }
-            if elementName == "TopItem" {
-                self.currItemName = ""
-                self.currItemASIN = ""
-                self.currItemURL = ""
-                self.currItemProductGroup = ""
-            }
             
-            if elementName == "BrowseNodeId" || elementName == "Name"  || elementName == "ASIN" || elementName == "Title" || elementName == "DetailPageURL" || elementName == "ProductGroup" {
+            if elementName == "BrowseNodeId" || elementName == "Name" {
                 self.currElement = elementName
             }
         }
@@ -74,14 +52,6 @@ class AMZBrowseNodeResponse: NSObject, XMLParserDelegate {
                 self.currNodeID?.append(string)
             } else if self.currElement == "Name" {
                 self.currNodeName?.append(string)
-            } else if self.currElement == "Title" {
-                self.currItemName?.append(string)
-            } else if self.currElement == "ASIN" {
-                self.currItemASIN?.append(string)
-            } else if self.currElement == "DetailPageURL" {
-                self.currItemURL?.append(string)
-            } else if self.currElement == "ProductGroup" {
-                self.currItemProductGroup?.append(string)
             }
         }
     }
@@ -90,27 +60,11 @@ class AMZBrowseNodeResponse: NSObject, XMLParserDelegate {
         if elementName == "Children" {
             self.isParsing = false
         }
-        if elementName == "TopSellers"{
-            self.itemSet.items.append(contentsOf: self.currItems)
-            self.isParsing = false
-        }
-        
-        if elementName == "TopItemSet" {
-            self.itemSet.itemsWithURL.append(contentsOf: self.currItemsWithURL)
-            self.isParsing = false
-        }
+       
         if self.isParsing {
             if elementName == "BrowseNode" && self.currNodeName != nil && self.currNodeID != nil {
                 self.currNode = AmazonSubcategory(name: self.currNodeName!, nodeID: self.currNodeID!)
                 self.nodes.append(self.currNode!)
-            }
-            if elementName == "TopSeller" && self.currItemASIN != nil && self.currItemName != nil {
-                self.currItem = AmazonItem(title: self.currItemName!, ASIN: self.currItemASIN!)
-                self.currItems.append(self.currItem!)
-            }
-            if elementName == "TopItem" && self.currItemASIN != nil && self.currItemName != nil && self.currItemProductGroup != nil && self.currItemURL != nil {
-                self.currItemWithURL = AmazonItemWithUrl(title: self.currItemName!, ASIN: self.currItemASIN!, detailPageURL: self.currItemURL!, productGroup: self.currItemProductGroup!)
-                self.currItemsWithURL.append(self.currItemWithURL!)
             }
         }
     }
