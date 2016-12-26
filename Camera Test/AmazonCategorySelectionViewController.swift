@@ -118,24 +118,6 @@ class AmazonCategorySelectionViewController: UIViewController, UITableViewDelega
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         } else {
-//            if indexPath.row < self.relevantCategories.count {
-//                let getFeedsURL = self.relevantCategories[indexPath.row].get
-//                let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
-//                let vc = storyboard.instantiateViewController(withIdentifier: "ImageSelectionViewController") as! ImageSelectionViewController
-//                vc.website = self.website
-//                if let categoryName = self.relevantCategories[indexPath.row].resourceName {
-//                    vc.categoryName = categoryName
-//                }
-//                if getFeedsURL != nil {
-//                    vc.feedsUrl = getFeedsURL!
-//                } else {
-//                    if let getFeedsURL = self.relevantCategories[indexPath.row].top {
-//                        vc.feedsUrl = getFeedsURL
-//                    }
-//                }
-//                self.navigationController?.pushViewController(vc, animated: true)
-//                vc.parentVC = self.parentVC
-//            }
             if self.alternateCategoryList != nil && indexPath.row < self.alternateCategoryList!.count {
                 let storyboard = UIStoryboard(name: "ProductSelection", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "ImageSelectionViewController") as! ImageSelectionViewController

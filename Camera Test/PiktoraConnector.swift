@@ -230,6 +230,62 @@ class PiktoraConnector {
             failure(error)
         })
     }
+    
+    struct AMZSearchResultWithTime {
+        var time : Date
+        var response : AMZSearchResultResponse
+        var searchIndex : String
+        var pageIndex : String
+    }
+    
+    var searchCache : [String : AMZSearchResultWithTime] = [:]
+    
+    func searchAmazon(keyword: String, searchIndex: String, pageIndex : String, success:@escaping(AMZSearchResultResponse) -> (), failure: @escaping (Error) -> ()) {
+        if let cachedResponse = searchCache[keyword] {
+            if cachedResponse.searchIndex == searchIndex && cachedResponse.pageIndex == pageIndex {
+                var time = cachedResponse.time.timeIntervalSinceNow
+                if time < 0 {
+                    time = time * (-1.0)
+                }
+                if time <= 60 * 60.0 {
+                    success(cachedResponse.response)
+                    return
+                } else {
+                    let _ = searchCache.removeValue(forKey: keyword)
+                }
+
+            }
+        }
+        let commonParams = NSMutableDictionary(dictionary: self.getRequestParams(website: .Amazon))
+        commonParams.setValue("ItemSearch", forKey: "Operation")
+        if pageIndex != "0" {
+            commonParams.setValue(pageIndex, forKey: "ItemPage")
+        }
+        commonParams.setValue(searchIndex, forKey: "SearchIndex")
+        commonParams.setValue(keyword.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: " ").inverted), forKey: "Keywords")
+        commonParams.setValue("Images%2COfferFull%2CItemAttributes", forKey: "ResponseGroup")
+        let characterSet = CharacterSet(charactersIn: ":,").inverted
+        let stringFromDate = Date().iso8601.addingPercentEncoding(withAllowedCharacters: characterSet)
+        
+        commonParams.setValue(stringFromDate, forKey: "Timestamp")
+        let url = self.generateUrlWithSignature(params: commonParams)
+        
+        let configs = URLSessionConfiguration.default
+        
+        let sessionManager = AFHTTPSessionManager.init(baseURL: URL(string: ""), sessionConfiguration: configs)
+        sessionManager.responseSerializer = AFXMLParserResponseSerializer()
+        sessionManager.get(url, parameters: nil, success: {(dataTask, responseObject: Any) in
+            NSLog("Success")
+            let response = AMZSearchResultResponse()
+            response.initFromXMLResponse(responseObject: responseObject)
+            self.searchCache[keyword] = AMZSearchResultWithTime(time: Date(), response: response, searchIndex: searchIndex, pageIndex: pageIndex)
+            success(response)
+        }, failure: {(task: URLSessionDataTask?, error: Error) in
+            NSLog("Failure")
+            failure(error)
+        })
+    }
+    
     func generateUrlWithSignature(params: NSMutableDictionary) -> String{
 
         var keys = params.allKeys as? [String]

@@ -37,6 +37,7 @@ class AmazonProductCollectionViewCell: UICollectionViewCell {
     }
     func setupUI(amazonItem : AmazonItemWithDetails) {
         self.productTitleLabel.text = amazonItem.title
+        self.productPriceLabel.text = amazonItem.formattedPrice
         if amazonItem.imageURL != "" {
             if let url = URL(string : amazonItem.imageURL) {
                 self.productImageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "ImageSelectionPlaceholder"))

@@ -12,11 +12,12 @@ import SDWebImage
 struct AmazonItemWithDetails {
     var title : String
     var ASIN : String
+    var detailURL : String
     var imageURL : String
     var formattedPrice : String
 }
 
-class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FlipkartBuyButtonDelegate {
+class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FlipkartBuyButtonDelegate, AmazonBuyButtonDelegate {
 
     var website: PK_Website?
     
@@ -29,12 +30,15 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     
     // Amazon variables
     var amazonCategory : String?
+    var amazonKeyword : String = ""
     var amazonProducts : AMZSearchResultResponse?
     
     var itemsLeft : Int = 0
     var similarItemsLeft : Int = 0
     
-    
+    var nextPage : Int = 0
+    var isLoadingNextPage  = false
+    var toLoadNextPage = true
 
     @IBOutlet var adButton: UIButton!
 
@@ -67,6 +71,8 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmazonProductCollectionViewCell", for: indexPath) as! AmazonProductCollectionViewCell
             if self.amazonProducts != nil && (indexPath.row < self.amazonProducts!.items.count) {
                 let item = self.amazonProducts!.items[indexPath.row]
+                cell.indexPath = indexPath
+                cell.delegate = self
                 cell.setupUI(amazonItem: item)
             }
             return cell
@@ -89,17 +95,35 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
 
 
     // MARK: Collection view delegate
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
-            if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
-                if prodInfo.productBaseInfoV1?.imageUrls != nil {
-                    let url = self.getImageUrl(urls: (prodInfo.productBaseInfoV1?.imageUrls)!)
-                    UserDefaults.standard.set(URL(string:url), forKey: "ProductImageURL")
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if self.website == PK_Website.Amazon {
+            if self.toLoadNextPage && !self.isLoadingNextPage && self.amazonProducts != nil && indexPath.row >= self.amazonProducts!.items.count - 5 {
+                self.isLoadingNextPage = true
+                if self.nextPage <= 5 {
+                    self.loadAmazonProducts()
                 }
-                self.parentVC?.selectedProductInfo = prodInfo
             }
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if self.website == PK_Website.FlipKart {
+            if feedsResponse?.productInfoList?.count != nil && indexPath.row < (feedsResponse?.productInfoList?.count)! {
+                if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
+                    if prodInfo.productBaseInfoV1?.imageUrls != nil {
+                        let url = self.getImageUrl(urls: (prodInfo.productBaseInfoV1?.imageUrls)!)
+                        UserDefaults.standard.set(URL(string:url), forKey: "ProductImageURL")
+                    }
+                    self.parentVC?.selectedProductInfo = prodInfo
+                }
+            }
+        } else {
+            if self.amazonProducts != nil && self.amazonProducts!.items.count > indexPath.row {
+                let item = self.amazonProducts!.items[indexPath.row]
+                self.parentVC?.selectedAmazonProduct = item
+                
+            }
+        }
+        self.parentVC?.selectedWebsite = self.website
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -115,6 +139,18 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
             if let prodInfo = feedsResponse?.productInfoList?[indexPath.row] {
                 if let prodUrl = prodInfo.productBaseInfoV1?.productURL {
                     UIApplication.shared.openURL(URL(string: prodUrl)!)
+                }
+            }
+        }
+    }
+    
+    // MARK: Amazon Buy Button Delegate
+    
+    func amazonBuyButtonPressed(indexPath: IndexPath) {
+        if self.amazonProducts != nil && indexPath.row < self.amazonProducts!.items.count {
+            if let prodInfo = self.amazonProducts?.items[indexPath.row] {
+                if prodInfo.detailURL != "" {
+                    UIApplication.shared.openURL(URL(string: prodInfo.detailURL)!)
                 }
             }
         }
@@ -202,93 +238,40 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func loadAmazonProducts() {
+        let category = self.amazonCategory != nil ? self.amazonCategory! : "All"
         let connector = PiktoraConnector.sharedInstance
-        if self.amazonCategory != nil {
-            self.showActivityIndicator()
-            connector.browseNodeLookupForNodeID(nodeID: self.amazonCategory!.nodeID, responseGroups: "MostGifted%2CMostWishedFor%2CNewReleases%2CTopSellers", success: { (responseObject) in
-                let response = AMZSearchResultResponse()
-                response.initFromXMLResponse(responseObject: responseObject)
-                self.getAmazonImageURLS(response: response)
-            }, failure: { (error) in
-                self.hideActivityIndicator()
-                let alert = UIAlertController(title: "Oops, something went wrong", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Try Again", style: .default , handler: { (_) in
-                    alert.dismiss(animated: false, completion: nil)
-                    self.loadAmazonProducts()
-                    
-                }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-                    alert.dismiss(animated: false, completion: nil)
-                }))
-                self.present(alert, animated: false, completion: nil)
-            })
-        }
-    }
-    
-    func getAmazonImageURLS(response: AMZSearchResultResponse) {
-        self.itemsLeft = response.itemSet.items.count
         self.showActivityIndicator()
-        for item in response.itemSet.items {
-            let connector = PiktoraConnector.sharedInstance
-            connector.itemLookupForASIN(ASIN: item.ASIN, responseGroups: "Images%2COfferSummary%2CSimilarities", success: {(responseObject) in
-                self.hideActivityIndicator()
-                if let response = responseObject as? AMZItemLookupResponse {
-                    let item = AmazonItemWithDetails(title: item.title, ASIN: item.ASIN, imageURL: response.imageURL)
-                    self.amazonItems.append(item)
-                    for similarItem in response.similarItems {
-                        let itemWithDetails = AmazonItemWithDetails(title: similarItem.title, ASIN: similarItem.ASIN, imageURL: nil)
-                        self.amazonItems.append(itemWithDetails)
-                    }
-                    self.itemsLeft -= 1
-                    if self.itemsLeft <= 0 {
-                        self.amazonItems.sort(by: { (item1, item2) -> Bool in
-                            if item1.imageURL == nil {
-                                return false
-                            }
-                            return true
-                        })
-                        self.getSimilarItemsImageURL()
-                        self.collectionView.reloadData()
-                    }
-                }
-            }, failure: {(error) in
-            })
-        }
-    }
-    
-    func getSimilarItemsImageURL() {
-        var similarItemCount = 0
-        for item in self.amazonItems {
-            if item.imageURL == nil {
-                similarItemCount += 1
+        connector.searchAmazon(keyword: self.amazonKeyword, searchIndex: category, pageIndex: String(self.nextPage), success: {(responseObject) in
+            self.hideActivityIndicator()
+            if self.amazonProducts == nil {
+                self.amazonProducts = responseObject
+            } else {
+                self.amazonProducts!.items.append(contentsOf: responseObject.items)
             }
-        }
-        self.similarItemsLeft = similarItemCount
-        for item in self.amazonItems {
-            if item.imageURL == nil {
-                let connector = PiktoraConnector.sharedInstance
-                connector.itemLookupForASIN(ASIN: item.ASIN, responseGroups: "Images%2COfferSummary", success: { (responseObject) in
-                    if let response = responseObject as? AMZItemLookupResponse {
-                        let itemWithImage = AmazonItemWithDetails(title: item.title, ASIN: item.ASIN, imageURL: response.imageURL)
-                        self.amazonItems = self.amazonItems.filter({ (itemWithDetails) -> Bool in
-                            if itemWithDetails.ASIN == itemWithImage.ASIN {
-                                return false
-                            }
-                            return true
-                        })
-                        self.amazonItems.append(itemWithImage)
-                        self.similarItemsLeft -= 1
-                        
-                        if self.similarItemsLeft <= 0 {
-                            self.collectionView.reloadData()
-                        }
-                    }
-                }, failure: { (_) in
-                    
-                })
+            if responseObject.items.count == 10 {
+                self.toLoadNextPage = true
+            } else {
+                self.toLoadNextPage = false
             }
-        }
+            self.isLoadingNextPage = false
+            self.nextPage += 1
+            self.collectionView.reloadData()
+        }, failure: {error in
+            self.isLoadingNextPage = false
+            self.hideActivityIndicator()
+            let alert = UIAlertController(title: "Oops, something went wrong", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: .default , handler: { (_) in
+                alert.dismiss(animated: false, completion: nil)
+                self.loadProducts()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+                alert.dismiss(animated: false, completion: nil)
+            }))
+            self.present(alert, animated: false, completion: nil)
+        })
+        
     }
+
     
 
     func filterFeedsResponse(feedsResponse: FKM_FeedsResponse) {
@@ -377,16 +360,14 @@ extension ImageSelectionViewController: UICollectionViewDataSourcePrefetching {
             }
         } else {
             for indexPath in indexPaths {
-                if indexPath.row < self.amazonItems.count {
-                    if let url = self.amazonItems[indexPath.row].imageURL {
-                        NSLog("Prefetching: ", url)
-                        if url != "" {
-                            let _ = SDWebImageDownloader.shared().downloadImage(with: URL(string: url)!, options: .lowPriority, progress: { (_, _) in
-                                
-                            }, completed: { (_, _, _, _) in
-                                
-                            })
-                        }
+                if self.amazonProducts != nil && indexPath.row < self.amazonProducts!.items.count {
+                    let url = self.amazonProducts!.items[indexPath.row].imageURL
+                    if url != "" {
+                        let _ = SDWebImageDownloader.shared().downloadImage(with: URL(string: url)!, options: .lowPriority, progress: { (_, _) in
+                            
+                        }, completed: { (_, _, _, _) in
+                            
+                        })
                     }
                 }
             }

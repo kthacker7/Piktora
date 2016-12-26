@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AmazonProductCollectionViewCell" customModule="Piktora" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="230" height="336"/>
+            <rect key="frame" x="0.0" y="0.0" width="230" height="363"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="230" height="336"/>
+                <rect key="frame" x="0.0" y="0.0" width="230" height="363"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mfz-yB-2Mp">
-                        <rect key="frame" x="5" y="5" width="220" height="326"/>
+                        <rect key="frame" x="5" y="5" width="220" height="353"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Tt-cE-eOy">
@@ -29,30 +29,25 @@
                             <constraint firstAttribute="width" secondItem="3Tt-cE-eOy" secondAttribute="height" multiplier="1:1" id="Ckb-J3-FgS"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wc-UK-9b1">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rs. 20,000 Rs. 15,000 (-25%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wc-UK-9b1">
                         <rect key="frame" x="10" y="263.5" width="210" height="17"/>
-                        <attributedString key="attributedText">
-                            <fragment content="Rs. 20,000 Rs. 15,000 (-25%)">
-                                <attributes>
-                                    <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Apple iPhone 6 (Space Grey with steel cover)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdu-Vf-yNJ">
                         <rect key="frame" x="10" y="225" width="210" height="33.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-cl-vWJ">
-                        <rect key="frame" x="28" y="290.5" width="175" height="25"/>
+                        <rect key="frame" x="48.5" y="303" width="134" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="vRw-cl-vWJ" secondAttribute="height" multiplier="7:1" id="YN5-rM-70y"/>
+                            <constraint firstAttribute="height" constant="50" id="ZHY-9n-CXg"/>
+                            <constraint firstAttribute="width" secondItem="vRw-cl-vWJ" secondAttribute="height" multiplier="355:132" id="xsQ-Gz-h2V"/>
                         </constraints>
-                        <state key="normal" backgroundImage="BuyFromFlipkart"/>
+                        <state key="normal" backgroundImage="BuyFromAmazon"/>
                         <connections>
                             <action selector="buyButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="yhY-Bf-lHM"/>
                         </connections>
@@ -61,16 +56,12 @@
             </view>
             <color key="backgroundColor" red="0.3921568627" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="vRw-cl-vWJ" firstAttribute="centerX" secondItem="Hdu-Vf-yNJ" secondAttribute="centerX" id="2jK-iG-mf2"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vRw-cl-vWJ" secondAttribute="trailing" constant="10" id="EpF-Yo-3fc"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vRw-cl-vWJ" secondAttribute="bottom" constant="10" id="Ggd-a5-8yX"/>
                 <constraint firstItem="Hdu-Vf-yNJ" firstAttribute="trailing" secondItem="3Tt-cE-eOy" secondAttribute="trailing" id="Hac-Fc-QRh"/>
                 <constraint firstAttribute="trailing" secondItem="Mfz-yB-2Mp" secondAttribute="trailing" constant="5" id="Iak-6k-aL0"/>
                 <constraint firstItem="Hdu-Vf-yNJ" firstAttribute="leading" secondItem="3Tt-cE-eOy" secondAttribute="leading" id="Jjo-R9-pLe"/>
                 <constraint firstItem="3Tt-cE-eOy" firstAttribute="width" secondItem="Mfz-yB-2Mp" secondAttribute="width" constant="-10" id="Qpr-L6-R19"/>
                 <constraint firstItem="4wc-UK-9b1" firstAttribute="leading" secondItem="Hdu-Vf-yNJ" secondAttribute="leading" id="RsI-hX-FaF"/>
                 <constraint firstItem="3Tt-cE-eOy" firstAttribute="centerX" secondItem="Mfz-yB-2Mp" secondAttribute="centerX" id="Wqd-19-ngw"/>
-                <constraint firstItem="vRw-cl-vWJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="XXf-Ek-fBz"/>
                 <constraint firstAttribute="bottom" secondItem="Mfz-yB-2Mp" secondAttribute="bottom" constant="5" id="a4U-mr-JrQ"/>
                 <constraint firstItem="Mfz-yB-2Mp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="b0b-kW-NTz"/>
                 <constraint firstItem="Hdu-Vf-yNJ" firstAttribute="top" secondItem="3Tt-cE-eOy" secondAttribute="bottom" constant="5" id="bgL-HY-jaP"/>
@@ -78,16 +69,20 @@
                 <constraint firstItem="4wc-UK-9b1" firstAttribute="trailing" secondItem="Hdu-Vf-yNJ" secondAttribute="trailing" id="ggc-sM-VS3"/>
                 <constraint firstItem="4wc-UK-9b1" firstAttribute="top" secondItem="Hdu-Vf-yNJ" secondAttribute="bottom" constant="4.5" id="h3m-Nm-uY7"/>
                 <constraint firstItem="3Tt-cE-eOy" firstAttribute="top" secondItem="Mfz-yB-2Mp" secondAttribute="top" constant="5" id="jR4-2M-txG"/>
-                <constraint firstItem="vRw-cl-vWJ" firstAttribute="top" secondItem="4wc-UK-9b1" secondAttribute="bottom" constant="10" id="zfz-cd-B4l"/>
+                <constraint firstItem="vRw-cl-vWJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4wc-UK-9b1" secondAttribute="bottom" constant="10" id="qwS-yy-BNl"/>
+                <constraint firstAttribute="bottom" secondItem="vRw-cl-vWJ" secondAttribute="bottom" constant="10" id="rnz-8W-iOj"/>
+                <constraint firstItem="vRw-cl-vWJ" firstAttribute="centerX" secondItem="3Tt-cE-eOy" secondAttribute="centerX" id="xse-6F-Ofz"/>
             </constraints>
+            <size key="customSize" width="230" height="363"/>
             <connections>
                 <outlet property="productImageView" destination="3Tt-cE-eOy" id="ru3-6B-khP"/>
                 <outlet property="productPriceLabel" destination="4wc-UK-9b1" id="4aV-kG-gpn"/>
                 <outlet property="productTitleLabel" destination="Hdu-Vf-yNJ" id="dMT-lZ-AF4"/>
             </connections>
+            <point key="canvasLocation" x="34" y="100.5"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="BuyFromFlipkart" width="175" height="25"/>
+        <image name="BuyFromAmazon" width="355" height="132"/>
     </resources>
 </document>

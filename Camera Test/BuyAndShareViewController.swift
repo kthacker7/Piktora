@@ -17,6 +17,7 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
     @IBOutlet var buyAndShareView: UIView!
     @IBOutlet var buyButton: UIButton!
     @IBOutlet var shareButton: UIButton!
+    @IBOutlet weak var buyFromWebsiteButton: UIButton!
 
     @IBOutlet var buyAndShareButtonViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var buyButtonHeightConstraint: NSLayoutConstraint!
@@ -24,7 +25,11 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
     @IBOutlet var overlayedImageView: UIImageView!
 
     @IBOutlet var productDetailWidthConstraint: NSLayoutConstraint!
+    
     var selectedProdInfo: FKM_ProductInfo?
+    var selectedAmazonProdInfo : AmazonItemWithDetails?
+    var selectedWebsite : PK_Website?
+    
     var overlayedImage: UIImage?
     var parentVC: ViewController?
 
@@ -96,40 +101,49 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
     //MARK: Others
 
     func setupProductUI() {
-        if let prodInfo = self.selectedProdInfo {
-            self.productDetailWidthConstraint.constant = self.view.bounds.width * 2.0 / 3.0
-            self.productNameLabel.font = UIFont(name: "Helvetica", size: 13.0)
-            self.productPriceLabel.font = UIFont(name: "Helvetica", size: 13.0)
-            self.productNameLabel.text = prodInfo.productBaseInfoV1?.title
-            let mrp = prodInfo.productBaseInfoV1?.mrp
-            let fkPrice = prodInfo.productBaseInfoV1?.flipkartPrice
-            let fksPrice = prodInfo.productBaseInfoV1?.flipkartSpecialPrice
-            let discount = prodInfo.productBaseInfoV1?.discountPercent
-            if discount != nil && discount! > 0.0 {
-                let priceLabelTitle = self.getPriceLabel(mrp: mrp, fkPrice: fkPrice, fksPrice: fksPrice, discount: discount!)
-                self.productPriceLabel.attributedText = priceLabelTitle
-            } else {
-                var price = ""
-                var currency = ""
-                if mrp != nil && mrp?.amount != nil {
-                    price = String((mrp?.amount)!)
-                    if mrp?.currency != nil {
-                        currency = (mrp?.currency)!
+        self.buyFromWebsiteButton.imageView?.contentMode = .scaleAspectFit
+        if self.selectedWebsite == PK_Website.FlipKart {
+            if let prodInfo = self.selectedProdInfo {
+                self.productDetailWidthConstraint.constant = self.view.bounds.width * 2.0 / 3.0
+                self.productNameLabel.font = UIFont(name: "Helvetica", size: 13.0)
+                self.productPriceLabel.font = UIFont(name: "Helvetica", size: 13.0)
+                self.productNameLabel.text = prodInfo.productBaseInfoV1?.title
+                let mrp = prodInfo.productBaseInfoV1?.mrp
+                let fkPrice = prodInfo.productBaseInfoV1?.flipkartPrice
+                let fksPrice = prodInfo.productBaseInfoV1?.flipkartSpecialPrice
+                let discount = prodInfo.productBaseInfoV1?.discountPercent
+                if discount != nil && discount! > 0.0 {
+                    let priceLabelTitle = self.getPriceLabel(mrp: mrp, fkPrice: fkPrice, fksPrice: fksPrice, discount: discount!)
+                    self.productPriceLabel.attributedText = priceLabelTitle
+                } else {
+                    var price = ""
+                    var currency = ""
+                    if mrp != nil && mrp?.amount != nil {
+                        price = String((mrp?.amount)!)
+                        if mrp?.currency != nil {
+                            currency = (mrp?.currency)!
+                        }
+                    } else if fkPrice != nil && fkPrice!.amount != nil {
+                        price = String((fkPrice?.amount)!)
+                        if fkPrice?.currency != nil {
+                            currency = (fkPrice?.currency)!
+                        }
+                    } else if fksPrice != nil && fksPrice?.amount != nil {
+                        price = String((fksPrice?.amount)!)
+                        if fksPrice?.currency != nil {
+                            currency = (fksPrice?.currency)!
+                        }
                     }
-                } else if fkPrice != nil && fkPrice!.amount != nil {
-                    price = String((fkPrice?.amount)!)
-                    if fkPrice?.currency != nil {
-                        currency = (fkPrice?.currency)!
-                    }
-                } else if fksPrice != nil && fksPrice?.amount != nil {
-                    price = String((fksPrice?.amount)!)
-                    if fksPrice?.currency != nil {
-                        currency = (fksPrice?.currency)!
-                    }
+                    self.productPriceLabel.text = self.getSymbolFromCurrency(currency: currency) + " " + price
                 }
-                self.productPriceLabel.text = self.getSymbolFromCurrency(currency: currency) + " " + price
+                
             }
-
+        } else if self.selectedWebsite == PK_Website.Amazon {
+            if let prodInfo = self.selectedAmazonProdInfo{
+                self.productNameLabel.text = prodInfo.title
+                self.productPriceLabel.text = prodInfo.formattedPrice
+                self.buyFromWebsiteButton.setImage(#imageLiteral(resourceName: "BuyFromAmazon"), for: .normal)
+            }
         } else {
             self.productDetailWidthConstraint.constant = 0
 
@@ -235,7 +249,7 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
 
     func expand() {
         self.buyAndShareView.layoutIfNeeded()
-        if self.selectedProdInfo != nil {
+        if (self.selectedProdInfo != nil || self.selectedAmazonProdInfo != nil) && self.selectedWebsite != PK_Website.Gallery {
             self.buyButtonHeightConstraint.constant = 45
         } else {
             self.buyButtonHeightConstraint.constant = 0
@@ -296,9 +310,17 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
     }
 
     func buyProduct() {
-        if let prodInfo = self.selectedProdInfo {
-            if let prodUrl = prodInfo.productBaseInfoV1?.productURL {
-                UIApplication.shared.openURL(URL(string: prodUrl)!)
+        if self.selectedWebsite == PK_Website.FlipKart {
+            if let prodInfo = self.selectedProdInfo {
+                if let prodUrl = prodInfo.productBaseInfoV1?.productURL {
+                    UIApplication.shared.openURL(URL(string: prodUrl)!)
+                }
+            }
+        } else if self.selectedWebsite == PK_Website.Amazon{
+            if let prodInfo = self.selectedAmazonProdInfo {
+                if let prodURL = URL(string: prodInfo.detailURL) {
+                    UIApplication.shared.openURL(prodURL)
+                }
             }
         }
     }

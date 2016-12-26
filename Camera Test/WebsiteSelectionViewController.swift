@@ -111,6 +111,7 @@ class WebsiteSelectionViewController: UIViewController, UITableViewDelegate, UIT
             delegate?.didFinishPickingImage(image: image!)
         }
         self.parentVC?.selectedProductInfo = nil
+        self.parentVC?.selectedWebsite = PK_Website.Gallery
         picker.dismiss(animated: true) {
             self.dismiss(animated: true, completion: nil)
         }

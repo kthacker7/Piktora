@@ -20,11 +20,14 @@ class AMZSearchResultResponse : NSObject, XMLParserDelegate {
     private var currItemASIN : String = ""
     private var currItemURL : String = ""
     private var currItemFormattedPrice : String = ""
+    private var currItemImageURL : String = ""
     
     private var currElement: String?
     
     var parser = XMLParser()
     var isParsing = false
+    var isLargeImage = false
+    var isNewPrice = false
     
     func initFromXMLResponse(responseObject: Any) {
         if let parser = responseObject as? XMLParser {
@@ -40,10 +43,20 @@ class AMZSearchResultResponse : NSObject, XMLParserDelegate {
             self.currItemASIN = ""
             self.currItemURL = ""
             self.currItemFormattedPrice = ""
+            self.currItemImageURL = ""
         }
         
-        if elementName == "ASIN" || elementName == "Title" || elementName == "FormattedPrice" {
+        if elementName == "ASIN" || elementName == "Title" || elementName == "FormattedPrice" || elementName == "DetailPageURL" || elementName == "URL" {
             self.currElement = elementName
+        }
+        if elementName == "ImageSets" {
+            self.isParsing = false
+        }
+        if elementName == "LargeImage" {
+            self.isLargeImage = true
+        }
+        if elementName == "LowestNewPrice" {
+            self.isNewPrice = true
         }
     }
     
@@ -55,16 +68,30 @@ class AMZSearchResultResponse : NSObject, XMLParserDelegate {
                 self.currItemASIN.append(string)
             } else if self.currElement == "DetailPageURL" {
                 self.currItemURL.append(string)
-            } else if self.currElement == "FormattedPrice" {
+            } else if self.currElement == "FormattedPrice" && self.isNewPrice{
                 self.currItemFormattedPrice.append(string)
+            } else if self.currElement == "URL" && self.isLargeImage {
+                self.currItemImageURL.append(string)
             }
         }
     }
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "Item"{
-            self.currItem = AmazonItemWithDetails(title: self.currItemName, ASIN: self.currItemASIN, imageURL: self.currItemURL, formattedPrice: self.currItemFormattedPrice)
+            self.currItem = AmazonItemWithDetails(title: self.currItemName, ASIN: self.currItemASIN, detailURL: self.currItemURL, imageURL: self.currItemImageURL, formattedPrice: self.currItemFormattedPrice)
             self.items.append(self.currItem!)
             self.isParsing = false
+        }
+        if elementName == "ASIN" || elementName == "Title" || elementName == "FormattedPrice" || elementName == "DetailPageURL" || elementName == "URL" {
+            self.currElement = ""
+        }
+        if elementName == "ImageSets" {
+            self.isParsing = true
+        }
+        if elementName == "LargeImage" {
+            self.isLargeImage = false
+        }
+        if elementName == "LowestNewPrice" {
+            self.isNewPrice = false
         }
     }
 }

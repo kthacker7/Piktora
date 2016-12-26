@@ -37,6 +37,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let tutorialImages = [#imageLiteral(resourceName: "TutorialPage1"), #imageLiteral(resourceName: "TutorialPage2"), #imageLiteral(resourceName: "TutorialPage3")]
 
     var selectedProductInfo : FKM_ProductInfo?
+    var selectedAmazonProduct : AmazonItemWithDetails?
+    
+    var selectedWebsite : PK_Website?
 
     // Buy and share objects
     @IBOutlet var buyButton: UIButton!
@@ -114,20 +117,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
 
-        if let url = UserDefaults.standard.url(forKey: "ProductImageURL") {
-            SDWebImageManager.shared().downloadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (_, _) in
-
-            }, completed: { (image, error, _, finished, _) in
-                DispatchQueue.main.async {
-                    if finished && error == nil && image != nil {
-                        let (r, g, b, a, t) = image!.getAverageOfCorners()
-                        self.cameraImageView.image = image
-                        self.userImageSet = false
-                        self.overLayView.contentMode = .scaleAspectFit
-                        self.overLayView.image = self.cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+        if self.selectedWebsite == PK_Website.FlipKart {
+            if let url = UserDefaults.standard.url(forKey: "ProductImageURL") {
+                SDWebImageManager.shared().downloadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (_, _) in
+                    
+                }, completed: { (image, error, _, finished, _) in
+                    DispatchQueue.main.async {
+                        if finished && error == nil && image != nil {
+                            let (r, g, b, a, t) = image!.getAverageOfCorners()
+                            self.cameraImageView.image = image
+                            self.userImageSet = false
+                            self.overLayView.contentMode = .scaleAspectFit
+                            self.overLayView.image = self.cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+                        }
                     }
+                })
+            }
+        } else if self.selectedWebsite == PK_Website.Amazon {
+            if let urlString = self.selectedAmazonProduct?.imageURL {
+                if let url = URL(string: urlString) {
+                    SDWebImageManager.shared().downloadImage(with: url, options: .highPriority, progress: { (_, _) in
+                    }, completed: { (image, error, _, finished, _) in
+                        if finished && error == nil && image != nil {
+                            let (r, g, b, a, t) = image!.getAverageOfCorners()
+                            self.cameraImageView.image = image
+                            self.userImageSet = false
+                            self.overLayView.contentMode = .scaleAspectFit
+                            self.overLayView.image = self.cameraHelper.replace(UIColor.init(colorLiteralRed: Float(r), green: Float(g), blue: Float(b), alpha: Float(a)), in: image, withTolerance: Float(t))
+                        }
+                    })
                 }
-            })
+            }
         }
     }
 
@@ -202,6 +222,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let cameraStoryboard = UIStoryboard.init(name: "Camera", bundle: nil)
         let vc = cameraStoryboard.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
         vc.selectedProdInfo = self.selectedProductInfo
+        vc.selectedWebsite = self.selectedWebsite
+        vc.selectedAmazonInfo = self.selectedAmazonProduct
         vc.delegate = self
         vc.parentVC = self
         let image = overLayView?.image
@@ -541,7 +563,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     func expand() {
         self.buyAndShareButtonView.layoutIfNeeded()
-        if self.selectedProductInfo != nil {
+        if (self.selectedProductInfo != nil || self.selectedAmazonProduct != nil) && self.selectedWebsite != PK_Website.Gallery {
             self.buyButtonHeightConstraint.constant = 45
         } else {
             self.buyButtonHeightConstraint.constant = 0
@@ -573,9 +595,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func buyButtonTapped(_ sender: Any) {
-        if let prodInfo = self.selectedProductInfo {
-            if let prodUrl = prodInfo.productBaseInfoV1?.productURL {
-                UIApplication.shared.openURL(URL(string: prodUrl)!)
+        if self.selectedWebsite == PK_Website.FlipKart {
+            if let prodInfo = self.selectedProductInfo {
+                if let prodUrl = prodInfo.productBaseInfoV1?.productURL {
+                    UIApplication.shared.openURL(URL(string: prodUrl)!)
+                }
+            }
+        } else if self.selectedWebsite == PK_Website.Amazon{
+            if let prodInfo = self.selectedAmazonProduct {
+                if let prodURL = URL(string: prodInfo.detailURL) {
+                    UIApplication.shared.openURL(prodURL)
+                }
             }
         }
     }

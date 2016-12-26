@@ -101,8 +101,8 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
         } else {
             if indexPath.row < self.amazonCategories.count {
                 let searchString = self.amazonCategories[indexPath.row]
-                if searchString == "Search" {
-                    
+                if searchString != "Search" {
+                    vc.amazonKeyword = searchString
                 }
             }
         }
@@ -214,7 +214,6 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
     func setupAmazon() {
         self.tableView.isHidden = false
         self.amazonCategories = self.amazonCategories.sorted()
-        self.amazonCategories.insert("Search", at: 0)
     }
 
 
