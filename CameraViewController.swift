@@ -88,6 +88,8 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet var torchButton: UIButton!
     var overlayImageView: UIImageView?
     var selectedProdInfo: FKM_ProductInfo?
+    var selectedWebsite: PK_Website?
+    var selectedAmazonInfo: AmazonItemWithDetails?
     var parentVC: ViewController?
 
     override func viewDidLoad() {
@@ -785,6 +787,8 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "BuyAndShareViewController") as! BuyAndShareViewController
         vc.selectedProdInfo = self.selectedProdInfo
+        vc.selectedWebsite = self.selectedWebsite
+        vc.selectedAmazonProdInfo = self.selectedAmazonInfo
         vc.overlayedImage = self.augmentedImage
         vc.parentVC = self.parentVC
         self.doneAndCancelView.isHidden = false
