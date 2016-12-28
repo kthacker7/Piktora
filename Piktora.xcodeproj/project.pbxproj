@@ -38,7 +38,6 @@
 		3081390B1D7ECF2500A49653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390A1D7ECF2500A49653 /* AppDelegate.swift */; };
 		3081390D1D7ECF2500A49653 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081390C1D7ECF2500A49653 /* ViewController.swift */; };
 		308139101D7ECF2500A49653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3081390E1D7ECF2500A49653 /* Main.storyboard */; };
-		308139121D7ECF2500A49653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 308139111D7ECF2500A49653 /* Assets.xcassets */; };
 		308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 308139131D7ECF2500A49653 /* LaunchScreen.storyboard */; };
 		3098158C1DBCCD350071B4BC /* ProductSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3098158B1DBCCD350071B4BC /* ProductSelection.storyboard */; };
 		30984F491DCDFBF900B08B75 /* Piktora_Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 30984F481DCDFBF800B08B75 /* Piktora_Splash.png */; };
@@ -99,7 +98,6 @@
 		3081390A1D7ECF2500A49653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3081390C1D7ECF2500A49653 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3081390F1D7ECF2500A49653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		308139111D7ECF2500A49653 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		308139141D7ECF2500A49653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		308139161D7ECF2500A49653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3081391E1D7EFA3A00A49653 /* Camera Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Camera Test-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -400,7 +398,6 @@
 				304DC57A1DB2B5910098054D /* Controllers */,
 				3081390A1D7ECF2500A49653 /* AppDelegate.swift */,
 				3081391E1D7EFA3A00A49653 /* Camera Test-Bridging-Header.h */,
-				308139111D7ECF2500A49653 /* Assets.xcassets */,
 				308139161D7ECF2500A49653 /* Info.plist */,
 				30984F481DCDFBF800B08B75 /* Piktora_Splash.png */,
 			);
@@ -545,7 +542,6 @@
 				30984F491DCDFBF900B08B75 /* Piktora_Splash.png in Resources */,
 				308139151D7ECF2500A49653 /* LaunchScreen.storyboard in Resources */,
 				301F18411DA90E4F000F4F77 /* Camera.storyboard in Resources */,
-				308139121D7ECF2500A49653 /* Assets.xcassets in Resources */,
 				302FBC2A1DC35D880014FB8B /* FlipkartProductCollectionViewCell.xib in Resources */,
 				30D30E1E1DBCD0EA004A86B2 /* WebsiteTableViewCell.xib in Resources */,
 				30A615F71D8573D800793EBA /* GalleryImageAugmentViewController.xib in Resources */,

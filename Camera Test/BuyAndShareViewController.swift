@@ -140,6 +140,7 @@ class BuyAndShareViewController: UIViewController, MFMailComposeViewControllerDe
             }
         } else if self.selectedWebsite == PK_Website.Amazon {
             if let prodInfo = self.selectedAmazonProdInfo{
+                self.productDetailWidthConstraint.constant = self.view.bounds.width * 2.0 / 3.0
                 self.productNameLabel.text = prodInfo.title
                 self.productPriceLabel.text = prodInfo.formattedPrice
                 self.buyFromWebsiteButton.setImage(#imageLiteral(resourceName: "BuyFromAmazon"), for: .normal)

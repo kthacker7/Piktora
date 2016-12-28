@@ -180,12 +180,17 @@ class ImageSelectionViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func setupAd() {
-        if UIApplication.shared.canOpenURL(URL(string: "flipkart://")!) {
-            self.adButton.setImage(#imageLiteral(resourceName: "DOTDBanner"), for: .normal)
-            self.flipkartInstalled = true
+        if self.website == PK_Website.FlipKart {
+            self.adButton.isHidden = false
+            if UIApplication.shared.canOpenURL(URL(string: "flipkart://")!) {
+                self.adButton.setImage(#imageLiteral(resourceName: "DOTDBanner"), for: .normal)
+                self.flipkartInstalled = true
+            } else {
+                self.adButton.setImage(#imageLiteral(resourceName: "FlipkartInstallBanner"), for: .normal)
+                self.flipkartInstalled = false
+            }
         } else {
-            self.adButton.setImage(#imageLiteral(resourceName: "FlipkartInstallBanner"), for: .normal)
-            self.flipkartInstalled = false
+            self.adButton.isHidden = true
         }
     }
 

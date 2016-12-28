@@ -63,7 +63,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
 
 
-        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+//        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         imagePicker.delegate = self
         self.cameraImageView.contentMode = UIViewContentMode.scaleAspectFit
 

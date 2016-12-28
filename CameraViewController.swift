@@ -34,21 +34,8 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet var doneGalleryButton: UIButton!
     @IBOutlet var cancelGalleryButton: UIButton!
     @IBOutlet var doneAndCancelView: UIView!
-    var cachingImageManager : PHCachingImageManager? = nil
     let options = PHImageRequestOptions()
-    var assets: [PHAsset] = [] {
-        willSet {
-            cachingImageManager?.stopCachingImagesForAllAssets()
-        }
-
-        didSet {
-            cachingImageManager?.startCachingImages(for: self.assets,
-                                                   targetSize: self.imageView.frame.size,
-                                                   contentMode: .default,
-                                                   options: nil)
-            cachingImageManager?.startCachingImages(for: self.assets, targetSize: CGSize(width: 70, height: 70), contentMode: .default, options: self.options)
-        }
-    }
+    var assets: [PHAsset] = []
 
     var fetchResults : PHFetchResult<PHAsset>!
 
@@ -129,15 +116,14 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
             photoOutput = AVCaptureStillImageOutput()
         }
 
-        PHPhotoLibrary.shared().register(self)
+//        PHPhotoLibrary.shared().register(self)
         self.imagePicker.sourceType = .photoLibrary
         self.imagePicker.delegate = self
 
 
         
-
         self.checkCameraPermissions()
-        self.checkPhotoPermissions()
+        self.checkPhotosPermission()
         self.setButtonContentMode()
     }
 
@@ -152,7 +138,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
                 case .denied:
                     DispatchQueue.main.async { [unowned self] in
                         let message = NSLocalizedString("Piktora doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
-                        let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Piktora", message: message, preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
                         alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
                             if #available(iOS 10.0, *) {
@@ -169,7 +155,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
                 default:
                     DispatchQueue.main.async { [unowned self] in
                         let message = NSLocalizedString("Unable to capture media", comment: "Alert message when something goes wrong during capture session configuration")
-                        let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Piktora", message: message, preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
 
                         self.present(alertController, animated: true, completion: nil)
@@ -189,32 +175,25 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         super.viewWillDisappear(animated)
     }
 
-    func checkPhotoPermissions() {
+    func checkPhotosPermission() {
         let permission = PHPhotoLibrary.authorizationStatus()
-        if permission == .notDetermined {
+        self.collectionViewHideButton.isHidden = true
+        self.imagesCollectionView.isHidden = true
+        if permission == .authorized {
+            self.handleAuthorizedPhotoLibrary()
+        } else if permission == .notDetermined {
             PHPhotoLibrary.requestAuthorization({ (status) in
-                if status == PHAuthorizationStatus.denied {
-                    self.collectionViewHideButton.isHidden = true
-                    self.imagesCollectionView.isHidden = true
-                } else {
-                    self.collectionViewHideButton.isHidden = false
-                    self.imagesCollectionView.isHidden = false
-                    self.cachingImageManager = PHCachingImageManager()
-                    self.fetchImages()
+                if status == .authorized {
+                    self.handleAuthorizedPhotoLibrary()
                 }
             })
-        } else if permission == .authorized {
-            self.cachingImageManager = PHCachingImageManager()
-            self.fetchImages()
-            self.collectionViewHideButton.isHidden = false
-            self.imagesCollectionView.isHidden = false
-        } else {
-            self.collectionViewHideButton.isHidden = true
-            self.imagesCollectionView.isHidden = true
         }
+
     }
     
-    func fetchImages() {
+    func handleAuthorizedPhotoLibrary() {
+        self.collectionViewHideButton.isHidden = false
+        self.imagesCollectionView.isHidden = false
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -230,8 +209,9 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         })
         self.fetchResults = results
         self.assets = assetResult
+        PHPhotoLibrary.shared().register(self)
     }
-
+    
     func checkCameraPermissions() {
         switch AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) {
         case .authorized:
@@ -336,9 +316,6 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCollectionViewCell", for: indexPath) as! PhotosCollectionViewCell
-        if self.collectionViewHideButton.isHidden {
-            return cell
-        }
         if (indexPath.row == 0) {
             cell.imageView.image = #imageLiteral(resourceName: "CameraIcon")
             cell.imageView.contentMode = .scaleAspectFit
@@ -356,7 +333,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         if (indexPath.row == 1 && self.imageCaptured) {
             self.previewView.isHidden = true
             self.doneAndCancelView.isHidden = false
-            cachingImageManager?.requestImage(for: assets[indexPath.row - 1], targetSize: self.imageView.frame.size, contentMode: .default, options: self.options, resultHandler: { (image, info) in
+            PHImageManager.default().requestImage(for: assets[indexPath.row - 1], targetSize: self.imageView.frame.size, contentMode: .default, options: self.options, resultHandler: { (image, info) in
 
                 UIView.transition(with: self.imageView, duration: 1.0, options: .transitionCrossDissolve, animations: {
                     self.imageView.isHidden = false
@@ -375,24 +352,19 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
 
 
-        cachingImageManager?.requestImage(for: assets[indexPath.row - 1], targetSize: CGSize(width: 70, height: 70), contentMode: .default, options: self.options, resultHandler: { (image, info) in
+        PHImageManager.default().requestImage(for: assets[indexPath.row - 1], targetSize: CGSize(width: 70, height: 70), contentMode: .default, options: self.options, resultHandler: { (image, info) in
             cell.imageView.image = image
         })
 
         return cell
+
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if self.collectionViewHideButton.isHidden {
-            return 0
-        }
         return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.collectionViewHideButton.isHidden {
-            return 0
-        }
         var count = self.assets.count + self.userSelectedImages.count
         if count > FETCHLIMIT {
             count = FETCHLIMIT
@@ -428,7 +400,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
                     }, completion: nil)
 
             } else {
-                cachingImageManager?.requestImage(for: assets[indexPath.row - 1], targetSize: self.imageView.frame.size, contentMode: .default, options: self.options, resultHandler: { (image, info) in
+                PHImageManager.default().requestImage(for: assets[indexPath.row - 1], targetSize: self.imageView.frame.size, contentMode: .default, options: self.options, resultHandler: { (image, info) in
 
                     UIView.transition(with: self.imageView, duration: 1.0, options: .transitionCrossDissolve, animations: {
                         self.imageView.isHidden = false
@@ -451,7 +423,7 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         if self.collectionViewHideButton.isHidden {
             // No photos permission
             let message = NSLocalizedString("Piktora doesn't have permission to use photos, please change the setting to proceed further!", comment: "Alert message when the user has denied access to the camera")
-            let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Piktora", message: message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
                 if #available(iOS 10.0, *) {
@@ -792,7 +764,8 @@ class CameraViewController: UIViewController, UICollectionViewDataSource, UIColl
         vc.overlayedImage = self.augmentedImage
         vc.parentVC = self.parentVC
         self.doneAndCancelView.isHidden = false
-        self.checkPhotoPermissions()
+        self.collectionViewHideButton.isHidden = false
+        self.imagesCollectionView.isHidden = false
         self.navigationController?.pushViewController(vc, animated: true)
 
     }
@@ -895,7 +868,6 @@ extension CameraViewController: PHPhotoLibraryChangeObserver {
             } else {
                 self.imagesCollectionView.reloadData()
             }
-            self.cachingImageManager?.stopCachingImagesForAllAssets()
         }
     }
 }
