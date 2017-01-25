@@ -20,7 +20,7 @@ class CategorySelectionViewController: UIViewController, UITableViewDataSource, 
     var supportedCategories = ["televisions", "landline_phones", "mens_clothing", "furniture", "bags_wallets_belts", "kids_clothing", "kids_footwear", "mens_footwear", "air_coolers", "watches", "womens_clothing", "luggage_travel", "refrigerator", "wearable_smart_devices", "microwave_ovens", "home_decor_and_festive_needs", "jewellery", "home_furnishing", "womens_footwear"]
     
     // Amazon Variables
-    var amazonCategories = ["Televisions", "Landline Phones", "Men's clothing", "Furniture", "Belts", "Bags", "Kid's Clothing", "Kids Footwear", "Mens Footwear", "Air Coolers", "Watches", "Women's clothing", "Travel Bags", "Refrigerator", "Wearable Devices", "Microwave Oven", "Homde Decor", "Festive Decor", "Jewellery", "Home Furnishing", "Women's Footwear"]
+    var amazonCategories = ["Televisions", "Landline Phones", "Men's clothing", "Furniture", "Belts", "Bags", "Kid's Clothing", "Kids Footwear", "Mens Footwear", "Air Coolers", "Watches", "Women's clothing", "Travel Bags", "Refrigerator", "Wearable Devices", "Microwave Oven", "Home Decor", "Festive Decor", "Jewellery", "Home Furnishing", "Women's Footwear"]
     
     var isActivityIndicatorAnimating = false
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
